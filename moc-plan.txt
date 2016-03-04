@@ -26,6 +26,14 @@ Property/landlord page
   Maps location
   Reviews
 
+??Calculate uber cost
+  choose 5points or vista as destination
+  accessible from property page
+  
+??Crime statistics
+  accessible from property page
+  possibly show crimes on map
+  start with maybe a safety rating
 
 user fields:
   first name
@@ -54,5 +62,14 @@ landlord fields:
     cost: rent/utilities
     time lived at
 
+3rd category?: apartments (lofts, hub, grw, etc.)
+
+other rating scales:
+  value
+  amenities
+  management
+  hidden fees
+  location
+  
 Share?
   post review to fb

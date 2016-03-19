@@ -1,0 +1,39 @@
+<!--URL : #app/login-->
+<ion-view hide-nav-bar="true" hide-back-button="true" title="Login" >
+    <!--login content section-->
+    <ion-content id="social-login" class="signup-background">
+        <form class="login-form">
+            <!--STYLE FOUND IN SCSS GET RID OF THE OPTIONS BAR, replace image with our own? Maybe switch master color schemes?-->
+            <br />
+            <div class="sub-header">
+                MyOffCampus Logo
+                </div>
+            <div class="list list-inset" id="login">
+                <label id="header" class="item item-divider">Login</label>
+                <label class="item item-input">
+                    <input type="text" placeholder="Email" ng-model="controller.email">
+                </label>
+                <label class="item item-input">
+                    <input type="password" placeholder="Password" >
+                </label>
+            </div>
+            <div>
+                <a class="md-raised social-button md-button md-default-theme material-background" href="#app/welcome" ng-click="login()">
+                    Sign In
+                </a>
+            </div>
+        </form>
+        <div id="options">
+        <div id="password">
+            <a href="#" class="link">
+                password
+             </a>
+        </div>
+        <div id="register">
+            <a href="#app/register" class="link">
+                register
+            </a>
+        </div>
+        </div>
+    </ion-content>
+</ion-view>

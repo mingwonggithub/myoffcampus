@@ -1,0 +1,49 @@
+<!--URL : #app/register-->
+
+<ion-view title="Register">
+    <!--left button on navigation bar-->
+    <ion-nav-buttons side="left">
+        <a ng-click="$ionicGoBack()" class="button back-button buttons button-clear header-item nav-back-btn">
+            <i class="ion-android-arrow-back"></i>
+        </a>
+    </ion-nav-buttons><!--end left button on navigation bar-->
+
+    <!--social sign up section-->
+    <ion-content id="social-sign-up-content">
+    <br />
+        <!--input section-->
+        <md-input-container md-no-float="">
+            <div>
+                <input class="user-name" placeholder="First Name" ng-model="controller.firstName">
+            </div>
+        </md-input-container>
+        <md-input-container md-no-float="">
+            <div>
+                <input class="user-name" placeholder="Last Name" ng-model="controller.lastName">
+            </div>
+        </md-input-container>
+        <md-input-container md-no-float="">
+            <div>
+               <input class="user-name" placeholder="Email" ng-model="controller.email">
+            </div>
+        </md-input-container>
+        <md-input-container md-no-float="">
+            <div>
+                <input type="password" class="user-name" placeholder="Password" ng-model="controller.password">
+            </div>
+        </md-input-container>
+        <md-input-container md-no-float="">
+            <div>
+                <input type="password" class="user-name" placeholder="Confirm Password" ng-model="controller.confirmPassword">
+            </div>
+        </md-input-container>
+        <md-checkbox aria-label="CheckboxTerms">
+            I accept terms and conditions.
+        </md-checkbox>
+        <!--end input section-->
+        <a class="md-raised social-button md-button md-default-theme material-background" ng-click="register()">
+            Register
+        </a>
+
+    </ion-content><!--end social sign up section-->
+</ion-view>

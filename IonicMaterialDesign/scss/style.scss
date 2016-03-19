@@ -964,16 +964,19 @@ md-sidenav {
 
 //social connect section
 //login content section
+
+//social connect section
+//login content section
 #social-login {
   text-align: center;
   background-color: $color_black_haze_approx;
   &.bg-white {
     background-color: $color_white;
   }
-  //fake login form section
+  //login form section
   form {
     margin-top: 33%;
-    &.fakeLogin-form {
+    &.login-form {
       margin-top: 22%;
     }
     div i {
@@ -984,7 +987,72 @@ md-sidenav {
       width: 86px;
       margin-bottom: 10px;
     }
-    #fakeLogin {
+    #login {
+      background-color: $color_white;
+      width: 77%;
+      margin: 0 auto;
+      margin-bottom: 10px;
+
+      label#header {
+        border-color: #86000b;
+        background-color: #86000b;
+        color: $color-white;
+      }
+    }
+
+    div.sub-header {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      color: #000;
+    }
+    
+    div.footer {
+      margin-top: 40px;
+      a {
+        color: $color_gray;
+      }
+    }
+  }//end login form section
+  a.link {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    div#options {
+      width: 260px;
+      display: table;
+      margin: 0 auto;
+    }
+  div#password, div#register {
+    display: table-cell;
+  }
+  div#password {
+    border-right: 1px solid white;
+  }
+}
+
+#social-welcome {
+  text-align: center;
+  background-color: $color_black_haze_approx;
+  &.bg-white {
+    background-color: $color_white;
+  }
+  //welcome form section
+  form {
+    margin-top: 33%;
+    &.welcome-form {
+      margin-top: 22%;
+    }
+    div i {
+      font-size: 90px;
+      margin-bottom: 16px;
+    }
+    div img {
+      width: 86px;
+      margin-bottom: 10px;
+    }
+    #welcome {
       hr {
         margin: 10px 16% 0 16%;
         border-width: 1px;
@@ -1021,7 +1089,12 @@ md-sidenav {
         color: $color_gray;
       }
     }
-  }//end fake login form section
+  }
+
+
+
+
+
 
   div.wordpress-login {
     md-input-container {
@@ -2810,3 +2883,7 @@ md-sidenav {
     }//end footer section
   }//end map input option section
 }//end map and location section
+
+.signup-background {
+    background: url(../img/login-pic.jpg) fixed no-repeat right top
+}

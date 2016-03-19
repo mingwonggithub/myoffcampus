@@ -331,6 +331,7 @@ md-sidenav {
     vertical-align: text-top;
     font-size: x-large;
     color: white; }
+
 .md-button.md-accent.md-fab.fab-footer {
   float: right;
   right: 25px;
@@ -411,11 +412,13 @@ md-sidenav {
   margin-left: 22px;
   font-size: 22px;
   color: gray; }
+
 .md-list-item-default p {
   font-size: 15px;
   white-space: nowrap;
   overflow-x: hidden;
   text-overflow: ellipsis; }
+
 .md-list-item-default span {
   font-size: 15px;
   margin-right: 20px; }
@@ -608,7 +611,7 @@ md-sidenav {
     background-color: white; }
   #social-login form {
     margin-top: 33%; }
-    #social-login form.fakeLogin-form {
+    #social-login form.login-form {
       margin-top: 22%; }
     #social-login form div i {
       font-size: 90px;
@@ -616,31 +619,77 @@ md-sidenav {
     #social-login form div img {
       width: 86px;
       margin-bottom: 10px; }
-    #social-login form #fakeLogin hr {
+    #social-login form #login {
+      background-color: white;
+      width: 77%;
+      margin: 0 auto;
+      margin-bottom: 10px; }
+      #social-login form #login label#header {
+        border-color: #86000b;
+        background-color: #86000b;
+        color: white; }
+    #social-login form div.sub-header {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      color: #000; }
+    #social-login form div.footer {
+      margin-top: 40px; }
+      #social-login form div.footer a {
+        color: gray; }
+  #social-login a.link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500; }
+  #social-login div#options {
+    width: 260px;
+    display: table;
+    margin: 0 auto; }
+  #social-login div#password, #social-login div#register {
+    display: table-cell; }
+  #social-login div#password {
+    border-right: 1px solid white; }
+
+#social-welcome {
+  text-align: center;
+  background-color: #f6f6f6; }
+  #social-welcome.bg-white {
+    background-color: white; }
+  #social-welcome form {
+    margin-top: 33%; }
+    #social-welcome form.welcome-form {
+      margin-top: 22%; }
+    #social-welcome form div i {
+      font-size: 90px;
+      margin-bottom: 16px; }
+    #social-welcome form div img {
+      width: 86px;
+      margin-bottom: 10px; }
+    #social-welcome form #welcome hr {
       margin: 10px 16% 0 16%;
       border-width: 1px; }
-    #social-login form #fakeLogin md-input-container {
+    #social-welcome form #welcome md-input-container {
       margin: 10px 16% 0 16%; }
-      #social-login form #fakeLogin md-input-container input {
+      #social-welcome form #welcome md-input-container input {
         width: 100%;
         height: 30px;
         background: transparent;
         border: none; }
-        #social-login form #fakeLogin md-input-container input.user-name {
+        #social-welcome form #welcome md-input-container input.user-name {
           margin-top: 10px;
           margin-bottom: -20px; }
-    #social-login form div.sub-header {
+    #social-welcome form div.sub-header {
       font-size: 14px;
       font-weight: 500;
       margin-bottom: 4px; }
-    #social-login form div div.footer {
+    #social-welcome form div div.footer {
       margin-top: 40px; }
-      #social-login form div div.footer a {
+      #social-welcome form div div.footer a {
         color: gray; }
-  #social-login div.wordpress-login md-input-container {
+  #social-welcome div.wordpress-login md-input-container {
     margin: auto;
     width: 246px; }
-    #social-login div.wordpress-login md-input-container input {
+    #social-welcome div.wordpress-login md-input-container input {
       color: #0087BE;
       font-weight: 500;
       border-bottom-color: #0087BE; }
@@ -1345,6 +1394,7 @@ md-sidenav {
     width: 100px;
     height: 100px;
     margin-top: 0; }
+
 #expense-dashboard #expense-dashboard-content {
   margin-top: 256px; }
   #expense-dashboard #expense-dashboard-content md-list-item {
@@ -1446,6 +1496,7 @@ md-sidenav {
   margin-top: 8px; }
   #cloth-shop-content md-toolbar h2 i {
     color: #e3cf7a !important; }
+
 #cloth-shop-content #product-list .col {
   padding: 3px; }
   #cloth-shop-content #product-list .col .cube-item {
@@ -1777,3 +1828,6 @@ md-sidenav {
         color: gray; }
   #map-and-location div.map-input-option div.footer {
     margin-top: 24px; }
+
+.signup-background {
+  background: url(../img/login-pic.jpg) fixed no-repeat right top; }

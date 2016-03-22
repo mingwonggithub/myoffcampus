@@ -361,6 +361,7 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
 
     .state('app.welcome', {
         url: "/welcome",
+        cache: true,
         views: {
             'menuContent': {
                 templateUrl: "templates/themes/welcome/html/welcome.html",

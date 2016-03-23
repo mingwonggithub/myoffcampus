@@ -4,6 +4,7 @@
 $color_white: white;
 $color_gray: gray;
 $color_alto: #dbdbdb;
+$color_red: #B83E2C;
 $color_black: black;
 $color_mercury: #e5e5e5;
 $color_black_14: rgba(0, 0, 0, 0.14);
@@ -1149,7 +1150,8 @@ md-sidenav {
 
 //social sign up section
 #social-sign-up-content {
-  padding: 0 31px 0 31px;
+  width: 77%;
+  margin: 0 auto;
   .app-icon {
     margin: 20px;
     text-align: center;
@@ -1158,23 +1160,23 @@ md-sidenav {
     width: 92px;
   }
   //input section
-  md-input-container {
-    margin-left: 10px;
-    div {
-      border-bottom-style: solid;
-      border-color: $color_border_under_line;
-      border-width: 1px;
+  label {
+    margin-bottom: 5px;
+    margin-top: 5ps;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom-style: solid;
       input {
         border-bottom-style: none;
         height: 30px;
       }
     }
-  }
   md-checkbox {
     width: 100%;
     font-size: 13px;
     margin-left: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     a {
       font-size: 13px;
       color: $color_gray;
@@ -1184,7 +1186,9 @@ md-sidenav {
     }
   }
   //end input section
-  a.social-button {
+  button.social-button {
+    margin: 0 auto;
+    margin-top: 10px;
     width: 100%
   }
 }//end social sign up section
@@ -2886,4 +2890,39 @@ md-sidenav {
 
 .signup-background {
     background: url(../img/login-pic.jpg) fixed no-repeat right top
+}
+
+.error-container {
+  margin: 5px 0;
+}
+ 
+.error-container:last-child {
+    margin: 5px 0 0;
+}
+ 
+.error {
+  padding-top: 0px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: $color_red;  
+  vertical-align: middle;
+}
+ 
+.error i {
+  font-size: 24px;
+  color: $color_red;  
+  vertical-align: middle;
+}
+ 
+.has-errors {
+  border-bottom: 2px solid $color_red;
+}
+
+.has-errors-log {
+  border-left: 2px solid $color_red;
+  border-right: 2px solid $color_red;
+}
+ 
+.no-errors {
+  border-bottom: 2px solid green;
 }

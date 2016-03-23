@@ -4,7 +4,7 @@
 <!--Controller path : www/templates/menu/js/controllers.js-->
 <!--State name : app-->
 <!--URL : #app-->
-<ion-side-menus enable-menu-with-back-views="false">
+<ion-side-menus enable-menu-with-back-views="true">
     <ion-side-menu-content>
         <ion-nav-bar class="bar-balanced  material-background-nav-bar">
             <ion-nav-buttons side="left">
@@ -37,10 +37,10 @@
                 <md-subheader class="md-warn">Profile</md-subheader>
                 <div class="row menu-item" ng-click="navigateTo('app.contractlist')">
                     <div class="col-33">
-                        <i class="fa fa-database"></i>
+                        <i class="ion-android-person"></i>
                     </div>
                     <div class="col-66">
-                        <span>Settings</span>
+                        <span>Your Account</span>
                     </div>
                 </div>
                 <div class="row menu-item" ng-click="navigateTo('app.notelist')">
@@ -321,8 +321,8 @@
             <md-list ng-if="!isAndroid">
                 <md-subheader class="md-warn">Profile</md-subheader>
                 <md-list-item class="menu-list-item" ng-click="navigateTo('app.contractlist')">
-                    <i class="fa fa-cube"></i>
-                    <span>Settings</span>
+                    <i class="ion-android-person"></i>
+                    <span>Your Account</span>
                 </md-list-item>
                 <md-list-item class="menu-list-item" ng-click="navigateTo('app.notelist')">
                     <i class="fa fa-cube"></i>

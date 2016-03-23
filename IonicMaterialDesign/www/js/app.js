@@ -25,6 +25,10 @@ window.globalVariable = {
         url: "/app/login", //Url of start page.
         state: "app.login" //State name of start page.
     },
+    parse: {
+        appKey: "kJGwy3vLLMvSiAmvimlKjxrDzRI9iM6IQUomWN0Y",
+        jsKey: "5U3zrORkklyfgJwd6GNmLU2SsjVuVlnzdJI35mpT"
+    },
     message: {
         errorMessage: "Technical error please try again later." //Default error message.
     },
@@ -177,6 +181,9 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
                 "}";
 
             switch (stateName) {
+                case "app.welcome":
+                case "app.register":
+                case "app.login":
                 case "app.productList":
                 case "app.productDetail":
                 case "app.productCheckout":
@@ -225,6 +232,7 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
             return customStyle;
         } // End createCustomStyle
 
+
         // Add custom style while initial application.
         $rootScope.customStyle = createCustomStyle(window.globalVariable.startPage.state);
 
@@ -238,7 +246,10 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
                 StatusBar.styleDefault();
             }
 
-            initialSQLite();
+            Parse.initialize(window.globalVariable.parse.appKey, window.globalVariable.parse.jsKey);
+            Parse.serverURL = 'https://parseapi.back4app.com';
+
+            //initialSQLite();
             initialRootScope();
 
             //Checking if view is changing it will go to this function.
@@ -341,27 +352,26 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
 
     .state('app.login', {
         url: "/login",
-        cache: false,
         views: {
             'menuContent': {
-                templateUrl: "templates/themes/authentication/html/login.html"
+                templateUrl: "templates/themes/authentication/html/login.html",
+                controller: 'loginCtrl'
             }
         }
     })
 
     .state('app.register', {
         url: "/register",
-        cache: false,
         views: {
             'menuContent': {
-                templateUrl: "templates/themes/authentication/html/register.html"
+                templateUrl: "templates/themes/authentication/html/register.html",
+                controller: 'registerCtrl'
             }
         }
     })
 
     .state('app.welcome', {
         url: "/welcome",
-        cache: true,
         views: {
             'menuContent': {
                 templateUrl: "templates/themes/welcome/html/welcome.html",

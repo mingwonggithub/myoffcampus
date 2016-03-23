@@ -1,8 +1,8 @@
 <!--URL : #app/login-->
-<ion-view hide-nav-bar="true" hide-back-button="true" title="Login" >
+<ion-view hide-nav-bar="true" title="Login" ng-controller="loginCtrl as controller">
     <!--login content section-->
     <ion-content id="social-login" class="signup-background">
-        <form class="login-form">
+        <form name="loginForm" novalidate="" ng-submit="login(loginForm)">
             <!--STYLE FOUND IN SCSS GET RID OF THE OPTIONS BAR, replace image with our own? Maybe switch master color schemes?-->
             <br />
             <div class="sub-header">
@@ -10,30 +10,26 @@
                 </div>
             <div class="list list-inset" id="login">
                 <label id="header" class="item item-divider">Login</label>
-                <label class="item item-input">
-                    <input type="text" placeholder="Email" ng-model="controller.email">
+                <label class="item item-input" ng-class="{'has-errors-log': loginForm.email.$invalid && loginForm.$submitted}">
+                    <input name="email" type="email" placeholder="Email" ng-model="controller.email" required>
                 </label>
-                <label class="item item-input">
-                    <input type="password" placeholder="Password" >
+                <label class="item item-input" ng-class="{'has-errors-log': loginForm.password.$invalid && loginForm.$submitted}">
+                    <input name="password" type="password" placeholder="Password" ng-model="controller.password" ng-minlength="5" required>
                 </label>
             </div>
-            <div>
-                <a class="md-raised social-button md-button md-default-theme material-background" href="#app/welcome" ng-click="login()">
-                    Sign In
-                </a>
-            </div>
+            <button class="md-raised social-button md-button md-default-theme material-background" type="submit">Sign In</button>
         </form>
         <div id="options">
-        <div id="password">
-            <a href="#" class="link">
-                password
-             </a>
-        </div>
-        <div id="register">
-            <a href="#app/register" class="link">
-                register
-            </a>
-        </div>
+            <div id="password">
+                <a href="#" class="link">
+                    password
+                 </a>
+            </div>
+            <div id="register">
+                <a href="#/app/register" class="link">
+                    register
+                </a>
+            </div>
         </div>
     </ion-content>
 </ion-view>

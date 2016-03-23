@@ -715,32 +715,36 @@ md-sidenav {
   margin-top: 18px; }
 
 #social-sign-up-content {
-  padding: 0 31px 0 31px; }
+  width: 77%;
+  margin: 0 auto; }
   #social-sign-up-content .app-icon {
     margin: 20px;
     text-align: center; }
   #social-sign-up-content img {
     width: 92px; }
-  #social-sign-up-content md-input-container {
-    margin-left: 10px; }
-    #social-sign-up-content md-input-container div {
-      border-bottom-style: solid;
-      border-color: rgba(0, 0, 0, 0.12);
-      border-width: 1px; }
-      #social-sign-up-content md-input-container div input {
-        border-bottom-style: none;
-        height: 30px; }
+  #social-sign-up-content label {
+    margin-bottom: 5px;
+    margin-top: 5ps;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom-style: solid; }
+    #social-sign-up-content label input {
+      border-bottom-style: none;
+      height: 30px; }
   #social-sign-up-content md-checkbox {
     width: 100%;
     font-size: 13px;
     margin-left: 10px;
-    margin-bottom: 10px; }
+    margin-bottom: 20px; }
     #social-sign-up-content md-checkbox a {
       font-size: 13px;
       color: gray; }
     #social-sign-up-content md-checkbox div.md-label {
       width: 100%; }
-  #social-sign-up-content a.social-button {
+  #social-sign-up-content button.social-button {
+    margin: 0 auto;
+    margin-top: 10px;
     width: 100%; }
 
 #product-detail-tabs {
@@ -1831,3 +1835,31 @@ md-sidenav {
 
 .signup-background {
   background: url(../img/login-pic.jpg) fixed no-repeat right top; }
+
+.error-container {
+  margin: 5px 0; }
+
+.error-container:last-child {
+  margin: 5px 0 0; }
+
+.error {
+  padding-top: 0px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #B83E2C;
+  vertical-align: middle; }
+
+.error i {
+  font-size: 24px;
+  color: #B83E2C;
+  vertical-align: middle; }
+
+.has-errors {
+  border-bottom: 2px solid #B83E2C; }
+
+.has-errors-log {
+  border-left: 2px solid #B83E2C;
+  border-right: 2px solid #B83E2C; }
+
+.no-errors {
+  border-bottom: 2px solid green; }

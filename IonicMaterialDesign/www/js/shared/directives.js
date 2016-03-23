@@ -41,3 +41,18 @@ appControllers.directive('compareTo', function() {
       }
     };
 });
+
+appControllers.directive('uniEmail', function() {
+    return {
+      require: "ngModel",
+      scope: {
+        otherModelValue: "=uniEmail"
+      },
+      link: function(scope, element, attributes, ngModel) {
+        ngModel.$validators.uniEmail = function(modelValue) {
+          var validEmail = [a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+sc\.edu$)?
+          return validEmail.(modelValue);
+        };
+      }
+    };
+});

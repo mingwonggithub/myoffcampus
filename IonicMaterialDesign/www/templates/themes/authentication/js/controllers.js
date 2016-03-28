@@ -42,7 +42,7 @@ appControllers.controller('loginCtrl', function($scope, $state) {
 
   $scope.login = function(form) {
     if(form.$valid) {
-      console.log("Login user: " + self.email + "  " + self.firstName);
+      console.log("Login user: " + self.email + "  " + self.password);
       
       Parse.User.logIn(self.email, self.password, {
         success: function(user) {

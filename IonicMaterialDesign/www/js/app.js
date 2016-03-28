@@ -375,6 +375,7 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
         views: {
             'menuContent': {
                 templateUrl: "templates/themes/welcome/html/welcome.html",
+                controller: 'welcomeCtrl'
             }
         }
     })

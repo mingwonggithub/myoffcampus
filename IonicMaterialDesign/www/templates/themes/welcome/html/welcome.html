@@ -1,17 +1,27 @@
-<!--URL : #app/welcome-->
+<!--URL : #app/welcome
+    controller: weclomeCtrl -->
+
 <ion-view title="Welcome">
     <!--right button on navigation bar-->
     <ion-nav-buttons side="right">
-        <md-button class="md-icon-button ion-nav-button-right" ng-click="goToSetting()"
+        <a ng-click="logout()" class="button buttons button-clear header-item ">
+            <b><i class="ion-log-out"> Logout</i></b>
+        </a>
+        <!--    <a ng-click="" class="md-button md-raised header-item ">
+                <i class="ion-log-out">Logout</i>
+                </a>  this one make an actual button, but cannot  get it algined -->
+        <!--    <md-button class="md-icon-button ion-nav-button-right mb-raised" ng-click="goToSetting()"
                    aria-label="Setting">
-            <i class="ion-android-more-vertical"></i>
-        </md-button>
-    </ion-nav-buttons> <!--end right button on navigation bar-->
-    
+                <i class="ion-android-more-vertical"></i>
+                </md-button>  this was the default one-->
+    </ion-nav-buttons>
+    <!--end right button on navigation bar-->
+
     <!--login content section-->
     <ion-content id="social-welcome" class="bg-white">
         <form class="welcome-form">
             <div id="welcome">
+                Hi {{name}} !
                 <md-input-container md-no-float="">
                     <input class="user-name" placeholder="Find a Landlord" ng-model="controller.landLordName">
                 </md-input-container>

@@ -1,4 +1,30 @@
 // Controller of dashboard.
+appControllers.controller('welcomeCtrl', function($scope, $state) {
+    var currentUser = Parse.User.current();
+    console.log("welcomeCtrl: " + JSON.stringify(currentUser));
+    $scope.name = currentUser.get('firstName');
+    $scope.logout = function(){
+
+        Parse.User.logOut().then(() => {
+        var currentUser = Parse.User.current();  // this will now be null
+        console.log("leaving welcomeCtrl" + currentUser);
+                $state.go('app.login');
+
+        }); 
+
+
+    };
+
+        //  $scope.$on('$ionicView.leave', function(e) {
+
+    //     Parse.User.logOut().then(() => {
+    //     var currentUser = Parse.User.current();  // this will now be null
+    //     console.log("leaving welcomeCtrl" + currentUser);
+    //     });     
+    // });
+
+});
+
 appControllers.controller('dashboardCtrl', function ($scope, $timeout, $state,$stateParams, $ionicHistory) {
 
     //$scope.isAnimated is the variable that use for receive object data from state params.

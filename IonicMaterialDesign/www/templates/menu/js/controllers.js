@@ -4,11 +4,14 @@
 appControllers.controller('menuCtrl', function ($scope, $timeout, $mdUtil, $mdSidenav, $log, $ionicHistory, $state, $ionicPlatform, $mdDialog, $mdBottomSheet, $mdMenu, $mdSelect) {
     
     $scope.toggleLeft = buildToggler('left');
+                var currentUser = Parse.User.current();
+    console.log("menuCtrl: " + JSON.stringify(currentUser));
 
     // buildToggler is for create menu toggle.
     // Parameter :  
     // navID = id of navigation bar.
     function buildToggler(navID) {
+
         var debounceFn = $mdUtil.debounce(function () {
             $mdSidenav(navID).toggle();
         }, 0);

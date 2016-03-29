@@ -50,7 +50,7 @@ appControllers.directive('uniEmail', function() {
       },
       link: function(scope, element, attributes, ngModel) {
         ngModel.$validators.uniEmail = function(modelValue) {
-          var validEmail = [a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+sc\.edu$)?
+          var validEmail = [a-z0-9!#$%&/'*+/=?^_/{|}~-]+(?:\.[a-z0-9!#$%&/'*+/=?^_/{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+sc\.edu$]?;
           return validEmail.(modelValue);
         };
       }

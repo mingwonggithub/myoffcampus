@@ -31,26 +31,3 @@ appControllers.controller('toastController', function ($scope, displayOption) {
 
     $scope.displayOption = displayOption;
 });// End Controller for Toast.
-
-
-
-
-
-/*.controller('WelcomeCtrl', function($scope, $state, Orders) {
-    var self = this;
-    $scope.login = function() {
-        console.log("login executed");
-        console.log(self.email);
-        var loggedUser = Backendless.UserService.login(self.email, self.password);
-        console.log("User has been logged in: " + loggedUser);
-
-        var email = Backendless.UserService.getCurrentUser();
-        if (email != null) {
-            console.log("logedin");
-            $state.go("app.orders"); //fix this redirect
-        } else {
-            console.log("User hasn't been logged");
-        }
-    }
-});
-*/

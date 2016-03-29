@@ -182,8 +182,8 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
 
             switch (stateName) {
                 case "app.welcome":
-                case "app.register":
-                case "app.login":
+                case "register":
+                case "login":
                 case "app.productList":
                 case "app.productDetail":
                 case "app.productCheckout":
@@ -343,21 +343,14 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
     //Learn more about ionNavView at http://ionicframework.com/docs/api/directive/ionNavView/
     //Learn more about  AngularUI Router's at https://github.com/angular-ui/ui-router/wiki
     $stateProvider
-        .state('app', {
-            url: "/app",
-            abstract: true,
-            templateUrl: "templates/menu/html/menu.html",
-            controller: 'menuCtrl'
-        })
-
-    .state('app.login', {
+        .state('app.login', {
         url: "/login",
         views: {
             'menuContent': {
                 templateUrl: "templates/themes/authentication/html/login.html",
                 controller: 'loginCtrl'
             }
-        }
+        }           
     })
 
     .state('app.register', {
@@ -370,11 +363,39 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
         }
     })
 
+    .state('app.password', {
+        url: "/password",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/themes/authentication/html/password.html",
+                controller: 'passwordCtrl'
+            }
+        }
+    })
+
+    .state('app', {
+            url: "/app",
+            abstract: true,
+            templateUrl: "templates/menu/html/menu.html",
+            controller: 'menuCtrl'
+        })
+
+
     .state('app.welcome', {
         url: "/welcome",
         views: {
             'menuContent': {
                 templateUrl: "templates/themes/welcome/html/welcome.html",
+                controller: 'welcomeCtrl'
+            }
+        }
+    })
+
+    .state('app.settings', {
+        url: "/settings",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/themes/welcome/html/account-settings.html",
                 controller: 'welcomeCtrl'
             }
         }

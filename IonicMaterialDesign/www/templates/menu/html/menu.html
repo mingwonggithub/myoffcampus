@@ -23,7 +23,7 @@
                 <p>
                     <span class="title">MyOffCampus</span>
                     <br/>
-                    <span class="sub-title">Insert UserName</span>
+                    <span class="sub-title">{{user.firstName}} {{user.lastName}}</span>
                 </p>
             </div>
             <!--end menu header section-->
@@ -34,15 +34,7 @@
             <!--It will disable animation to better performance on android.-->
             <!--list section-->
             <div ng-if="isAndroid" class="menu-list">
-                <md-subheader class="md-warn">Profile</md-subheader>
-                <div class="row menu-item" ng-click="navigateTo('app.contractlist')">
-                    <div class="col-33">
-                        <i class="ion-android-person"></i>
-                    </div>
-                    <div class="col-66">
-                        <span>Your Account</span>
-                    </div>
-                </div>
+                <md-subheader class="md-warn">Content</md-subheader>
                 <div class="row menu-item" ng-click="navigateTo('app.notelist')">
                     <div class="col-33">
                         <i class="fa fa-cube"></i>
@@ -59,7 +51,23 @@
                         <span>Saved Properties</span>
                     </div>
                 </div>
-                <md-subheader class="md-warn">Social Network Connect</md-subheader>
+                <md-subheader class="md-warn">Account</md-subheader>
+                <div class="row menu-item" ng-click="navigateTo('app.settings')">
+                    <div class="col-33">
+                        <i class="ion-android-person"></i>
+                    </div>
+                    <div class="col-66">
+                        <span>Settings</span>
+                    </div>
+                </div>
+                <div class="row menu-item" ng-click="logout()">
+                    <div class="col-33">
+                        <i class="ion-log-out"></i>
+                    </div>
+                    <div class="col-66">
+                        <span>Logout</span>
+                    </div>
+                </div>                    <!--<md-subheader class="md-warn">Social Network Connect</md-subheader>
                 <div class="row menu-item" ng-click="navigateTo('app.wordpressLogin')">
                     <div class="col-33">
                         <i class="fa fa-wordpress"></i>
@@ -314,16 +322,12 @@
                     <div class="col-66">
                         <span>Restaurant</span>
                     </div>
-                </div>
+                </div>-->
             </div>
             <!--If device is not Android application will present below code.-->
             <!--It will show animation when selecting row.-->
             <md-list ng-if="!isAndroid">
-                <md-subheader class="md-warn">Profile</md-subheader>
-                <md-list-item class="menu-list-item" ng-click="navigateTo('app.contractlist')">
-                    <i class="ion-android-person"></i>
-                    <span>Your Account</span>
-                </md-list-item>
+                <md-subheader class="md-warn">Content</md-subheader>
                 <md-list-item class="menu-list-item" ng-click="navigateTo('app.notelist')">
                     <i class="fa fa-cube"></i>
                     <span>My Reviews</span>
@@ -336,7 +340,16 @@
                     <i class="fa fa-flag"></i>
                     <span>Location Feed</span>
                 </md-list-item>
-                <md-subheader class="md-warn">Social Network Connect</md-subheader>
+                <md-subheader class="md-warn">Account</md-subheader>
+                <md-list-item class="menu-list-item" ng-click="navigateTo('app.settings')">
+                    <i class="ion-android-person"></i>
+                    <span>Settings</span>
+                </md-list-item>
+                <md-list-item class="menu-list-item" ng-click="logout()">
+                    <i class="ion-log-out"></i>
+                    <span>Logout</span>
+                </md-list-item>
+                <!--<md-subheader class="md-warn">Social Network Connect</md-subheader>
                 <md-list-item class="menu-list-item" ng-click="navigateTo('app.facebookLogin')">
                     <i class="fa fa-facebook"></i>
                     <span>Facebook</span>
@@ -365,13 +378,13 @@
                 <md-list-item class="menu-list-item" ng-click="navigateTo('app.contractUs')">
                     <i class="fa fa-inbox"></i>
                     <span>Messaging</span>
-                </md-list-item>
-                <md-subheader class="md-warn">Map API Connect</md-subheader>
+                </md-list-item>-->
+                <!--<md-subheader class="md-warn">Map API Connect</md-subheader>-->
                 <!-- <md-list-item class="menu-list-item" ng-click="navigateTo('app.iosMapConnect')">
                     <i class="fa fa-map-o"></i>
                     <span>IOS Map</span>
                 </md-list-item> -->
-                <md-list-item class="menu-list-item" ng-click="navigateTo('app.androidMapConnect')">
+                <!--<md-list-item class="menu-list-item" ng-click="navigateTo('app.androidMapConnect')">
                     <i class="fa fa-map"></i>
                     <span>Map</span>
                 </md-list-item>
@@ -400,7 +413,7 @@
                 <md-list-item class="menu-list-item" ng-click="navigateTo('app.restaurant')">
                     <i class="fa fa-cutlery"></i>
                     <span>Restaurants</span>
-                </md-list-item>
+                </md-list-item>-->
             </md-list>
             <!--end list section-->
         </ion-content>

@@ -20,7 +20,7 @@ appControllers.controller('registerCtrl', function($scope, $state) {
 
       user.signUp(null, {
         success: function(user) {
-          currentUser = user;
+          localStorage.setItem("mocUser", JSON.stringify(user));
           $state.go("app.welcome"); 
         },
         error: function(user, error) {
@@ -46,7 +46,7 @@ appControllers.controller('loginCtrl', function($scope, $state) {
       
       Parse.User.logIn(self.email, self.password, {
         success: function(user) {
-          currentUser = user;
+          localStorage.setItem("mocUser", JSON.stringify(user));
           $state.go("app.welcome"); 
         },
         error: function(user, error) {
@@ -54,6 +54,18 @@ appControllers.controller('loginCtrl', function($scope, $state) {
           console.log("Error: " + error.code + " " + error.message);
         }
       });
+    }
+  }
+});
+
+appControllers.controller('passwordCtrl', function($scope, $state) {
+  var currentUser;
+  var self = this;
+  self.email = "";
+
+  $scope.reset = function(form) {
+    if(form.$valid) {
+      $state.go("app.login"); 
     }
   }
 });

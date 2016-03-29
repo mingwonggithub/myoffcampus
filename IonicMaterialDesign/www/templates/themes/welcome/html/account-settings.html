@@ -1,0 +1,81 @@
+<ion-view title="Account Settings">
+    <!--right button on navigation bar-->
+    <ion-nav-buttons side="right">
+        <!--    <md-button class="md-icon-button ion-nav-button-right mb-raised" ng-click="goToSetting()"
+                   aria-label="Setting">
+                <i class="ion-android-more-vertical"></i>
+                </md-button>  this was the default one-->
+    </ion-nav-buttons>
+    <ion-content id="social-sign-up-content" class="bg-white">
+    <form name="settingsForm" novalidate="" ng-submit="settings(settingsForm)"> 
+        <h1>Current Password</h1>
+        <label style="margin-bottom: 2px;" class="item item-input" ng-class="{ 'has-errors' : settingsForm.confirmPassword.$invalid && settingsForm.$submitted, 'no-errors' : settingsForm.confirmPassword.$valid  && settingsForm.$submitted}">
+            <input name="currentPassword" type="password" placeholder="Password" ng-model="controller.currentPassword" ng-minlength="5" required>
+        </label>
+        <sub>(required for any changes)</sub>
+
+        <!--first name-->
+        <h1>Change Name</h1>
+        <label class="item item-input" ng-class="{ 'has-errors' : settingsForm.firstName.$invalid && settingsForm.$submitted, 'no-errors' : settingsForm.firstName.$valid  && settingsForm.$submitted}">
+            <input name="firstName" type="text" placeholder="First Name" ng-model="controller.firstName" required>
+        </label>
+
+        <div class="error-container last-error-container" ng-show="settingsForm.firstName.$error && settingsForm.$submitted" ng-messages="settingsForm.firstName.$error">
+            <div ng-messages-include="error-list.html"></div> 
+        </div> 
+
+        <!--last name-->
+        <label class="item item-input" ng-class="{ 'has-errors' : settingsForm.lastName.$invalid && settingsForm.$submitted, 'no-errors' : settingsForm.lastName.$valid  && settingsForm.$submitted}">
+            <input name="lastName" type="text" placeholder="Last Name" ng-model="controller.lastName" required>
+        </label>
+
+        <div class="error-container last-error-container" ng-show="settingsForm.lastName.$error && settingsForm.$submitted" ng-messages="settingsForm.lastName.$error">
+            <div ng-messages-include="error-list.html"></div> 
+        </div>
+
+        <!--password-->
+        <h1>Change Password</h1>
+        <label class="item item-input" ng-class="{ 'has-errors' : settingsForm.password.$invalid && settingsForm.$submitted, 'no-errors' : settingsForm.password.$valid  && settingsForm.$submitted}">
+            <input name="password" type="password" placeholder="New Password" ng-model="controller.password" ng-minlength="5" required>
+        </label>
+
+        <div class="error-container last-error-container" ng-show="settingsForm.password.$error && settingsForm.$submitted" ng-messages="settingsForm.password.$error">
+            <div ng-messages-include="error-list.html"></div> 
+        </div> 
+
+        <!--confirm password-->
+        <label class="item item-input" ng-class="{ 'has-errors' : settingsForm.confirmPassword.$invalid && settingsForm.$submitted, 'no-errors' : settingsForm.confirmPassword.$valid  && settingsForm.$submitted}">
+            <input name="confirmPassword" type="password" placeholder="Confirm Password" ng-model="controller.confirmPassword" ng-minlength="5" required compare-to="controller.password">
+        </label>
+
+        <div class="error-container last-error-container" ng-show="settingsForm.confirmPassword.$error && settingsForm.$submitted" ng-messages="settingsForm.confirmPassword.$error">
+            <div ng-messages-include="error-list.html"></div> 
+        </div> 
+
+
+        <!--<md-checkbox aria-label="CheckboxTerms">
+            I accept terms and conditions.
+        </md-checkbox>-->
+        <!--end input section-->
+        <button class="md-raised social-button md-button md-default-theme material-background" type="submit">Submit Changes<!--</button>-->
+        </form>
+    </ion-content>
+</ion-view>
+
+<script id="error-list.html" type="text/ng-template">  
+    <div class="error" ng-message="required">
+      This field is required
+    </div>
+    <div class="error" ng-message="minlength">
+      Minimum password length is 5 characters
+    </div>
+    <div class="error" ng-message="compareTo">
+      Passwords must match
+    </div>
+    <div class="error" ng-message="email">
+      Invalid email address
+    </div>
+    <div class="error" ng-message="uniEmail">
+      Not a USC email address
+    </div>
+</script>

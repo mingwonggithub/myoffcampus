@@ -2,11 +2,21 @@
 // Learn more about Sidenav directive of angular material
 // https://material.angularjs.org/latest/#/demo/material.components.sidenav
 appControllers.controller('menuCtrl', function ($scope, $timeout, $mdUtil, $mdSidenav, $log, $ionicHistory, $state, $ionicPlatform, $mdDialog, $mdBottomSheet, $mdMenu, $mdSelect) {
-    
+    $scope.$on('$ionicView.enter', function(){
+        // Any thing you can think of
+        //alert("This function just ran away");   
+    });
+    $scope.user = {
+        firstName: "",
+        lastName: ""
+    }
     $scope.toggleLeft = buildToggler('left');
-                var currentUser = Parse.User.current();
-    console.log("menuCtrl: " + JSON.stringify(currentUser));
+    var currentUser = JSON.parse(localStorage.getItem("mocUser"));
 
+    if(currentUser) {
+        console.log("menuCtrl: " + JSON.stringify(currentUser));
+    $scope.user = currentUser;
+    }
     // buildToggler is for create menu toggle.
     // Parameter :  
     // navID = id of navigation bar.
@@ -17,6 +27,15 @@ appControllers.controller('menuCtrl', function ($scope, $timeout, $mdUtil, $mdSi
         }, 0);
         return debounceFn;
     };// End buildToggler.
+
+    $scope.logout = function(){
+        Parse.User.logOut().then(() => {
+        var tempUser = Parse.User.current();  // this will now be null
+        console.log("logging out  " + tempUser);
+        $scope.closeSideNav();
+        $state.go('app.login');
+        }); 
+    };
 
     // navigateTo is for navigate to other page 
     // by using targetPage to be the destination state. 

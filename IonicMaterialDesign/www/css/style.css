@@ -722,6 +722,14 @@ md-sidenav {
     text-align: center; }
   #social-sign-up-content img {
     width: 92px; }
+  #social-sign-up-content h1 {
+    font-size: 120%;
+    color: black;
+    padding: 15px 5px 0 5px;
+    margin: 0; }
+  #social-sign-up-content sub {
+    padding-left: 5px;
+    color: #B83E2C; }
   #social-sign-up-content label {
     margin-bottom: 5px;
     margin-top: 5ps;

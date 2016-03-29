@@ -4,4 +4,7 @@
 node_modules/
 platforms/
 plugins/
-.idea/
+.idea
+
+# Ignore DS_Store
+.DS_Store/

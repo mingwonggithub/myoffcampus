@@ -1,0 +1,36 @@
+<!--View Information-->
+<!--View name : Location Feed-->
+<!--State name : app.locationFeed-->
+<!--URL : #app/locationFeed-->
+<ion-view title="{{location.name}}">
+    <!--Similar to order details from hw3-->
+    <ion-content id="location-feed-content">
+        <div class="location-list">
+            <p>
+                Placeholder Text <br/>
+                location.street<br/>
+                location.city<br/>
+                location.zipcode<br/>
+                location.price<br/>
+                location.land_lord<br/><br/>
+          
+                Then a list of <br/>
+                location.reviews<br/>
+            </p>
+            <p>
+                {{location.street}}
+                <br/> {{location.city}}
+                <br/> {{location.zipcode}}
+                <br/> {{location.price}}
+                <br/> {{location.land_lord}}
+            </p>
+            <p>
+                <ul>
+                    <li>{{location.reviews}}</li>
+                </ul>
+            </p>
+        </div>
+        <!--end list section-->
+    </ion-content>
+    <!--end location feed section-->
+</ion-view>

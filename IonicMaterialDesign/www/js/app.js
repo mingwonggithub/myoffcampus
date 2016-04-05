@@ -349,14 +349,14 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
     //Learn more about  AngularUI Router's at https://github.com/angular-ui/ui-router/wiki
     $stateProvider
         .state('app.login', {
-        url: "/login",
-        views: {
-            'menuContent': {
-                templateUrl: "templates/themes/authentication/html/login.html",
-                controller: 'loginCtrl'
+            url: "/login",
+            views: {
+                'menuContent': {
+                    templateUrl: "templates/themes/authentication/html/login.html",
+                    controller: 'loginCtrl'
+                }
             }
-        }           
-    })
+        })
 
     .state('app.register', {
         url: "/register",
@@ -379,11 +379,11 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
     })
 
     .state('app', {
-            url: "/app",
-            abstract: true,
-            templateUrl: "templates/menu/html/menu.html",
-            controller: 'menuCtrl'
-        })
+        url: "/app",
+        abstract: true,
+        templateUrl: "templates/menu/html/menu.html",
+        controller: 'menuCtrl'
+    })
 
 
     .state('app.welcome', {
@@ -420,19 +420,29 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
         }
     })
 
-    .state('app.reviewdetail', {
-            url: "/reviewdetail",
-            params: {
-                noteDetail: null,
-                actionDelete: false
-            },
-            views: {
-                'menuContent': {
-                    templateUrl: "templates/application-storage/local-application-db/html/review-detail.html",
-                    controller: 'noteDetailCtrl' //for right now using the same thing
-                }
+    .state('app.addlocation', {
+        url: "/addlocation",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/themes/location-feed/html/add_location.html",
+                //controller: 'noteListCtrl' //for right now using the same thing
             }
-        })
+        }
+    })
+
+    .state('app.reviewdetail', {
+        url: "/reviewdetail",
+        params: {
+            noteDetail: null,
+            actionDelete: false
+        },
+        views: {
+            'menuContent': {
+                templateUrl: "templates/application-storage/local-application-db/html/review-detail.html",
+                controller: 'noteDetailCtrl' //for right now using the same thing
+            }
+        }
+    })
 
 
     .state('app.addproperty', {
@@ -1030,6 +1040,22 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
             views: {
                 'menuContent': {
                     templateUrl: "templates/themes/restaurant/html/restaurant.html"
+                }
+            }
+        })
+        .state('app.locationDetails', {
+            url: "/locationDetails",
+            views: {
+                'menuContent': {
+                    templateUrl: "templates/themes/location-feed/html/location_details.html"
+                }
+            }
+        })
+        .state('app.savedlocations', {
+            url: "/savedlocations",
+            views: {
+                'menuContent': {
+                    templateUrl: "templates/themes/location-feed/html/saved_location.html"
                 }
             }
         })

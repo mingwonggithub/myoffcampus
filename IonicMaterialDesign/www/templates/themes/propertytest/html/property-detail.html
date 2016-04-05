@@ -1,0 +1,135 @@
+<!--View Information-->
+<!--View name : Note Detail-->
+<!--Controller name : noteDetailCtrl-->
+<!--Controller path : www/templates/application-storage/local-application-db/js/controllers.js-->
+<!--State name : app.notedetail-->
+<!--URL : #app/notedetail-->
+
+<ion-view view-title="">
+    <!--left button on navigation bar-->
+    <ion-nav-buttons side="left">
+        <a ng-click="$ionicGoBack()" class="button back-button buttons  button-clear header-item nav-back-btn">
+            <i class="ion-android-arrow-back"></i>
+        </a>
+    </ion-nav-buttons><!--end left button on navigation bar-->
+
+    <!--note detail section-->
+    <form novalidate name="propForm" id="propForm" >
+        <ion-content>
+            <!--toolbar section-->
+            <md-toolbar class="bar-subheader md-tall md-primary toolbar-medium toolbar-in-content">
+                <div>
+                    <h1>
+                        <i class="ion-android-home"></i>
+                    </h1>
+                    <h3>Property detail</h3>
+                </div>
+                <a class="md-button md-accent md-fab fab-toolbar-medium"
+                   ng-click="showListBottomSheet($event,noteForm)"
+                   aria-label="showListBottomSheet">
+                    <i class="ion-android-star"></i>
+                </a>
+            </md-toolbar><!--end toolbar section-->
+
+            <div id="note-detail-content" >
+                <!--content section-->
+               <!--  <p>
+                    <i class="ion-android-calendar"></i> {{note.createDate}}
+                </p>
+                <md-input-container md-no-float>
+                    <input required name="noteTitle" placeholder="Review Title (Required)" ng-model="note.title">
+                </md-input-container>
+                <textarea rows="7" ng-model="note.detail" maxlength="250"
+                          placeholder="Write something here ...."></textarea>
+                <span>
+                    {{(note.detail.length > 0 ? note.detail.length :0) | json}}/250
+                </span> -->
+   <md-input-container  md-no-float>
+        <label>Community Name</label>
+        <input md-maxlength="30" required md-no-asterisk name="cName" ng-model="prop.communityName">
+        <div ng-messages="propForm.cName.$error" ng-if="propForm.cName.$touched">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+        </div>
+      </md-input-container>
+
+ <!--      <md-input-container md-no-float>       
+       <label>Number of bedrooms</label>
+        <input type="number" step="any" name="rate" ng-model="prop.bedroom" min="0"/>
+        <div ng-messages="propForm.rate.$error" md-auto-hide="false">
+          <div ng-message="min">
+            No negatives allowed
+          </div>
+        </div>
+        </md-input-container> -->
+
+      <md-input-container md-no-float>
+        <div>  <label>Housing Type </label> </div>
+        <select name="kind" ng-required="true" ng-model="categories.kind" ng-options="item.kind as item.kind for item in categories">
+        </select>
+          <div ng-messages="propForm.kind.$error" ng-if="propForm.kind.$touched">
+          <div ng-message="required">This is required.</div>
+        </div>
+      </md-input-container>
+
+      <md-input-container md-no-float>
+          <div> <label>Rate housing from a scale 1 to 10.</label> </div>
+              <div class="item range range-positive" >
+              <i class="icon ion-android-sad"> &nbsp; &nbsp; </i>
+        <md-slider flex  type="number" min="0" max="10" ng-model="prop.prating" aria-label="prating">
+          </md-slider>
+        &nbsp; &nbsp; <i class="icon ion-android-happy"> </i> &nbsp; {{prop.prating}}
+          </div>
+      </md-input-container>
+
+ <md-input-container md-no-float>
+          <div> <label>Pleae give an exact address.</label> </div>
+            <input type="text" ng-blur="updateMap()" ng-enter="updateMap()" ng-model="prop.address" ng-cplaceholder="Search" googleplace>
+         <!--    <button class="button button-icon ion-android-map"><i> Update</i> </button> -->
+  </md-input-container>  
+    </div>
+
+  <div class="padding">
+        <md-button type="button" class="md-raised icon-left ion-close"  ng-click="reset(propForm)">Clear</md-button>
+        <md-button type="button" class="md-raised icon-left ion-checkmark"  ng-click="createProperty(prop, propForm.$valid)">Submit</md-button>
+
+
+<!--                      <button type="submit" class="button button-balanced icon-left ion-checkmark">Submit</button>
+ -->
+</div>
+
+            <!--end content section-->
+        </ion-content>
+
+
+    </form><!--end note detail section-->
+
+
+    <!--angular template section-->
+    <script type="text/ng-template" id="contract-actions-template">
+        <md-bottom-sheet class="md-list md-has-header">
+            <h1 class="md-bottom-sheet-header">Note Actions</h1>
+            <!--list section-->
+            <md-list>
+               <md-list-item>
+                    <a class="md-default-theme md-bottom-sheet-list-item"
+                       ng-class="{ 'disabled-link': disableSaveBtn}"
+                       ng-click="saveNote(note,$event)">
+                        <i class="ion-android-list"></i>
+                        <span>Save Note</span>
+                    </a>
+                </md-list-item>
+
+                <md-list-item ng-show="actionDelete">
+                    <a class="md-default-theme md-bottom-sheet-list-item"
+                       ng-click="deleteNote(note,$event)">
+                        <i class="ion-android-delete"></i>
+                        <span>Remove Note</span>
+                    </a>
+                </md-list-item>
+            </md-list>
+            <!--end list section-->
+        </md-bottom-sheet>
+    </script><!--end angular template section-->
+
+</ion-view>

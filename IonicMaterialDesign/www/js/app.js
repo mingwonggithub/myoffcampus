@@ -46,6 +46,11 @@ window.globalVariable = {
 angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers', 'starter.services', 'ngMaterial', 'ngMessages', 'ngCordova'])
     .run(function($ionicPlatform, $cordovaSQLite, $rootScope, $ionicHistory, $state, $mdDialog, $mdBottomSheet) {
 
+        FastClick.attach(document.body, {
+  excludeNode: '^pac-'
+});
+
+
         //Create database table of contracts by using sqlite database.
         //Table schema :
         //Column       Type      Primary key
@@ -428,6 +433,65 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
                 }
             }
         })
+
+
+    .state('app.addproperty', {
+        url:"/addproperty",
+        params: {
+            isAnimated: false
+        },
+        cache: false,
+        views:{
+            'menuContent': {
+                templateUrl: "templates/themes/property/html/addProperty.html",                    
+                controller: 'addPropertyCtrl' 
+            }
+        }
+    })
+
+     .state('app.proplist', {
+            url: "/proplist",
+            params: {
+                isAnimated: false
+            },
+            cache: false,
+            views: {
+                'menuContent': {
+                    templateUrl: "templates/themes/property/html/propList.html",
+                    controller: 'propListCtrl'
+                }
+            }
+        })
+
+
+    // .state('app.addproperty', {
+    //     url:"/addpropery",
+    //     params: {
+    //         isAnimated: false
+    //     },
+    //     cache: false,
+    //     views:{
+    //         'menuContent': {
+    //             templateUrl: "templates/themes/property/html/addreview.html",                    
+    //             controller: 'addPropCtrl' 
+    //         }
+    //     }
+    // })
+
+     // .state('app.propertydetail', {
+     //        url: "/propertydetail",
+     //        params: {
+     //            noteDetail: null,
+     //            actionDelete: false
+     //        },
+     //        views: {
+     //            'menuContent': {
+     //                templateUrl: "templates/themes/property/html/property-detail.html",
+     //                controller: 'noteDetailCtrl' //for right now using the same thing
+     //            }
+     //        }
+     //    })
+
 
     .state('app.dashboard', {
         url: "/dashboard",

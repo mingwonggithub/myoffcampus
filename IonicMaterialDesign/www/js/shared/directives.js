@@ -32,7 +32,8 @@ appControllers.directive('compareTo', function() {
       },
       link: function(scope, element, attributes, ngModel) {
         ngModel.$validators.compareTo = function(modelValue) {
-          return modelValue == scope.otherModelValue;
+            var r = (modelValue  == null || scope.otherModelValue == null);
+          return r || (modelValue === scope.otherModelValue);
         };
 
         scope.$watch("otherModelValue", function() {

@@ -9,15 +9,15 @@
     <ion-content id="social-sign-up-content" class="bg-white">
     <form name="settingsForm" novalidate="" ng-submit="settings(settingsForm)"> 
         <h1>Current Password</h1>
-        <label style="margin-bottom: 2px;" class="item item-input" ng-class="{ 'has-errors' : settingsForm.confirmPassword.$invalid && settingsForm.$submitted, 'no-errors' : settingsForm.confirmPassword.$valid  && settingsForm.$submitted}">
+        <label style="margin-bottom: 2px;" class="item item-input" ng-class="{ 'has-errors' : settingsForm.currentPassword.$invalid && settingsForm.$submitted, 'no-errors' : settingsForm.currentPassword.$valid  && settingsForm.$submitted}" required>
             <input name="currentPassword" type="password" placeholder="Password" ng-model="controller.currentPassword" ng-minlength="5" required>
         </label>
         <sub>(required for any changes)</sub>
 
         <!--first name-->
         <h1>Change Name</h1>
-        <label class="item item-input" ng-class="{ 'has-errors' : settingsForm.firstName.$invalid && settingsForm.$submitted, 'no-errors' : settingsForm.firstName.$valid  && settingsForm.$submitted}">
-            <input name="firstName" type="text" placeholder="First Name" ng-model="controller.firstName" required>
+        <label class="item item-input" ng-class="{ 'has-errors' : settingsForm.firstName.$invalid && settingsForm.$submitted}">
+            <input name="firstName" type="text" placeholder="First Name" ng-model="controller.firstName">
         </label>
 
         <div class="error-container last-error-container" ng-show="settingsForm.firstName.$error && settingsForm.$submitted" ng-messages="settingsForm.firstName.$error">
@@ -25,8 +25,8 @@
         </div> 
 
         <!--last name-->
-        <label class="item item-input" ng-class="{ 'has-errors' : settingsForm.lastName.$invalid && settingsForm.$submitted, 'no-errors' : settingsForm.lastName.$valid  && settingsForm.$submitted}">
-            <input name="lastName" type="text" placeholder="Last Name" ng-model="controller.lastName" required>
+        <label class="item item-input" ng-class="{ 'has-errors' : settingsForm.lastName.$invalid && settingsForm.$submitted}">
+            <input name="lastName" type="text" placeholder="Last Name" ng-model="controller.lastName">
         </label>
 
         <div class="error-container last-error-container" ng-show="settingsForm.lastName.$error && settingsForm.$submitted" ng-messages="settingsForm.lastName.$error">
@@ -35,8 +35,8 @@
 
         <!--password-->
         <h1>Change Password</h1>
-        <label class="item item-input" ng-class="{ 'has-errors' : settingsForm.password.$invalid && settingsForm.$submitted, 'no-errors' : settingsForm.password.$valid  && settingsForm.$submitted}">
-            <input name="password" type="password" placeholder="New Password" ng-model="controller.password" ng-minlength="5" required>
+        <label class="item item-input" ng-class="{ 'has-errors' : settingsForm.password.$invalid && settingsForm.$submitted}">
+            <input name="password" type="password" placeholder="New Password" ng-model="controller.password" ng-minlength="5">
         </label>
 
         <div class="error-container last-error-container" ng-show="settingsForm.password.$error && settingsForm.$submitted" ng-messages="settingsForm.password.$error">
@@ -44,8 +44,8 @@
         </div> 
 
         <!--confirm password-->
-        <label class="item item-input" ng-class="{ 'has-errors' : settingsForm.confirmPassword.$invalid && settingsForm.$submitted, 'no-errors' : settingsForm.confirmPassword.$valid  && settingsForm.$submitted}">
-            <input name="confirmPassword" type="password" placeholder="Confirm Password" ng-model="controller.confirmPassword" ng-minlength="5" required compare-to="controller.password">
+        <label class="item item-input" ng-class="{ 'has-errors' : settingsForm.confirmPassword.$invalid && settingsForm.$submitted}">
+            <input name="confirmPassword" type="password" placeholder="Confirm Password" ng-model="controller.confirmPassword" ng-minlength="5"  compare-to="controller.password">
         </label>
 
         <div class="error-container last-error-container" ng-show="settingsForm.confirmPassword.$error && settingsForm.$submitted" ng-messages="settingsForm.confirmPassword.$error">

@@ -58,14 +58,62 @@ appControllers.controller('loginCtrl', function($scope, $state) {
   }
 });
 
-appControllers.controller('passwordCtrl', function($scope, $state) {
+appControllers.controller('passwordCtrl', function($scope, $state, $mdDialog, $mdToast) {
   var currentUser;
   var self = this;
   self.email = "";
 
-  $scope.reset = function(form) {
+  $scope.reset = function(form, $event) {
     if(form.$valid) {
-      $state.go("app.login"); 
+
+        //mdDialog.show use for show alert box for Confirm to reset password.
+        $mdDialog.show({
+            controller: 'DialogController',
+            templateUrl: 'confirm-dialog.html',
+            targetEvent: $event,
+            locals: {
+                displayOption: {
+                    title: "Reset Password",
+                    content: "An email will be sent to your account in order for you to reset your password.",
+                    ok: "Confirm",
+                    cancel: "Close"
+                }
+            }
+        }).then(function () {
+            // For confirm button to reset password.
+            try {
+                $state.go("app.login"); 
+
+                // Showing toast for success.
+                $mdToast.show({
+                    controller: 'toastController',
+                    templateUrl: 'toast.html',
+                    hideDelay: 400,
+                    position: 'top',
+                    locals: {
+                        displayOption: {
+                            title: "Password reset request sent."
+                        }
+                    }
+                });
+            }
+            catch (e) {
+                //Showing toast for failure.
+                $mdToast.show({
+                    controller: 'toastController',
+                    templateUrl: 'toast.html',
+                    hideDelay: 800,
+                    position: 'top',
+                    locals: {
+                        displayOption: {
+                            title: window.globalVariable.message.errorMessage
+                        }
+                    }
+                });
+            }
+        }, function () {
+            // For cancel button
+        });
     }
   }
 });

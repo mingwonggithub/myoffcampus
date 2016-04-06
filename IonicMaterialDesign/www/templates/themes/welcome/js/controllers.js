@@ -65,7 +65,7 @@ appControllers.controller('dashboardSettingCtrl', function ($scope, $state,$ioni
     }; // End of navigateTo.
 }) // End of Dashboard Setting controller.
 
-appControllers.controller('welcomeCtrl', function($scope, $state) {
+appControllers.controller('welcomeCtrl', function($scope, $state, $ionicHistory, $ionicViewSwitcher) {
     var currentUser = JSON.parse(localStorage.getItem("mocUser"));
 
     //if(!currentUser) {

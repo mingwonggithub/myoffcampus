@@ -2,33 +2,29 @@
 <!--View name : Location Feed-->
 <!--State name : app.locationFeed-->
 <!--URL : #app/locationFeed-->
-<ion-view title="{{location.name}}">
-    <!--Similar to order details from hw3-->
+<ion-view title="{{property.title}}">
+    <ion-nav-buttons side="left">
+        <a ng-click="$ionicGoBack()" class="button back-button buttons  button-clear header-item nav-back-btn">
+            <i class="ion-android-arrow-back"></i>
+        </a>
+    </ion-nav-buttons>
+
     <ion-content id="location-feed-content">
         <div class="location-list">
-            <p>
-                Placeholder Text <br/>
-                location.street<br/>
-                location.city<br/>
-                location.zipcode<br/>
-                location.price<br/>
-                location.land_lord<br/><br/>
-          
-                Then a list of <br/>
-                location.reviews<br/>
-            </p>
-            <p>
-                {{location.street}}
-                <br/> {{location.city}}
-                <br/> {{location.zipcode}}
-                <br/> {{location.price}}
-                <br/> {{location.land_lord}}
-            </p>
-            <p>
-                <ul>
-                    <li>{{location.reviews}}</li>
-                </ul>
-            </p>
+            <div class="location-item">
+            <div class="location-content">
+                <h1>{{property.streetNo}} {{property.street}}</h1>
+                <h1>{{property.city}}, {{property.state}} {{property.zipcode}}</h1>
+                 <p> {{property.price}}
+                    <br/> {{property.land_lord}}
+                </p>
+                <p>
+                    <ul>
+                        <li>{{property.reviews}}</li>
+                    </ul>
+                </p>
+            </div>
+            </div>
         </div>
         <!--end list section-->
     </ion-content>

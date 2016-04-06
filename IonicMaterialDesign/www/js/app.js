@@ -45,10 +45,11 @@ window.globalVariable = {
 
 angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers', 'starter.services', 'ngMaterial', 'ngMessages', 'ngCordova'])
     .run(function($ionicPlatform, $cordovaSQLite, $rootScope, $ionicHistory, $state, $mdDialog, $mdBottomSheet) {
-
+        Parse.initialize(window.globalVariable.parse.appKey, window.globalVariable.parse.jsKey);
+        Parse.serverURL = 'https://parseapi.back4app.com';
         FastClick.attach(document.body, {
-  excludeNode: '^pac-'
-});
+          excludeNode: '^pac-'
+        });
 
 
         //Create database table of contracts by using sqlite database.
@@ -251,8 +252,7 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
                 StatusBar.styleDefault();
             }
 
-            Parse.initialize(window.globalVariable.parse.appKey, window.globalVariable.parse.jsKey);
-            Parse.serverURL = 'https://parseapi.back4app.com';
+            
 
             //initialSQLite();
             initialRootScope();
@@ -1023,7 +1023,8 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
             url: "/locationFeed",
             views: {
                 'menuContent': {
-                    templateUrl: "templates/themes/location-feed/html/location-feed.html"
+                    templateUrl: "templates/themes/location-feed/html/location-feed.html",
+                    controller: "locationFeedCtrl"
                 }
             }
         })
@@ -1045,9 +1046,13 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
         })
         .state('app.locationDetails', {
             url: "/locationDetails",
+            params: {
+                propDetail: null,
+            },
             views: {
                 'menuContent': {
-                    templateUrl: "templates/themes/location-feed/html/location_details.html"
+                    templateUrl: "templates/themes/location-feed/html/location_details.html",
+                    controller: "locationDetailCtrl"
                 }
             }
         })

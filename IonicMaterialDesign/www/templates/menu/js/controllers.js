@@ -12,8 +12,6 @@ appControllers.controller('menuCtrl', function ($scope, $timeout, $mdUtil, $mdSi
     }
     $scope.toggleLeft = buildToggler('left');
     var currentUser = JSON.parse(localStorage.getItem("mocUser"));
-    var tempUser = Parse.User.current(); 
-    console.log("menuCtrl tempUser:" + tempUser);
 
     if(currentUser) {
         console.log("menuCtrl: " + JSON.stringify(currentUser));

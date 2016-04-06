@@ -21,16 +21,20 @@
     <ion-content id="social-welcome" class="bg-white">
         <form class="welcome-form">
             <div id="welcome">
-                Hi {{name}} !
                 <md-input-container md-no-float="">
                     <input class="user-name" placeholder="Find a Landlord" ng-model="controller.landLordName">
                 </md-input-container>
+
+                <a class="md-raised social-button md-button md-default-theme material-background" ng-click="searchLandlord()" href="#app/locationFeed">
+                    Search
+                </a>
+                <br />
                 <md-input-container md-no-float="">
                     <input class="user-password" placeholder="Find a property" ng-model="controller.location">
                 </md-input-container>
             </div>
             <div>
-                <a class="md-raised social-button md-button md-default-theme material-background" ng-click="search()" href="#app/addreview">
+                <a class="md-raised social-button md-button md-default-theme material-background" ng-click="searchProperty()" href="#app/locationFeed">
                     Search
                 </a>
             </div>

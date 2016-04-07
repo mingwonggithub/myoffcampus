@@ -995,9 +995,11 @@ md-sidenav {
       margin-bottom: 10px;
 
       label#header {
-        border-color: #86000b;
-        background-color: #86000b;
-        color: $color-white;
+       // border-color: #86000b;
+      //  background-color: #86000b;
+       background-color: $color_black;
+      border-color: $color_white;
+        color: $color_white;
       }
     }
 
@@ -2613,7 +2615,7 @@ md-sidenav {
       box-shadow: 0px 3px 1px -2px $color_black_14, 0px 2px 2px 0px $color_black_098, 0px 1px 5px 0px $color_black_084;
       margin-bottom: 14px;
       .location-img {
-        height: 110px;
+        height: 90px;
         background-size: cover;
         border-top-right-radius: 2px;
         border-top-left-radius: 2px;
@@ -2624,14 +2626,21 @@ md-sidenav {
         border-bottom-right-radius: 2px;
         border-bottom-left-radius: 2px;
 
+        md-input-container input {
+          border-bottom: 1px solid $color_gray;
+        }
+        
         h1 {
           font-size: 16px;
           margin: 0;
           color: $color_gray;
+          padding: 10px 10px 0 0;
+          text-align: left;
         }
         p {
           font-size: 12px;
           margin: 0;
+          padding: 0;
           color: $color_gray;
         }
         .text-add {
@@ -2643,7 +2652,7 @@ md-sidenav {
           font-size: 11px;
           width: 65px;
           text-align: center;
-          margin-top: 15px;
+          margin-top: 10px;
         }
       }
     }//end location item section

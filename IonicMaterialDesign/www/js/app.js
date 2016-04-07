@@ -47,9 +47,9 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
     .run(function($ionicPlatform, $cordovaSQLite, $rootScope, $ionicHistory, $state, $mdDialog, $mdBottomSheet) {
         Parse.initialize(window.globalVariable.parse.appKey, window.globalVariable.parse.jsKey);
         Parse.serverURL = 'https://parseapi.back4app.com';
-        FastClick.attach(document.body, {
+        /*FastClick.attach(document.body, {
           excludeNode: '^pac-'
-        });
+        });*/
 
 
         //Create database table of contracts by using sqlite database.
@@ -331,10 +331,11 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
 
     $mdThemingProvider
         .theme('default')
-        .primaryPalette('USC')
-        .accentPalette('blue-grey');
+        .primaryPalette('blue')
+        .accentPalette('indigo');
 
-    appPrimaryColor = '#86000b'; //Use for get base color of theme.
+    appPrimaryColor = $mdColorPalette[$mdThemingProvider._THEMES.default.colors.primary.name]["500"]
+    //appPrimaryColor = '#86000b'; //Use for get base color of theme.
 
     //$stateProvider is using for add or edit HTML view to navigation bar.
     //

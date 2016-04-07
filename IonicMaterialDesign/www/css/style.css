@@ -1873,3 +1873,13 @@ md-sidenav {
 
 .no-errors {
   border-bottom: 2px solid green; }
+
+.bar-subheader {
+  margin: 0;
+  padding: 0;
+  height: 150px; }
+
+.bar-subheader img {
+  width: 100%;
+  margin: 0;
+  padding: 0; }

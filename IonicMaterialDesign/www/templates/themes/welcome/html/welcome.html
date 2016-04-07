@@ -1,7 +1,7 @@
 <!--URL : #app/welcome
     controller: weclomeCtrl -->
 
-<ion-view title="Welcome">
+<ion-view title="MyOffCampus">
     <!--right button on navigation bar-->
     <ion-nav-buttons side="right">
         <!--<a ng-click="logout()" class="button buttons button-clear header-item ">
@@ -17,26 +17,36 @@
     </ion-nav-buttons>
     <!--end right button on navigation bar-->
 
+    <ion-header-bar custom-subheader class="bar-subheader">
+      <img src="../../../img/welcome_students.jpg">
+    </ion-header-bar>
     <!--login content section-->
-    <ion-content id="social-welcome" class="bg-white">
-        <form class="welcome-form">
-            <div id="welcome">
-                <md-input-container md-no-float="">
-                    <input class="user-name" placeholder="Find a Landlord" ng-model="controller.landLordName">
-                </md-input-container>
-
-                <a class="md-raised social-button md-button md-default-theme material-background" ng-click="searchLandlord()" href="#app/locationFeed">
-                    Search
-                </a>
-                <br />
-                <md-input-container md-no-float="">
-                    <input class="user-password" placeholder="Find a property" ng-model="controller.location">
-                </md-input-container>
-            </div>
-            <div>
-                <a class="md-raised social-button md-button md-default-theme material-background" ng-click="searchProperty()" href="#app/locationFeed">
-                    Search
-                </a>
+    <ion-content id="social-welcome">
+        <form class="welcome-form" id="location-feed-content">
+            <br /> <br />
+            <div class="location-list">
+                <div id="welcome" class="location-item">
+                    <div class="location-content">
+                    <h1 align="left" style="padding: 10px 10px 0 0;">Property Search</h1>
+                        <md-input-container md-no-float="">
+                            <input class="user-name" placeholder="Search by address or community" ng-model="controller.landLordName">
+                        </md-input-container>                
+                        <a class="md-raised social-button md-button md-default-theme material-background" ng-click="searchLandlord()" href="#app/locationFeed">
+                            Find a Property
+                        </a>
+                    </div>
+                </div>
+                <div id="welcome" class="location-item">
+                    <div class="location-content">
+                    <h1 align="left" style="padding: 10px 10px 0 0;">Landlord Search</h1>
+                        <md-input-container md-no-float="">
+                            <input class="user-name" placeholder="Search by landlord's name" ng-model="controller.location">
+                        </md-input-container>
+                        <a class="md-raised social-button md-button md-default-theme material-background" ng-click="searchProperty()" href="#app/locationFeed">
+                            Find a Landlord
+                        </a>
+                    </div>
+                </div>
             </div>
         </form>
     </ion-content>

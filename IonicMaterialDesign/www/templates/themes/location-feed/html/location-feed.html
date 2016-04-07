@@ -17,12 +17,13 @@
         -->
         <div class="location-list">
             <!--location item section-->
-            <ion-list ng-repeat="property in properties">
+            <ion-list ng-repeat="property in properties" >
+
             <div class="location-item" ng-click="navigateTo('app.locationDetails', property)">
                 <div class="location-img" style="background-image:url('../../../../img/house.jpg')">
                 </div>
                 <div class="location-content row">
-                    <div class="col-90">
+                    <div class="col-80">
                         <h1>
                             {{property.title}}
                         </h1>
@@ -33,8 +34,8 @@
                             <i class="ion-android-map"></i> {{property.city}}, {{property.state}} {{property.zipcode}}
                         </p>
                     </div>
-                    <div class="col-10">
-                        <h2>{{property.rating}}</h2>
+                    <div class="col-20">
+                        <h2 id="rating" ng-class="{red:property.rating<4, green:property.rating>6, yellow:property.rating>3 && property.rating<7}">{{property.rating}}</h2>
                         <span class="text-add"> Save </span>
                         <!-- Within the Details, Save, and Remove links have href
                         links to other pages that includes the details of the

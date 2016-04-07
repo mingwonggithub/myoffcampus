@@ -731,7 +731,7 @@ md-sidenav {
     margin: 0;
     padding: 0;
     padding-left: 5px;
-    color: #B83E2C; }
+    color: #d80000; }
   #social-sign-up-content label {
     margin-bottom: 5px;
     margin-top: 5ps;
@@ -1690,6 +1690,8 @@ md-sidenav {
         color: gray;
         padding: 10px 10px 5px 0;
         text-align: left; }
+      #location-feed-content .location-list .location-item .location-content h2 {
+        text-align: center; }
       #location-feed-content .location-list .location-item .location-content p {
         text-align: left;
         font-size: 12px;
@@ -1877,20 +1879,20 @@ md-sidenav {
   padding-top: 0px;
   font-size: 11px;
   text-transform: uppercase;
-  color: #B83E2C;
+  color: #d80000;
   vertical-align: middle; }
 
 .error i {
   font-size: 24px;
-  color: #B83E2C;
+  color: #d80000;
   vertical-align: middle; }
 
 .has-errors {
-  border-bottom: 2px solid #B83E2C; }
+  border-bottom: 2px solid #d80000; }
 
 .has-errors-log {
-  border-left: 2px solid #B83E2C;
-  border-right: 2px solid #B83E2C; }
+  border-left: 2px solid #d80000;
+  border-right: 2px solid #d80000; }
 
 .no-errors {
   border-bottom: 2px solid green; }
@@ -1904,3 +1906,12 @@ md-sidenav {
   width: 100%;
   margin: 0;
   padding: 0; }
+
+.red {
+  color: #d80000; }
+
+.green {
+  color: #0ab404; }
+
+.yellow {
+  color: #ffb400; }

@@ -6,7 +6,9 @@ $stable: #d1d1d1;
 $color_white: white;
 $color_gray: gray;
 $color_alto: #dbdbdb;
-$color_red: #B83E2C;
+$color_red: #d80000;
+$color_green: #0ab404;
+$color_yellow: #ffb400;
 $color_black: black;
 $color_mercury: #e5e5e5;
 $color_black_14: rgba(0, 0, 0, 0.14);
@@ -2664,6 +2666,10 @@ md-sidenav {
           text-align: left;
         }
 
+        h2 {
+          text-align: center;
+        }
+
         p {
         text-align: left;
           font-size: 12px;
@@ -2988,3 +2994,14 @@ md-sidenav {
   padding: 0;
 }
 
+.red {
+  color: $color_red;
+}
+
+.green {
+  color: $color_green;
+}
+
+.yellow {
+  color: $color_yellow;
+}

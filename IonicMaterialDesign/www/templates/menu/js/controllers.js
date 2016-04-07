@@ -3,20 +3,19 @@
 // https://material.angularjs.org/latest/#/demo/material.components.sidenav
 appControllers.controller('menuCtrl', function ($scope, $timeout, $mdUtil, $mdSidenav, $log, $ionicHistory, $state, $ionicPlatform, $mdDialog, $mdBottomSheet, $mdMenu, $mdSelect) {
     $scope.$on('$ionicView.enter', function(){
-        // Any thing you can think of
-        //alert("This function just ran away");   
+        var currentUser = JSON.parse(localStorage.getItem("mocUser"));
+
+        if(currentUser) {
+            console.log("menuCtrl: " + JSON.stringify(currentUser));
+        $scope.user = currentUser;
+        }  
     });
     $scope.user = {
         firstName: "",
         lastName: ""
     }
     $scope.toggleLeft = buildToggler('left');
-    var currentUser = JSON.parse(localStorage.getItem("mocUser"));
-
-    if(currentUser) {
-        console.log("menuCtrl: " + JSON.stringify(currentUser));
-    $scope.user = currentUser;
-    }
+    
     // buildToggler is for create menu toggle.
     // Parameter :  
     // navID = id of navigation bar.

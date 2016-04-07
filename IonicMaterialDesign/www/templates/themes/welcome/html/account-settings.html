@@ -1,4 +1,4 @@
-<ion-view title="Account Settings">
+<ion-view title="Account Settings" ng-controller="settingsCtrl as controller">
     <!--right button on navigation bar-->
     <ion-nav-buttons side="right">
         <!--    <md-button class="md-icon-button ion-nav-button-right mb-raised" ng-click="goToSetting()"
@@ -7,12 +7,12 @@
                 </md-button>  this was the default one-->
     </ion-nav-buttons>
     <ion-content id="social-sign-up-content" class="bg-white">
-    <form name="settingsForm" novalidate="" ng-submit="settings(settingsForm)"> 
-        <h1>Current Password</h1>
-        <label style="margin-bottom: 2px;" class="item item-input" ng-class="{ 'has-errors' : settingsForm.currentPassword.$invalid && settingsForm.$submitted, 'no-errors' : settingsForm.currentPassword.$valid  && settingsForm.$submitted}" required>
+    <form name="settingsForm" novalidate="" ng-submit="settings(settingsForm, $event)"> 
+        <!--<h1>Current Password</h1>
+        <label style="margin-bottom: 2px;" class="item item-input" ng-class="{ 'has-errors' : settingsForm.currentPassword.$invalid && settingsForm.$submitted}" required>
             <input name="currentPassword" type="password" placeholder="Password" ng-model="controller.currentPassword" ng-minlength="5" required>
         </label>
-        <sub>(required for any changes)</sub>
+        <sub>(required for any changes)</sub>-->
 
         <!--first name-->
         <h1>Change Name</h1>

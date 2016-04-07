@@ -82,8 +82,6 @@ appControllers.controller('passwordCtrl', function($scope, $state, $mdDialog, $m
         }).then(function () {
             // For confirm button to reset password.
             try {
-                $state.go("app.login"); 
-
                 // Showing toast for success.
                 $mdToast.show({
                     controller: 'toastController',
@@ -96,6 +94,7 @@ appControllers.controller('passwordCtrl', function($scope, $state, $mdDialog, $m
                         }
                     }
                 });
+                $state.go("app.login"); 
             }
             catch (e) {
                 //Showing toast for failure.

@@ -1,16 +1,3 @@
-// Controller of dashboard.
-
-
-        //  $scope.$on('$ionicView.leave', function(e) {
-
-    //     Parse.User.logOut().then(() => {
-    //     var currentUser = Parse.User.current();  // this will now be null
-    //     console.log("leaving welcomeCtrl" + currentUser);
-    //     });     
-    // });
-
-
-
 appControllers.controller('dashboardCtrl', function ($scope, $timeout, $state,$stateParams, $ionicHistory) {
 
     //$scope.isAnimated is the variable that use for receive object data from state params.
@@ -75,4 +62,50 @@ appControllers.controller('welcomeCtrl', function($scope, $state, $ionicHistory,
     $scope.name = currentUser.get("firstName");
     console.log("welcomeCtrl: " + JSON.stringify(currentUser));
     
+});
+
+appControllers.controller('settingsCtrl', function($scope, $state, $mdToast, $ionicHistory, $ionicViewSwitcher) {
+    self = this;
+    self.firstName = "";
+    self.lastName = "";
+    self.password = "";
+    self.currentPassword = "";
+
+    var currentUser = Parse.User.current();
+
+    $scope.settings = function(form, $event) {
+        if(form.$valid) { // TODO check user password is valid
+            if(self.firstName != "") {
+                currentUser.set("firstName", self.firstName);
+            }
+
+            if(self.lastName != "") {
+                currentUser.set("lastName", self.lastName);
+            }
+
+            if(self.password != "") {
+                currentUser.set("password", self.password);
+            }
+            currentUser.save(null, {
+              success: function(currentUser) {
+                localStorage.setItem("mocUser", JSON.stringify(currentUser));
+                
+                $mdToast.show({
+                    controller: 'toastController',
+                    templateUrl: 'toast.html',
+                    hideDelay: 400,
+                    position: 'top',
+                    locals: {
+                        displayOption: {
+                            title: "User information updated."
+                        }
+                    }
+                });
+              },
+              error: function(currentUser, error) {
+                console.log("error updating user object: " + error.message);
+              }
+            });
+        }
+    }
 });

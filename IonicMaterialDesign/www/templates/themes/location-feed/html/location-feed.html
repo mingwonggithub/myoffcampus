@@ -2,7 +2,7 @@
 <!--View name : Location Feed-->
 <!--State name : app.locationFeed-->
 <!--URL : #app/locationFeed-->
-<ion-view title="Location">
+<ion-view title="Search Results">
     <!--location feed section-->
     <ion-content id="location-feed-content">
         <!--
@@ -52,7 +52,8 @@
         <!--end list section-->
         <br />
         <p>
-            Cant find the property you're looking for? Add a new one:
+            Cant find the property you're looking for? Add a new one:<br />
+            <button class="button button-outline button-positive add-button" ng-click="navigateTo('app.addproperty')">+</button>
         </p>
     </ion-content>
     <!--end location feed section-->

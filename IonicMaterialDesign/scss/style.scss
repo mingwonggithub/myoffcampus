@@ -1,6 +1,8 @@
 //global variable section
 
 //colors variable section
+$stable: #d1d1d1;
+
 $color_white: white;
 $color_gray: gray;
 $color_alto: #dbdbdb;
@@ -2608,12 +2610,25 @@ md-sidenav {
 #location-feed-content {
   padding: 10px 10px 10px 8px;
   background-color: $color_black_haze_approx;
+  p {
+    text-align: center;
+    color: $color_gray;
+    font-size: 12px;
+  }
   //list section
+  .add-button {
+    margin: 7px;
+    line-height: 15px !important;
+    min-height: 35px !important;
+    min-width: 37px !important;
+  }
   .location-list {
+   // text-align: left;
     //location item section
     .location-item {
       box-shadow: 0px 3px 1px -2px $color_black_14, 0px 2px 2px 0px $color_black_098, 0px 1px 5px 0px $color_black_084;
       margin-bottom: 14px;
+
       .location-img {
         height: 90px;
         background-size: cover;
@@ -2625,24 +2640,38 @@ md-sidenav {
         background-color: $color_white;
         border-bottom-right-radius: 2px;
         border-bottom-left-radius: 2px;
+      
+       md-input-container {
+        padding-bottom: 20px;
+          border-bottom: 1px solid $stable;
+        }
 
         md-input-container input {
-          border-bottom: 1px solid $color_gray;
+          text-align: center;
         }
-        
+
+        a {
+          margin-top: 10px;
+          text-align: center;
+          float: center;
+        }
+
         h1 {
           font-size: 16px;
           margin: 0;
           color: $color_gray;
-          padding: 10px 10px 0 0;
+          padding: 10px 10px 5px 0;
           text-align: left;
         }
+
         p {
+        text-align: left;
           font-size: 12px;
           margin: 0;
           padding: 0;
           color: $color_gray;
         }
+
         .text-add {
           float: right;
           background-color: $color_carnation_approx;
@@ -2652,7 +2681,6 @@ md-sidenav {
           font-size: 11px;
           width: 65px;
           text-align: center;
-          margin-top: 10px;
         }
       }
     }//end location item section

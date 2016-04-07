@@ -625,8 +625,8 @@ md-sidenav {
       margin: 0 auto;
       margin-bottom: 10px; }
       #social-login form #login label#header {
-        //border-color: #86000b;
-       // background-color: #86000b;
+        background-color: black;
+        border-color: white;
         color: white; }
     #social-login form div.sub-header {
       font-size: 20px;
@@ -1655,15 +1655,18 @@ md-sidenav {
   background-color: #f6f6f6; }
   #location-feed-content p {
     text-align: center;
-    font-size: 12px;
-    margin: 0;
     color: gray;
-  }
+    font-size: 12px; }
+  #location-feed-content .add-button {
+    margin: 7px;
+    line-height: 15px !important;
+    min-height: 35px !important;
+    min-width: 37px !important; }
   #location-feed-content .location-list .location-item {
     box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.14), 0px 2px 2px 0px rgba(0, 0, 0, 0.098), 0px 1px 5px 0px rgba(0, 0, 0, 0.084);
     margin-bottom: 14px; }
     #location-feed-content .location-list .location-item .location-img {
-      height: 110px;
+      height: 90px;
       background-size: cover;
       border-top-right-radius: 2px;
       border-top-left-radius: 2px; }
@@ -1672,15 +1675,26 @@ md-sidenav {
       background-color: white;
       border-bottom-right-radius: 2px;
       border-bottom-left-radius: 2px; }
+      #location-feed-content .location-list .location-item .location-content md-input-container {
+        padding-bottom: 20px;
+        border-bottom: 1px solid #d1d1d1; }
+      #location-feed-content .location-list .location-item .location-content md-input-container input {
+        text-align: center; }
+      #location-feed-content .location-list .location-item .location-content a {
+        margin-top: 10px;
+        text-align: center;
+        float: center; }
       #location-feed-content .location-list .location-item .location-content h1 {
         font-size: 16px;
         margin: 0;
-        color: gray; }
+        color: gray;
+        padding: 10px 10px 5px 0;
+        text-align: left; }
       #location-feed-content .location-list .location-item .location-content p {
         text-align: left;
-        padding: 3px 0 0 0;
         font-size: 12px;
         margin: 0;
+        padding: 0;
         color: gray; }
       #location-feed-content .location-list .location-item .location-content .text-add {
         float: right;
@@ -1690,8 +1704,7 @@ md-sidenav {
         font-weight: 500;
         font-size: 11px;
         width: 65px;
-        text-align: center;
-        margin-top: 15px; }
+        text-align: center; }
 
 #cube-feed-content {
   background-color: #f6f6f6; }

@@ -2,7 +2,7 @@
 <!--View name : Location Feed-->
 <!--State name : app.locationFeed-->
 <!--URL : #app/locationFeed-->
-<ion-view title="Saved Locations">
+<ion-view title="Saved Properties">
     <!--location feed section-->
     <ion-content id="location-feed-content">
         <!--
@@ -17,25 +17,26 @@
         -->
         <div class="location-list">
             <!--location item section-->
-            <div class="location-item">
-                <div class="location-img">
+            <ion-list ng-repeat="property in properties" >
+
+            <div class="location-item" ng-click="navigateTo('app.locationDetails', property)">
+                <div class="location-img" style="background-image:url('../../../../img/house.jpg')">
                 </div>
                 <div class="location-content row">
-                    <div class="col-90">
+                    <div class="col-80">
                         <h1>
-                            Location/Complex Name
+                            {{property.title}}
                         </h1>
-                        <br>
                         <p>
-                            <i class="fa fa-flag"></i> Street Address
+                            <i class="ion-location"></i>
+                            {{property.streetNo}} {{property.street}}
                             <br>
-                            <i class="fa fa-flag"></i> City, State, Zip code
+                            <i class="ion-android-map"></i> {{property.city}}, {{property.state}} {{property.zipcode}}
                         </p>
                     </div>
-                    <div class="col-10">
-                        <span class="text-add" ng-click="navigateTo('app.locationDetails')" > Details </span>
-                        <br>
-                        <span class="text-add"> Remove </span>
+                    <div class="col-20">
+                        <h2 id="rating" ng-class="{red:property.rating<4, green:property.rating>6, yellow:property.rating>3 && property.rating<7}">{{property.rating}}</h2>
+                        <span class="text-add" ng-click="remove(property.object); $event.stopPropagation();"> Remove </span>
                         <!-- Within the Details, Save, and Remove links have href
                         links to other pages that includes the details of the
                         complexes. The remove should remove the location from
@@ -45,105 +46,18 @@
                     </div>
                 </div>
             </div>
-            <!--end location item section-->
-            <!--location item section-->
-            <div class="location-item">
-                <div class="location-img">
-                </div>
-                <div class="location-content row">
-                    <div class="col-90">
-                        <h1>
-                            Location/Complex Name
-                        </h1>
-                        <br>
-                        <p>
-                            <i class="fa fa-flag"></i> Street Address
-                            <br>
-                            <i class="fa fa-flag"></i> City, State, Zip code
-                        </p>
-                    </div>
-                    <div class="col-10">
-                        <span class="text-add" ng-click="navigateTo('app.locationDetails')" > Details </span>
-                        <br>
-                        <span class="text-add"> Remove </span>
-                    </div>
-                </div>
-            </div>
-            <!--end location item section-->
-            <!--location item section-->
-            <div class="location-item">
-                <div class="location-img">
-                </div>
-                <div class="location-content row">
-                    <div class="col-90">
-                        <h1>
-                            Location/Complex Name
-                        </h1>
-                        <br>
-                        <p>
-                            <i class="fa fa-flag"></i> Street Address
-                            <br>
-                            <i class="fa fa-flag"></i> City, State, Zip code
-                        </p>
-                    </div>
-                    <div class="col-10">
-                        <span class="text-add" ng-click="navigateTo('app.locationDetails')" > Details </span>
-                        <br>
-                        <span class="text-add"> Remove </span>
-                    </div>
-                </div>
-            </div>
-            <!--end location item section-->
-            <!--location item section-->
-            <div class="location-item">
-                <div class="location-img">
-                </div>
-                <div class="location-content row">
-                    <div class="col-90">
-                        <h1>
-                            Location/Complex Name
-                        </h1>
-                        <br>
-                        <p>
-                            <i class="fa fa-flag"></i> Street Address
-                            <br>
-                            <i class="fa fa-flag"></i> City, State, Zip code
-                        </p>
-                    </div>
-                    <div class="col-10">
-                        <span class="text-add" ng-click="navigateTo('app.locationDetails')" > Details </span>
-                        <br>
-                        <span class="text-add"> Remove </span>
-                    </div>
-                </div>
-            </div>
-            <!--end location item section-->
-            <!--location item section-->
-            <div class="location-item">
-                <div class="location-img">
-                </div>
-                <div class="location-content row">
-                    <div class="col-90">
-                        <h1>
-                        Location/Complex Name
-                    </h1>
-                        <br>
-                        <p>
-                            <i class="fa fa-flag"></i> Street Address
-                            <br>
-                            <i class="fa fa-flag"></i> City, State, Zip code
-                        </p>
-                    </div>
-                    <div class="col-10">
-                        <span class="text-add" ng-click="navigateTo('app.locationDetails')" > Details </span>
-                        <br>
-                        <span class="text-add"> Remove </span>
-                    </div>
-                </div>
-            </div>
+            </ion-list>
+
             <!--end location item section-->
         </div>
         <!--end list section-->
     </ion-content>
     <!--end location feed section-->
+
+    <!--loading progress-->
+    <div id="prop-list-loading-progress" class="loading-progress fade-in">
+        <ion-spinner ng-if="!isAndroid" class="progress-circular"></ion-spinner>
+        <md-progress-circular ng-if="isAndroid" md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <!--end loading progress-->
 </ion-view>

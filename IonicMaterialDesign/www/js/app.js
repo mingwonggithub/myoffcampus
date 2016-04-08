@@ -1062,7 +1062,8 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
             url: "/savedlocations",
             views: {
                 'menuContent': {
-                    templateUrl: "templates/themes/location-feed/html/saved_location.html"
+                    templateUrl: "templates/themes/location-feed/html/saved_location.html",
+                    controller: "savedLocationCtrl"
                 }
             }
         })

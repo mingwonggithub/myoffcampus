@@ -632,13 +632,13 @@ md-sidenav {
       font-size: 20px;
       font-weight: 500;
       margin-bottom: 20px;
-      color: #000; }
+      color: white; }
     #social-login form div.footer {
       margin-top: 40px; }
       #social-login form div.footer a {
         color: gray; }
   #social-login a.link {
-    color: #fff;
+    color: white;
     text-decoration: none;
     font-weight: 500; }
   #social-login div#options {
@@ -646,7 +646,8 @@ md-sidenav {
     display: table;
     margin: 0 auto; }
   #social-login div#password, #social-login div#register {
-    display: table-cell; }
+    display: table-cell;
+    text-shadow: -1px 2px rgba(0, 0, 0, 0.2); }
   #social-login div#password {
     border-right: 1px solid white; }
 
@@ -680,7 +681,7 @@ md-sidenav {
           margin-bottom: -20px; }
     #social-welcome form div.sub-header {
       font-size: 14px;
-      font-weight: 500;
+      max-height: 250px;
       margin-bottom: 4px; }
     #social-welcome form div div.footer {
       margin-top: 40px; }
@@ -1867,7 +1868,8 @@ md-sidenav {
     margin-top: 24px; }
 
 .signup-background {
-  background: url(../img/login-pic.jpg) fixed no-repeat right top; }
+  background: url(../img/login-pic.jpg) top right;
+  background-size: cover; }
 
 .error-container {
   margin: 5px 0; }
@@ -1905,6 +1907,7 @@ md-sidenav {
 
 .bar-subheader img {
   width: 100%;
+  max-height: 250px;
   margin: 0;
   padding: 0;
   margin-bottom: 5px; }

@@ -36,7 +36,7 @@
                     </div>
                     <div class="col-20">
                         <h2 id="rating" ng-class="{red:property.rating<4, green:property.rating>6, yellow:property.rating>3 && property.rating<7}">{{property.rating}}</h2>
-                        <span class="text-add"> Save </span>
+                        <span class="text-add" ng-click="save(property.object); $event.stopPropagation();"> Save </span>
                         <!-- Within the Details, Save, and Remove links have href
                         links to other pages that includes the details of the
                         complexes. The remove should remove the location from

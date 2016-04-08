@@ -1,4 +1,4 @@
-appControllers.controller('locationFeedCtrl', function ($scope, $state, $stateParams, $ionicHistory, $ionicViewSwitcher) {
+appControllers.controller('locationFeedCtrl', function ($scope, $state, $stateParams, $mdToast, $ionicHistory, $ionicViewSwitcher) {
   
   $scope.properties = [];
 
@@ -24,6 +24,7 @@ appControllers.controller('locationFeedCtrl', function ($scope, $state, $statePa
         //$scope.properties = results;
         for (i in results) {
              aProp = results[i];
+             property.object = aProp;
              property.title = aProp.get("kind")
              // console.log("propListCtrl:" , i, " ", property.title);
              if (aProp.get("communityName") != undefined) {
@@ -57,7 +58,37 @@ appControllers.controller('locationFeedCtrl', function ($scope, $state, $statePa
             propDetail: objectData
         });
     };
-})// End of Notes List Page  Controller.
+
+    $scope.save = function(property) {
+      var user = Parse.User.current();
+      var relation = user.relation("savedProps");
+
+     console.log("saving property: " + property);
+      // Add the post as a value in the comment
+      relation.add(property);
+
+      // This will save both myPost and myComment
+      user.save(null, {
+        success: function(prop) {
+          $mdToast.show({
+                    controller: 'toastController',
+                    templateUrl: 'toast.html',
+                    hideDelay: 400,
+                    position: 'top',
+                    locals: {
+                        displayOption: {
+                            title:  "Property saved"
+                        }
+                    }
+                });
+        },
+        error: function(error) {
+          console.log("error: " + error.message);
+        }
+      });
+
+    }
+})// End of Location Feed Controller.
 
 // Controller of Note Setting Page.
 appControllers.controller('noteSettingCtrl', function ($scope, NoteDB,$state, $ionicViewSwitcher,$stateParams, $ionicHistory, $mdBottomSheet, $mdDialog, $mdToast) {
@@ -173,6 +204,106 @@ appControllers.controller('locationDetailCtrl', function ($scope, $stateParams, 
         return (angular.copy(propDetail) );
     };// End getNoteData.
 
-
-
 });// End of Notes Detail Page  Controller.
+
+appControllers.controller('savedLocationCtrl', function ($scope, $state, $stateParams, $mdToast, $ionicHistory, $ionicViewSwitcher) {
+  
+  $scope.properties = [];
+  var user = Parse.User.current();
+  var query = new Parse.Query(Parse.User);
+  query.equalTo("username", user.get("username"));
+  query.include("savedProps");
+  query.select("savedProps");
+  //query.equalTo("playerName", "Dan Stemkoski");
+     if ($scope.isAndroid) {
+        jQuery('#prop-list-loading-progress').show();
+    }
+    else {
+        jQuery('#prop-list-loading-progress').fadeIn(700);
+    }
+  var property = {};
+  //SLOW BECAUSE 2 QUERIES ARE NEEDED. REWRITE
+  query.find({
+    success: function(results) {
+      var relation = results[0].relation("savedProps"); 
+      relation.query().find({
+        success: function(locations) {
+          $scope.$apply(function() {
+            console.log("Successfully retrieved " + results.length + " properties.");
+            /*for (var i = 0; i < results.length; i++) {
+              $scope.properties.push(results[i]);
+              console.log($scope.properties);
+            }*/
+            //$scope.properties = results;
+            for (i in locations) {
+                 aProp = locations[i];
+                 property.object = aProp;
+                 property.title = aProp.get("kind")
+                 // console.log("propListCtrl:" , i, " ", property.title);
+                 if (aProp.get("communityName") != undefined) {
+                     property.title = aProp.get("communityName");
+                 }
+
+                 property.rating = aProp.get('hrating');
+                 property.streetNo = aProp.get('streetNo');
+                 property.street = aProp.get('street');
+                 property.city = aProp.get('city');
+                 property.state = aProp.get('state');
+                 property.zipcode = aProp.get('zipcode');
+                 property.address = aProp.get('address');
+                 $scope.properties.push(property);
+                 property = {};
+
+             }
+
+            jQuery('#prop-list-loading-progress').hide();
+            jQuery('#prop-list-content').fadeIn();
+            $scope.isLoading = false;
+          });//end $scope.apply
+        },
+        error: function(error) {
+          console.log("Error2: " + error.code + " " + error.message);
+        }
+      });//end 2nd query
+    },
+    error: function(error) {
+      console.log("Error1: " + error.code + " " + error.message);
+    }
+  });
+
+  $scope.navigateTo = function (targetPage, objectData) {
+        $state.go(targetPage, {
+            propDetail: objectData
+        });
+    };
+
+    $scope.save = function(property) {
+      var user = Parse.User.current();
+      var relation = user.relation("savedProps");
+
+     console.log("saving property: " + property);
+      // Add the post as a value in the comment
+      relation.add(property);
+
+      // This will save both myPost and myComment
+      user.save(null, {
+        success: function(prop) {
+          $mdToast.show({
+                    controller: 'toastController',
+                    templateUrl: 'toast.html',
+                    hideDelay: 400,
+                    position: 'top',
+                    locals: {
+                        displayOption: {
+                            title:  "Property saved"
+                        }
+                    }
+                });
+        },
+        error: function(error) {
+          console.log("error: " + error.message);
+        }
+      });
+
+    }
+})

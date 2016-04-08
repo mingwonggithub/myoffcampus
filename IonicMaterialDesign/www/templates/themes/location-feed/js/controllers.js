@@ -277,13 +277,13 @@ appControllers.controller('savedLocationCtrl', function ($scope, $state, $stateP
         });
     };
 
-    $scope.save = function(property) {
+    $scope.remove = function(property) {
       var user = Parse.User.current();
       var relation = user.relation("savedProps");
 
-     console.log("saving property: " + property);
+     console.log("removing property: " + property);
       // Add the post as a value in the comment
-      relation.add(property);
+      relation.remove(property);
 
       // This will save both myPost and myComment
       user.save(null, {
@@ -295,15 +295,17 @@ appControllers.controller('savedLocationCtrl', function ($scope, $state, $stateP
                     position: 'top',
                     locals: {
                         displayOption: {
-                            title:  "Property saved"
+                            title:  "Property removed"
                         }
                     }
                 });
+          $state.go($state.current, {}, {reload: true});
         },
         error: function(error) {
           console.log("error: " + error.message);
         }
       });
-
     }
+
+
 })

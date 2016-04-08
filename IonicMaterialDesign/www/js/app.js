@@ -1022,6 +1022,7 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
         })
         .state('app.locationFeed', {
             url: "/locationFeed",
+            cache: false,
             views: {
                 'menuContent': {
                     templateUrl: "templates/themes/location-feed/html/location-feed.html",

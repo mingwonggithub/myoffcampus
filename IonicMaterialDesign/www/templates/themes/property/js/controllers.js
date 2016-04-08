@@ -74,9 +74,23 @@
 
          property.save($scope.prop, {
              success: function(property) {
-                 // The object was saved successfully.
-                 console.log("addPropertyCtrl: in Parse ", property);
-                 $state.go('app.proplist');
+                var newProp = {};
+
+                newProp.title = property.get("kind")
+             // console.log("propListCtrl:" , i, " ", property.title);
+             if (aProp.get("communityName") != undefined) {
+                 newProp.title = property.get("communityName");
+             }
+                newProp.rating = property.get('hrating');
+                newProp.streetNo = property.get('streetNo');
+                newProp.street = property.get('street');
+                newProp.city = property.get('city');
+                newProp.state = property.get('state');
+                newProp.zipcode = property.get('zipcode');
+                newProp.address = property.get('address');
+                // The object was saved successfully.
+                console.log("addPropertyCtrl: in Parse ", property);
+                $scope.navigateTo('app.locationDetails', newProp);
              },
              error: function(gameScore, error) {
                  // The save failed.
@@ -106,6 +120,12 @@
 
      //initiailze the form 
      $scope.initialForm();
+
+     $scope.navigateTo = function (targetPage, objectData) {
+        $state.go(targetPage, {
+            propDetail: objectData
+        });
+    };
 
  });
 

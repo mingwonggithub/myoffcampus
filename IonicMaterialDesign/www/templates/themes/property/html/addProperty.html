@@ -13,96 +13,60 @@
     </a>
 </ion-nav-buttons>
 <!--end left button on navigation bar-->
+
 <!--property detail section-->
-<form novalidate name="propForm" id="propForm" ng-submit="createProperty(prop, propForm.$valid)">
-    <ion-content>
-        <!--toolbar section-->
-        <md-toolbar class="bar-subheader md-tall md-primary toolbar-medium toolbar-in-content">
-            <div>
-                <h1>
-                    <i class="ion-android-home"> </i>
-                    </h1>
-                <h3>Housing Info</h3>
+<ion-content id="social-sign-up-content">
+    <br/>
+    <form name="propForm" novalidate="" ng-submit="createProperty(prop, propForm.$valid)">
+
+            <!--community name-->
+            <label class="item item-input" ng-class="{ 'has-errors' : propForm.cName.$invalid && propForm.$submitted, 'no-errors' : propForm.cName.$valid  && propForm.$submitted}">
+                <input type="text" placeholder="Community Name" name="cName" ng-model="prop.communityName" required>
+            </label>
+
+            <div class="error-container last-error-container" ng-show="propForm.cName.$error && propForm.$submitted" ng-messages="propForm.cName.$error">
+                <div ng-messages-include="error-list.html"></div> 
+            </div> 
+
+            <!--housing type-->
+            
+            <label class="item item-input item-select" ng-class="{ 'has-errors' : propForm.kind.$invalid && propForm.$submitted, 'no-errors' : propForm.kind.$valid  && propForm.$submitted}">
+                <div class="input-label">
+                    Housing Type 
+                </div>
+                <select name="kind" ng-model="categories.kind" ng-options="item.kind as item.kind for item in categories" required>
+                </select>
+            </label>
+           
+           <div class="error-container last-error-container" ng-show="propForm.kind.$error && propForm.$submitted" ng-messages="propForm.kind.$error">
+                <div ng-messages-include="error-list.html"></div> 
+            </div> 
+
+            <!-- address-->
+             <div class="input" style="border: none; padding: 0; padding-top: 10px;">
+                    Please give an exact address:
+                </div>
+            <label class="item item-input" ng-class="{ 'has-errors' : propForm.address.$invalid && propForm.$submitted, 'no-errors' : propForm.address.$valid  && propForm.$submitted}">
+               
+                <input type="text" g-places-autocomplete ng-blur="updateMap()" ng-enter="updateMap()" name="address" ng-model="addr.addressL" placeholder="Property Address" required>
+            </label>
+            
+            <div class="error-container last-error-container" ng-show="propForm.address.$error && propForm.$submitted" ng-messages="propForm.address.$error">
+                <div ng-messages-include="error-list.html"></div> 
             </div>
 
-        </md-toolbar>
-        <!--end toolbar section-->
-
-        <div id="add-property-content">
-            <md-input-container md-no-float>
-               <!--  <label>Community Name</label> -->
-               <b> Community Name </b>
-                <input md-maxlength="30" required md-no-asterisk name="cName" ng-model="prop.communityName" aria-label="cName">
-                <div ng-messages="propForm.cName.$error" ng-if="propForm.cName.$touched || propForm.$submitted">
-                    <div ng-message="required">This is required.</div>
-                    <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
-                </div>
-            </md-input-container>
-
-            <md-input-container md-no-float>
-                <div>
-                    <b> Housing Type </b> 
-                </div>
-                <select class="ion-input-select" name="kind" ng-required="true" ng-model="categories.kind" ng-options="item.kind as item.kind for item in categories" required>
-                </select>
-                <div ng-messages="propForm.kind.$error" ng-if="propForm.kind.$touched || propForm.$submitted">
-                    <div ng-message="required">This is required.</div>
-                </div>
-            </md-input-container>
-
-            <md-input-container md-no-float>
-                <div>
-                    <b> Rate housing from a scale 1 to 10.</b>
-                </div>
-                <div class="item range range-positive">
-                    <i class="icon ion-android-sad"> &nbsp; &nbsp; </i>
-                    <md-slider flex type="number" min="0" max="10" ng-model="prop.hrating" aria-label="hrating">
-                    </md-slider>
-                    &nbsp; &nbsp; <i class="icon ion-android-happy"> </i> &nbsp; {{prop.hrating}}
-                </div>
-            </md-input-container>
-
-            <md-input-container md-no-float>
-                <div>
-                    <b>Pleae give an exact address.</b>
-                </div>
-                <input g-places-autocomplete ng-blur="updateMap()" ng-enter="updateMap()" name="address" ng-model="addr.addressL" placeholder="Enter an location" required>
-                <div ng-messages="propForm.address.$error" ng-if="propForm.address.$touched || propForm.$submitted">
-                    <div ng-message="required">This is required.</div>
-                </div>
-            </md-input-container>
-        </div>
-
-        <div class="padding">
-            <md-button type="button" class="md-raised icon-left ion-close" ng-click="reset(propForm)">Clear</md-button>
-            <md-button type="submit" class="md-raised icon-left ion-checkmark">Submit</md-button>
-        </div>
+            <button class="md-raised social-button md-button md-default-theme material-background" type="submit">Submit</md-button>
+    </form>
 
         <!--end content section-->
     </ion-content>
-</form>
 <!--end property detail section-->
-<!--angular template section-->
-<script type="text/ng-template" id="contract-actions-template">
-    <md-bottom-sheet class="md-list md-has-header">
-        <h1 class="md-bottom-sheet-header">property Actions</h1>
-        <!--list section-->
-        <md-list>
-            <md-list-item>
-                <a class="md-default-theme md-bottom-sheet-list-item" ng-class="{ 'disabled-link': disableSaveBtn}" ng-click="saveproperty(property,$event)">
-                    <i class="ion-android-list"></i>
-                    <span>Save property</span>
-                </a>
-            </md-list-item>
-            <md-list-item ng-show="actionDelete">
-                <a class="md-default-theme md-bottom-sheet-list-item" ng-click="deleteproperty(property,$event)">
-                    <i class="ion-android-delete"></i>
-                    <span>Remove property</span>
-                </a>
-            </md-list-item>
-        </md-list>
-        <!--end list section-->
-    </md-bottom-sheet>
+<script id="error-list.html" type="text/ng-template">  
+    <div class="error" ng-message="required">
+      This is required
+    </div>
 </script>
+
 <!--end angular template section-->
 </ion-view>
+

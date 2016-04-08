@@ -1047,9 +1047,9 @@ md-sidenav {
   }
   //welcome form section
   form {
-    margin-top: 33%;
+    margin-top: 35%;
     &.welcome-form {
-      margin-top: 22%;
+      margin-top: 24%;
     }
     div i {
       font-size: 90px;
@@ -1158,6 +1158,7 @@ md-sidenav {
 #social-sign-up-content {
   width: 77%;
   margin: 0 auto;
+  
   .app-icon {
     margin: 20px;
     text-align: center;
@@ -1179,13 +1180,13 @@ md-sidenav {
   }
   //input section
   label {
-    margin-bottom: 5px;
-    margin-top: 5ps;
+    margin-bottom: 10px;
     border-top: none;
     border-left: none;
     border-right: none;
     border-bottom-style: solid;
       input {
+        margin-bottom: -5px;
         border-bottom-style: none;
         height: 30px;
       }
@@ -2956,30 +2957,31 @@ md-sidenav {
 }
  
 .error {
+  margin-top: -7px;
   padding-top: 0px;
   font-size: 11px;
   text-transform: uppercase;
-  color: $color_red;  
+  color: $color_carnation_approx;  
   vertical-align: middle;
 }
  
 .error i {
   font-size: 24px;
-  color: $color_red;  
+  color: $color_carnation_approx;  
   vertical-align: middle;
 }
  
 .has-errors {
-  border-bottom: 2px solid $color_red;
+  border-bottom: 2px solid $color_carnation_approx;
 }
 
 .has-errors-log {
-  border-left: 2px solid $color_red;
-  border-right: 2px solid $color_red;
+  border-left: 2px solid $color_carnation_approx;
+  border-right: 2px solid $color_carnation_approx;
 }
  
 .no-errors {
-  border-bottom: 2px solid green;
+  border-bottom: 2px solid $color_green;
 }
 
 .bar-subheader {
@@ -2992,6 +2994,7 @@ md-sidenav {
   width: 100%;
   margin: 0;
   padding: 0;
+  margin-bottom: 5px;
 }
 
 .red {
@@ -3005,3 +3008,73 @@ md-sidenav {
 .yellow {
   color: $color_yellow;
 }
+
+
+/*Styling the prop-list contne and add propery page */
+#prop-list-content {
+  background-color: #f6f6f6; }
+  #prop-list-content md-card.card-item {
+    height: 135px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    text-transform: uppercase; }
+    #prop-list-content md-card.card-item md-card-content .card-content .note-content-detail {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 500;
+      color: gray; }
+  #prop-list-content md-list {
+    margin-top: 5px; }
+    #prop-list-content md-list md-list-item md-input-container.search-box {
+      width: 100%;
+      margin-bottom: -20px; }
+      #prop-list-content md-list md-list-item md-input-container.search-box i {
+        position: absolute;
+        font-size: 22px;
+        color: gray; }
+      #prop-list-content md-list md-list-item md-input-container.search-box input {
+        margin-left: 20px; }
+    #prop-list-content md-list md-list-item md-card {
+      height: 136px;
+      width: 100%; }
+      #prop-list-content md-list md-list-item md-card button {
+        margin: 0; }
+        #prop-list-content md-list md-list-item md-card button md-card-content {
+          text-align: left;
+          color: gray;
+          padding: 10px; }
+          #prop-list-content md-list md-list-item md-card button md-card-content .card-content {
+            margin-top: -24px;
+            margin-left: 10px; }
+            #prop-list-content md-list md-list-item md-card button md-card-content .card-content h1 {
+              margin-bottom: 5px; }
+              #prop-list-content md-list md-list-item md-card button md-card-content .card-content h1 span {
+                max-width: 260px;
+                overflow: hidden;
+                display: inline-block;
+                text-overflow: ellipsis; }
+                #prop-list-content md-list md-list-item md-card button md-card-content .card-content h1 span i {
+                  margin-right: 2px; }
+            #prop-list-content md-list md-list-item md-card button md-card-content .card-content div {
+              white-space: normal;
+              line-height: 18px;
+              font-size: 11px;
+              height: 64px; }
+
+              #prop-detail-content {
+  margin: 0px 12px 0 12px; }
+  #prop-detail-content p {
+    margin-left: 4px;
+    margin-top: 0;
+    margin-bottom: -20px; }
+  #prop-detail-content md-input-container {
+    width: 100%;
+    margin-top: 20px; }
+  #prop-detail-content textarea {
+    width: 100%;
+    line-height: inherit;
+    margin-top: -14px;
+    margin-left: 2px; }
+  #prop-detail-content span {
+    margin-left: 3px;
+    margin-top: -10px; }

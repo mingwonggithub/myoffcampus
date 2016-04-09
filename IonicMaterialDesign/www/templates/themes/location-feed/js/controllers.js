@@ -1,16 +1,24 @@
-appControllers.controller('locationFeedCtrl', function ($scope, $state, $stateParams, $mdToast, $ionicHistory, $ionicViewSwitcher) {
+appControllers.controller('locationFeedCtrl', function ($scope, $state, $stateParams, $mdToast, $ionicHistory, $ionicViewSwitcher, $timeout) {
   
   $scope.properties = [];
 
   var myProperty = Parse.Object.extend("myProperty");
   var query = new Parse.Query(myProperty);
   //query.equalTo("playerName", "Dan Stemkoski");
-     if ($scope.isAndroid) {
-        jQuery('#prop-list-loading-progress').show();
+
+     
+  $timeout(function(){
+    if ($scope.isAndroid) {
+        jQuery('#location-list-loading-progress').show();
     }
     else {
-        jQuery('#prop-list-loading-progress').fadeIn(700);
+        jQuery('#location-list-loading-progress').fadeIn(700);
     }
+  }, 400);
+
+ // get a load progress spinner if query takes a long time
+  $timeout(function() {
+
   var property = {};
   query.find({
     success: function(results) {
@@ -19,9 +27,9 @@ appControllers.controller('locationFeedCtrl', function ($scope, $state, $statePa
         /*for (var i = 0; i < results.length; i++) {
           $scope.properties.push(results[i]);
           console.log($scope.properties);
-
         }*/
         //$scope.properties = results;
+
         for (i in results) {
              aProp = results[i];
              property.object = aProp;
@@ -38,20 +46,25 @@ appControllers.controller('locationFeedCtrl', function ($scope, $state, $statePa
              property.state = aProp.get('state');
              property.zipcode = aProp.get('zipcode');
              property.address = aProp.get('address');
+             property.lat = aProp.get('lat');
+             property.long = aProp.get('long');
              $scope.properties.push(property);
              property = {};
 
          }
 
-        jQuery('#prop-list-loading-progress').hide();
-        jQuery('#prop-list-content').fadeIn();
         $scope.isLoading = false;
+        
       });
     },
     error: function(error) {
       alert("Error: " + error.code + " " + error.message);
     }
   });
+
+  jQuery('#location-list-loading-progress').hide();
+  jQuery('#location-list-content').fadeIn();
+  }, 3000);
 
   $scope.navigateTo = function (targetPage, objectData) {
         $state.go(targetPage, {
@@ -185,10 +198,47 @@ appControllers.controller('noteSettingCtrl', function ($scope, NoteDB,$state, $i
     $scope.initialForm();
 })// End of Notes Setting Page  Controller.
 
-// Controller of Note Detail Page.
-appControllers.controller('locationDetailCtrl', function ($scope, $stateParams, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
+// Controller of Location Detail Page.
+appControllers.controller('locationDetailCtrl', function ($scope, $ionicPlatform, $stateParams, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
 
     $scope.property = $stateParams.propDetail;
+    console.log("locationDetailCtrl: " , $scope.property);
+
+    $ionicPlatform.ready(function(){
+      initialize($scope.property.lat, $scope.property.long); 
+    });
+
+   //initalize the map with the property latitude and longitude 
+   function initialize(lat, long) {
+
+    var latLng = new google.maps.LatLng(lat, long);
+        var mapOptions = {
+            center: latLng,
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        $scope.lat = (lat).toFixed(5);
+        $scope.long = (long).toFixed(5);
+        console.log("locationDetailCtrl: initialize map " + $scope.lat, $scope.long);
+
+        //Wait until the map is loaded to add the marker 
+        google.maps.event.addListenerOnce($scope.map, 'idle', function() {
+            var marker = new google.maps.Marker({
+                map: $scope.map,
+                animation: google.maps.Animation.DROP,
+                position: latLng
+            });
+            var infoWindow = new google.maps.InfoWindow({
+                content: $scope.property.address
+            });
+            google.maps.event.addListener(marker, 'click', function() {
+                infoWindow.open($scope.map, marker);
+            });
+        });
+   
+      }; 
+
 
     //getNoteData is for get note detail data.
     $scope.getNoteData = function (propDetail) {
@@ -203,6 +253,8 @@ appControllers.controller('locationDetailCtrl', function ($scope, $stateParams, 
         // else it will show tempNoteData for user to add new data.
         return (angular.copy(propDetail) );
     };// End getNoteData.
+
+
 
 });// End of Notes Detail Page  Controller.
 
@@ -251,6 +303,8 @@ appControllers.controller('savedLocationCtrl', function ($scope, $state, $stateP
                  property.state = aProp.get('state');
                  property.zipcode = aProp.get('zipcode');
                  property.address = aProp.get('address');
+                 property.lat = aProp.get('lat');
+                 property.long = aProp.get('long');
                  $scope.properties.push(property);
                  property = {};
 

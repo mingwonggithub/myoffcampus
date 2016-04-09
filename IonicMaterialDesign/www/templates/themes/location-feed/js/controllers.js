@@ -6,6 +6,13 @@ appControllers.controller('locationFeedCtrl', function ($scope, $state, $statePa
   var query = new Parse.Query(myProperty);
   //query.equalTo("playerName", "Dan Stemkoski");
 
+  // spinning progress 
+  if ($scope.isAndroid) { 
+    jQuery('#location-list-loading-progress').show();
+  }
+  else {
+  jQuery('#location-list-loading-progress').fadeIn(700);
+  }
   var property = {};
   query.find({
     success: function(results) {
@@ -41,6 +48,9 @@ appControllers.controller('locationFeedCtrl', function ($scope, $state, $statePa
          }
 
         $scope.isLoading = false;
+
+        jQuery('#location-list-loading-progress').hide();
+        jQuery('#location-list-content').fadeIn();
       });
     },
     error: function(error) {
@@ -190,7 +200,7 @@ appControllers.controller('locationDetailCtrl', function ($scope, $ionicPlatform
       initialize($scope.property.lat, $scope.property.long); 
     });
 
-   //initalize the map with the property latitude and longitude 
+   //initalize the map with the property's latitude and longitude 
    function initialize(lat, long) {
 
     var latLng = new google.maps.LatLng(lat, long);

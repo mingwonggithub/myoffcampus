@@ -31,7 +31,7 @@
                             <i class="ion-location"></i>
                             {{property.streetNo}} {{property.street}}
                             <br>
-                            <i class="ion-android-map"></i> {{property.city}}, {{property.state}} {{property.zipcode}}
+                            <i class="ion-android-map"></i> {{property.city}}, {{property.state}} {{property.zipcode}} 
                         </p>
                     </div>
                     <div class="col-20">
@@ -60,7 +60,7 @@
     <!--end location feed section-->
 
     <!--loading progress-->
-    <div id="prop-list-loading-progress" class="loading-progress fade-in">
+    <div id="location-list-loading-progress" class="loading-progress fade-in">
         <ion-spinner ng-if="!isAndroid" class="progress-circular"></ion-spinner>
         <md-progress-circular ng-if="isAndroid" md-mode="indeterminate"></md-progress-circular>
     </div>

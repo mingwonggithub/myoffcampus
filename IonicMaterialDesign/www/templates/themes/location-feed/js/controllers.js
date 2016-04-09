@@ -6,7 +6,6 @@ appControllers.controller('locationFeedCtrl', function ($scope, $state, $statePa
   var query = new Parse.Query(myProperty);
   //query.equalTo("playerName", "Dan Stemkoski");
 
-          
   var property = {};
   query.find({
     success: function(results) {

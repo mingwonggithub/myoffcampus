@@ -6,19 +6,7 @@ appControllers.controller('locationFeedCtrl', function ($scope, $state, $statePa
   var query = new Parse.Query(myProperty);
   //query.equalTo("playerName", "Dan Stemkoski");
 
-     
-  $timeout(function(){
-    if ($scope.isAndroid) {
-        jQuery('#location-list-loading-progress').show();
-    }
-    else {
-        jQuery('#location-list-loading-progress').fadeIn(700);
-    }
-  }, 400);
-
- // get a load progress spinner if query takes a long time
-  $timeout(function() {
-
+          
   var property = {};
   query.find({
     success: function(results) {
@@ -27,9 +15,9 @@ appControllers.controller('locationFeedCtrl', function ($scope, $state, $statePa
         /*for (var i = 0; i < results.length; i++) {
           $scope.properties.push(results[i]);
           console.log($scope.properties);
+
         }*/
         //$scope.properties = results;
-
         for (i in results) {
              aProp = results[i];
              property.object = aProp;
@@ -54,17 +42,12 @@ appControllers.controller('locationFeedCtrl', function ($scope, $state, $statePa
          }
 
         $scope.isLoading = false;
-        
       });
     },
     error: function(error) {
       alert("Error: " + error.code + " " + error.message);
     }
   });
-
-  jQuery('#location-list-loading-progress').hide();
-  jQuery('#location-list-content').fadeIn();
-  }, 3000);
 
   $scope.navigateTo = function (targetPage, objectData) {
         $state.go(targetPage, {

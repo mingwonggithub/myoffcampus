@@ -2,9 +2,32 @@
 <!--View name : Location Feed-->
 <!--State name : app.locationFeed-->
 <!--URL : #app/locationFeed-->
-<ion-view title="Search Results">
+<ion-view title="Properties Search">
+
+<!--add the sort button --> 
+ <ion-nav-buttons side="right">
+ 
+        <md-menu class="sortingMenu">
+          <md-button id="sortingMenuButton" aria-label="sorting menu" class="md-icon-button ion-nav-button-right" ng-click="$mdOpenMenu($event)">
+            <i class="ion-android-more-vertical"></i>
+          </md-button>
+          <md-menu-content width="2">
+            <md-menu-item> <md-button ng-disabled="true"> Sort by: </md-button> </md-menu-item>
+            <md-menu-item ng-repeat="item in ['Ratings', 'Title']">
+              <md-button ng-click="sortBy($index)"> <span md-menu-align-target class="sortorder" ng-class="{reverse:reverse}"></span> {{item}} </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+
+    </ion-nav-buttons> <!--end right button on navigation bar-->
+
+
     <!--location feed section-->
     <ion-content id="location-feed-content">
+
+    <!--debug usage -->
+    <!--<pre>Sorting predicate = {{predicate}}; reverse = {{reverse}}</pre> --> 
+
         <!--
         list section
         Here you need to load in the different locations and their 
@@ -15,9 +38,17 @@
         An updated list of all the new locations and reccomended locations.
         Could be new listings or sponsored listings. Or mixed in with both.
         -->
+        <md-input-container md-no-float="" class="search-box">
+            <a class="minibutton" ng-click ="searchlocFeed()"><i class="ion-android-search"></i></a>
+            <input ng-model="userInput.propText" placeholder="Search by address or community">
+         </md-input-container>
+
         <div class="location-list">
+  
+            
+
             <!--location item section-->
-            <ion-list ng-repeat="property in properties" >
+            <ion-list ng-repeat="property in properties | orderBy:predicate: reverse " >
 
             <div class="location-item" ng-click="navigateTo('app.locationDetails', property)">
                 <div class="location-img" style="background-image:url('../../../../img/house.jpg')">
@@ -54,7 +85,7 @@
         <br />
         <p>
             Can't find the property you're looking for? Add a new one:<br />
-            <button class="button button-outline button-positive add-button" ng-click="navigateTo('app.addproperty')">+</button>
+            <button class="button button-outline button-positive add-button" ng-click="navigateTo('app.addlocation')">+</button>
         </p>
     </ion-content>
     <!--end location feed section-->

@@ -52,15 +52,105 @@ appControllers.controller('dashboardSettingCtrl', function ($scope, $state,$ioni
     }; // End of navigateTo.
 }) // End of Dashboard Setting controller.
 
-appControllers.controller('welcomeCtrl', function($scope, $state, $ionicHistory, $ionicViewSwitcher) {
+appControllers.controller('welcomeCtrl', function($scope, $state, $ionicHistory, $ionicViewSwitcher, $stateParams) {
+      var self = this;
+      self.location = '';
+      // this.location = '';
+
     var currentUser = JSON.parse(localStorage.getItem("mocUser"));
 
-    //if(!currentUser) {
+    if(!currentUser) {
         currentUser = Parse.User.current();
-    //}
+        $scope.name = currentUser.get("firstName");
 
-    $scope.name = currentUser.get("firstName");
+    }
+
     console.log("welcomeCtrl: " + JSON.stringify(currentUser));
+
+    $scope.searchProperty = function(){
+
+        var formattedloc = (self.location.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")).trim(); 
+
+        if( formattedloc.length == 0) {
+            var query = null; 
+
+        }else{
+             console.log("I am in serachPropy", self.location);
+            var keywords = formattedloc.toLowerCase().split(" "); 
+            console.log("welcomeCtrl: keywords are ", keywords);
+            var Property = Parse.Object.extend("myProperty");
+            var query = new Parse.Query(Property);
+            query.containsAll("searchArray", keywords);
+        }
+
+
+       
+
+        $scope.navigateTo('app.locationFeed', query);
+
+        // console.log(communityName);
+
+        // query.find({
+        //     success: function(results){
+        //         console.log("results are " , results);
+        //     },
+        //     error: function(error){
+
+        //     }
+        // });
+
+        //make mutliple queries 
+        // var type = new Parse.Query(Property);
+        // var address = new Parse.Query(Property);
+        // address.containedIn("address", keywords); 
+        // console.log("address", address);
+        // var mainQuery = Parse.Query.or(communityName, address);
+        // mainQuery.find({
+        //     success: function(results){
+        //     console.log(results);
+
+        // }, error: function(error){
+
+        // }
+    // }); 
+
+
+
+
+
+// var mainQuery = Parse.Query.or(lotsOfWins, fewWins); mainQuery.find({ success: function(results) {
+
+//  // results contains a list of players that either have won a lot of games or won only a few games.
+// }, error: function(error) {
+
+// // There was an error.
+// } });
+
+//         // query.equalTo("playerEmail", "dstemkoski@example.com");
+// query.first({
+//   success: function(object) {
+//     // Successfully retrieved the object.
+//   },
+//   error: function(error) {
+//     alert("Error: " + error.code + " " + error.message);
+//   }
+// });
+
+//         // Finds scores from any of Jonathan, Dario, or Shawn
+//         query.containedIn("playerName",
+//                   ["Jonathan Walsh", "Dario Wunsch", "Shawn Simon"]);
+  }
+
+
+    $scope.navigateTo = function (targetPage, objectData) {
+        console.log(targetPage); 
+        console.log("objectdata is " , objectData);
+        $state.go(targetPage, {
+            searchResults: objectData
+        });
+    };
+
+
     
 });
 

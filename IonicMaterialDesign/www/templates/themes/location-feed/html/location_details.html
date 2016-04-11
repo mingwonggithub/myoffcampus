@@ -9,32 +9,41 @@
         </a>
     </ion-nav-buttons>
 
-    <ion-content id="location-feed-content">
-
-      
-       <div id="map" data-tap-disabled="false">
-        </div>
+    <ion-content id="location-feed-content">  
+       
         <div class="location-list">
             <div class="location-item">
-            <div class="location-content">
-                <h1>{{property.streetNo}} {{property.street}}</h1>
-                <h1>{{property.city}}, {{property.state}} {{property.zipcode}}</h1>
-                 <p> {{property.price}}
-                    <br/> {{property.land_lord}}
-                </p>
-                <p>
-                    <ul>
-                        <li>{{property.reviews}}</li>
-                    </ul>
-                </p>
+            <div class="location-content row">
+                <div class="col-80">
+                    <h1 style="padding-bottom: -5px;">{{property.streetNo}} {{property.street}}</h1>
+                    <p style="padding-bottom:  5px;">{{property.city}}, {{property.state}} {{property.zipcode}}</p>
+                     <!--<p> {{property.price}}</p>
+                     <p>{{property.land_lord}}</p>-->
+                </div>
+                <div class="col-20" style="padding: 8px; text-align: right">
+                    <h2 style="display: inline;" id="rating" ng-class="{red:property.rating<4, green:property.rating>6, yellow:property.rating>3 && property.rating<7}">{{property.rating}}</h2><p style="display: inline;"> / 10</p>
+                </div>
             </div>
             </div>
-
-
 
         </div>
-        <!--end list section-->
 
+        </div>
+        <div id="map" data-tap-disabled="false">
+        </div>
+         <div class="location-list">
+            <div class="location-item">
+            <div class="location-content">
+                <h1>Photos</h1>
+            </div>
+            </div>
+            <div class="location-item">
+            <div class="location-content row">
+                <h1>Reviews</h1>
+            </div>
+            </div>
+        </div>
+        <!--end list section-->
 
     </ion-content>
     <!--end location feed section-->

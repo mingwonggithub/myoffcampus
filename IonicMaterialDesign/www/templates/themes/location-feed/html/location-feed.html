@@ -43,15 +43,13 @@
             <input ng-model="userInput.propText" placeholder="Search by address or community">
          </md-input-container>
 
-        <div class="location-list">
-  
-            
+        <div class="location-list">            
 
             <!--location item section-->
             <ion-list ng-repeat="property in properties | orderBy:predicate: reverse " >
 
             <div class="location-item" ng-click="navigateTo('app.locationDetails', property)">
-                <div class="location-img" style="background-image:url('../../../../img/house.jpg')">
+                <div class="location-img" style="background-image: url('../../../../img/house.jpg')">
                 </div>
                 <div class="location-content row">
                     <div class="col-80">
@@ -68,12 +66,6 @@
                     <div class="col-20">
                         <h2 id="rating" ng-class="{red:property.rating<4, green:property.rating>6, yellow:property.rating>3 && property.rating<7}">{{property.rating}}</h2>
                         <span class="text-add" ng-click="save(property.object); $event.stopPropagation();"> Save </span>
-                        <!-- Within the Details, Save, and Remove links have href
-                        links to other pages that includes the details of the
-                        complexes. The remove should remove the location from
-                        the current list of watched locations. Save will just
-                        save the location along with its information to the
-                        saved locations of that user -->
                     </div>
                 </div>
             </div>
@@ -87,6 +79,7 @@
             Can't find the property you're looking for? Add a new one:<br />
             <button class="button button-outline button-positive add-button" ng-click="navigateTo('app.addlocation')">+</button>
         </p>
+        <br />
     </ion-content>
     <!--end location feed section-->
 

@@ -426,7 +426,7 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
         views: {
             'menuContent': {
                 templateUrl: "templates/themes/location-feed/html/add_location.html",
-                //controller: 'noteListCtrl' //for right now using the same thing
+                controller: 'addLocationCtrl' 
             }
         }
     })
@@ -454,8 +454,8 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
         cache: false,
         views:{
             'menuContent': {
-                templateUrl: "templates/themes/property/html/addProperty.html",                    
-                controller: 'addPropertyCtrl' 
+                templateUrl: "templates/themes/location-feed/html/addProperty.html",                    
+                controller: 'addLocationCtrl' 
             }
         }
     })
@@ -474,34 +474,6 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
             }
         })
 
-
-    // .state('app.addproperty', {
-    //     url:"/addpropery",
-    //     params: {
-    //         isAnimated: false
-    //     },
-    //     cache: false,
-    //     views:{
-    //         'menuContent': {
-    //             templateUrl: "templates/themes/property/html/addreview.html",                    
-    //             controller: 'addPropCtrl' 
-    //         }
-    //     }
-    // })
-
-     // .state('app.propertydetail', {
-     //        url: "/propertydetail",
-     //        params: {
-     //            noteDetail: null,
-     //            actionDelete: false
-     //        },
-     //        views: {
-     //            'menuContent': {
-     //                templateUrl: "templates/themes/property/html/property-detail.html",
-     //                controller: 'noteDetailCtrl' //for right now using the same thing
-     //            }
-     //        }
-     //    })
 
 
     .state('app.dashboard', {
@@ -1022,6 +994,9 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
         })
         .state('app.locationFeed', {
             url: "/locationFeed",
+             params: {
+                searchResults: null,
+            },
             cache: false,
             views: {
                 'menuContent': {

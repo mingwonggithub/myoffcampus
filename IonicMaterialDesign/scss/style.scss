@@ -81,6 +81,54 @@ $url_background_cover_restaurant_03: url(../img/food_cover_03.png);
     height: 70%;
 }
 
+/*location feed searchbox */
+#location-feed-content md-input-container.search-box {
+    width: 100%;
+    margin-bottom: -20px;
+}
+
+#location-feed-content md-input-container a {
+    position: absolute;
+    font-size: 22px;
+    color: gray;
+}
+
+#location-feed-content md-input-container a.minibutton:hover {
+    background: rgba(114, 190, 239, 0.5);
+}
+
+#location-feed-content md-input-container a.minibutton:active {
+    background: rgba(114, 190, 239, 0.8);
+}
+
+#location-feed-content md-input-container a.minibutton {
+    /*    width: 115px;
+    height: 25px;
+    background: #4E9CAF;*/
+    background: rgba(114, 190, 239, 1);
+    padding: 4px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+#location-feed-content md-input-container.search-box input {
+    margin-left: 30px;
+    color: gray;
+}
+
+/* location feed sort menu */ 
+.sortingMenu{
+    margin-top: -8px;
+}
+.sortorder:after {
+  content: '\25bc';
+}
+.sortorder.reverse:after {
+    content: '\25b2';
+
+}
+
 body {
   font-family: $font_roboto_draft, $font_roboto, $font_helvetica_neue, $font_sans-serif;
 }
@@ -3165,4 +3213,78 @@ md-sidenav {
     margin-left: 3px;
     margin-top: -10px;
 }
+
+
+    #add-property-content {
+  margin: 0px 12px 0 12px; }
+
+    #add-property-content p {
+    margin-left: 4px;
+    margin-top: 0;
+    margin-bottom: -20px; }
+ 
+    #add-property-content md-input-container {
+    width: 100%;
+    margin-top: 8px; }
+ 
+    #add-property-content textarea {
+    width: 100%;
+    line-height: inherit;
+    margin-top: -14px;
+    margin-left: 2px; }
+  
+    #add-property-content span {
+    margin-left: 3px;
+    margin-top: -10px; }
+
+    googleplace {
+      font-family: "Roboto";
+    }
+
+
+    /**Styling the select button **/ 
+.ion-input-select--large,
+.ion-input-select,
+select {
+  -webkit-appearance:none;
+  background-repeat: no-repeat;
+  background-color: rgba(0,0,0,0);  
+  border:thin solid #dddddd;
+  font-weight:300;
+  display:inline;
+  vertical-align:middle;
+  color:#333;
+  padding: auto 0;
+  overflow:hidden;
+  box-sizing:border-box;
+  font-family: "Roboto";
+
+}
+
+.ion-input-select--large {
+  width:420px;
+  font-size:1.6rem;
+  background-image: url(http://i.imgur.com/7rGM4IX.png);
+  text-indent:40px;
+  padding:1.2rem 0;
+}
+
+.ion-input-select {
+  width:200px;
+  font-size:1rem;
+  background-image: url(http://i.imgur.com/nA9xx1X.png);
+  text-indent:20px;
+  padding:.5rem 0;
+}
+
+option {
+  background:#444;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+/**end of the styling of add property page **/ 
+
 /* done of custom one */ 

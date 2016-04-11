@@ -9,6 +9,7 @@ appControllers.controller('registerCtrl', function($scope, $state) {
 
   $scope.register = function(form) {
     if(form.$valid) {
+      console.log("register is here ");
       console.log("Register user: " + self.email + "  " + self.firstName);
 
       var user = new Parse.User();

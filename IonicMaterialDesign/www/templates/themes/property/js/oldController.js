@@ -1,4 +1,4 @@
- appControllers.controller('addPropertyCtrl', function($scope, NoteDB, $stateParams, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
+ appControllers.controller('addPropertyCtrlold', function($scope, NoteDB, $stateParams, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
 
      $scope.createProperty = function(prop, isValid) {
 

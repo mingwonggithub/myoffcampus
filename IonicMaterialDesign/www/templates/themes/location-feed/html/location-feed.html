@@ -3,31 +3,32 @@
 <!--State name : app.locationFeed-->
 <!--URL : #app/locationFeed-->
 <ion-view title="Properties Search">
-
-<!--add the sort button --> 
- <ion-nav-buttons side="right">
- 
+    <!--add the sort button -->
+    <ion-nav-buttons side="right">
         <md-menu class="sortingMenu">
-          <md-button id="sortingMenuButton" aria-label="sorting menu" class="md-icon-button ion-nav-button-right" ng-click="$mdOpenMenu($event)">
-            <i class="ion-android-more-vertical"></i>
-          </md-button>
-          <md-menu-content width="2">
-            <md-menu-item> <md-button ng-disabled="true"> Sort by: </md-button> </md-menu-item>
-            <md-menu-item ng-repeat="item in ['Ratings', 'Title']">
-              <md-button ng-click="sortBy($index)"> <span md-menu-align-target class="sortorder" ng-class="{reverse:reverse}"></span> {{item}} </md-button>
-            </md-menu-item>
-          </md-menu-content>
+            <md-button id="sortingMenuButton" aria-label="sorting menu" class="md-icon-button ion-nav-button-right" ng-click="$mdOpenMenu($event)">
+                <i class="ion-android-more-vertical"></i>
+            </md-button>
+            <md-menu-content width="2">
+                <md-menu-item>
+                    <md-button ng-disabled="true"> Sort by: </md-button>
+                </md-menu-item>
+                <md-menu-item ng-repeat="item in ['Ratings', 'Title']">
+                    <md-button ng-click="sortBy($index)">
+                        <div layout="row" flex>
+                            <span md-menu-align-target class="sortorder" ng-class="{reverse:reverse}"></span> {{item}}
+                        </div>
+
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
         </md-menu>
-
-    </ion-nav-buttons> <!--end right button on navigation bar-->
-
-
+    </ion-nav-buttons>
+    <!--end right button on navigation bar-->
     <!--location feed section-->
     <ion-content id="location-feed-content">
-
-    <!--debug usage -->
-    <!--<pre>Sorting predicate = {{predicate}}; reverse = {{reverse}}</pre> --> 
-
+        <!--debug usage -->
+        <!--<pre>Sorting predicate = {{predicate}}; reverse = {{reverse}}</pre> -->
         <!--
         list section
         Here you need to load in the different locations and their 
@@ -39,50 +40,45 @@
         Could be new listings or sponsored listings. Or mixed in with both.
         -->
         <md-input-container md-no-float="" class="search-box">
-            <a class="minibutton" ng-click ="searchlocFeed()"><i class="ion-android-search"></i></a>
+            <a class="minibutton" ng-click="searchlocFeed()"><i class="ion-android-search"></i></a>
             <input ng-model="userInput.propText" placeholder="Search by address or community">
-         </md-input-container>
-
-        <div class="location-list">            
-
+        </md-input-container>
+        <div class="location-list">
             <!--location item section-->
-            <ion-list ng-repeat="property in properties | orderBy:predicate: reverse " >
-
-            <div class="location-item" ng-click="navigateTo('app.locationDetails', property)">
-                <div class="location-img" style="background-image: url('../../../../img/house.jpg')">
-                </div>
-                <div class="location-content row">
-                    <div class="col-80">
-                        <h1>
+            <ion-list ng-repeat="property in properties | orderBy:predicate: reverse ">
+                <div class="location-item" ng-click="navigateTo('app.locationDetails', property)">
+                    <div class="location-img" style="background-image: url('../../../../img/house.jpg')">
+                    </div>
+                    <div class="location-content row">
+                        <div class="col-80">
+                            <h1>
                             {{property.title}}
                         </h1>
-                        <p>
-                            <i class="ion-location"></i>
-                            {{property.streetNo}} {{property.street}}
-                            <br>
-                            <i class="ion-android-map"></i> {{property.city}}, {{property.state}} {{property.zipcode}} 
-                        </p>
-                    </div>
-                    <div class="col-20">
-                        <h2 id="rating" ng-class="{red:property.rating<4, green:property.rating>6, yellow:property.rating>3 && property.rating<7}">{{property.rating}}</h2>
-                        <span class="text-add" ng-click="save(property.object); $event.stopPropagation();"> Save </span>
+                            <p>
+                                <i class="ion-location"></i> {{property.streetNo}} {{property.street}}
+                                <br>
+                                <i class="ion-android-map"></i> {{property.city}}, {{property.state}} {{property.zipcode}}
+                            </p>
+                        </div>
+                        <div class="col-20">
+                            <h2 id="rating" ng-class="{red:property.rating<4, green:property.rating>6, yellow:property.rating>3 && property.rating<7}">{{property.rating}}</h2>
+                            <span class="text-add" ng-click="save(property.object); $event.stopPropagation();"> Save </span>
+                        </div>
                     </div>
                 </div>
-            </div>
             </ion-list>
-
             <!--end location item section-->
         </div>
         <!--end list section-->
         <br />
         <p>
-            Can't find the property you're looking for? Add a new one:<br />
+            Can't find the property you're looking for? Add a new one:
+            <br />
             <button class="button button-outline button-positive add-button" ng-click="navigateTo('app.addlocation')">+</button>
         </p>
         <br />
     </ion-content>
     <!--end location feed section-->
-
     <!--loading progress-->
     <div id="location-list-loading-progress" class="loading-progress fade-in">
         <ion-spinner ng-if="!isAndroid" class="progress-circular"></ion-spinner>

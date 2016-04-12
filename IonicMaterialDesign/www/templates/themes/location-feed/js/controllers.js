@@ -195,7 +195,7 @@
 
          $scope.properties = []; //list of properties on feed page 
          $scope.userInput = []; //search input from search box at feed page 
-         $scope.reverse = true; //default serach result is 
+         $scope.reverse = true; //default search result is 
          $scope.predicate = 'rating'; //top 5 properties with highest rating 
 
          var query = $stateParams.searchResults; //query is input from search box at welcome page 

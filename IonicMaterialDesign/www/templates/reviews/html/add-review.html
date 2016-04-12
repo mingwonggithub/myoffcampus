@@ -1,0 +1,67 @@
+<!--View Information-->
+<!--View name : addlroperty-->
+<!--Controller name : addLropertyCtrl-->
+<!--Controller path : www/themes/location-feed/controllers.js-->
+<!--State name : app.addlocation-->
+<!--URL : #app/addlocatioy-->
+
+<ion-view view-title="Add a Review">
+    <!--left button on navigation bar-->
+<ion-nav-buttons side="left">
+    <a ng-click="$ionicGoBack()" class="button back-button buttons  button-clear header-item nav-back-btn">
+        <i class="ion-android-arrow-back"></i>
+    </a>
+</ion-nav-buttons>
+<!--end left button on navigation bar-->
+
+<!--property detail section-->
+<ion-content id="social-sign-up-content">
+    <br/>
+    <form name="propForm" novalidate="" ng-submit="createProperty(prop, propForm.$valid)">
+          <div class="input" style="border: none; padding: 0; ">
+          <i class="ion-ios-calendar-outline" style="font-size: 16px; padding-right: 3px;"></i> {{review.createDate}}
+          </div>
+          <br />
+          <div class="input" style="border: none; padding: 0; padding-top: 10px;">
+              Rate housing from a scale 1 to 10.
+          </div>
+          <div class="item range range-positive" style="border: none">
+              <md-slider flex type="number" min="1" max="10" ng-model="review.overallRating" aria-label="overallRating">
+              </md-slider> 
+              <span id ="slider" ng-class="{red:review.overallRating<4, green:review.overallRating>6, yellow:review.overallRating>3 && review.overallRating<7}"> {{review.overallRating}}</span>
+          </div>
+
+
+            <!--cost-->
+            <label class="item item-input" ng-class="{ 'has-errors' : propForm.cName.$invalid && propForm.$submitted, 'no-errors' : propForm.cName.$valid  && propForm.$submitted}">
+                <input type="text" placeholder="Cost" name="cName" ng-model="prop.communityName">
+            </label>
+
+            <div class="error-container last-error-container" ng-show="propForm.cName.$error && propForm.$submitted" ng-messages="propForm.cName.$error">
+                <div ng-messages-include="error-list.html"></div> 
+            </div> 
+            <br />
+            <!-- main review-->
+             <textarea rows="5" ng-model="review.text" maxlength="250" placeholder="Any additional comments"></textarea>
+                <div id="main-review">
+                    {{(review.text.length > 0 ? review.text.length :0) | json}}/250
+                </div>
+            
+            <div class="error-container last-error-container" ng-show="propForm.address.$error && propForm.$submitted" ng-messages="propForm.address.$error">
+                <div ng-messages-include="error-list.html"></div> 
+            </div>
+
+            <button class="md-raised social-button md-button md-default-theme material-background" type="submit">Submit</md-button>
+    </form>
+
+        <!--end content section-->
+    </ion-content>
+<!--end property detail section-->
+<script id="error-list.html" type="text/ng-template">  
+    <div class="error" ng-message="required">
+      This is required
+    </div>
+</script>
+
+<!--end angular template section-->
+</ion-view>

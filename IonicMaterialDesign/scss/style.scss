@@ -127,6 +127,7 @@ $url_background_cover_restaurant_03: url(../img/food_cover_03.png);
 .sortingMenu{
     margin-top: -8px;
 }
+
 .sortorder:after {
   content: '\25bc';
 }
@@ -1260,6 +1261,11 @@ md-sidenav {
         border-bottom-style: none;
         height: 30px;
       }
+    }
+    textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid $color_black_14;
     }
   md-checkbox {
     width: 100%;
@@ -2695,6 +2701,12 @@ md-sidenav {
     min-height: 35px !important;
     min-width: 37px !important;
   }
+  .add-button-small {
+    margin: 5px;
+    line-height: 15px !important;
+    min-height: 30px !important;
+    min-width: 27px !important;
+  }
   .location-list {
    // text-align: left;
     //location item section
@@ -3289,6 +3301,16 @@ option {
 
 select::-ms-expand {
     display: none;
+}
+
+#main-review {
+  font-size: 12px;
+  text-align: right;
+}
+
+#slider {
+  margin-left: 20px;
+  font-size: 20px;
 }
 
 /**end of the styling of add property page **/ 

@@ -16,9 +16,8 @@
                 <md-menu-item ng-repeat="item in ['Ratings', 'Title']">
                     <md-button ng-click="sortBy($index)">
                         <div layout="row" flex>
-                            <span md-menu-align-target class="sortorder" ng-class="{reverse:reverse}"></span> {{item}}
+                            <span md-menu-align-target class="sortorder" ng-class="{reverse:reverse}"style="padding-right: 5px; margin-top: -1px;"></span> {{item}}
                         </div>
-
                     </md-button>
                 </md-menu-item>
             </md-menu-content>

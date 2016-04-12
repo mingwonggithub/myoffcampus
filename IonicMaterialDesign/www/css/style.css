@@ -799,6 +799,10 @@ md-sidenav {
       margin-bottom: -5px;
       border-bottom-style: none;
       height: 30px; }
+  #social-sign-up-content textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.14); }
   #social-sign-up-content md-checkbox {
     width: 100%;
     font-size: 13px;
@@ -1719,6 +1723,11 @@ md-sidenav {
     line-height: 15px !important;
     min-height: 35px !important;
     min-width: 37px !important; }
+  #location-feed-content .add-button-small {
+    margin: 5px;
+    line-height: 15px !important;
+    min-height: 30px !important;
+    min-width: 27px !important; }
   #location-feed-content .location-list .location-item {
     box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.14), 0px 2px 2px 0px rgba(0, 0, 0, 0.098), 0px 1px 5px 0px rgba(0, 0, 0, 0.084);
     margin-bottom: 14px; }
@@ -2149,6 +2158,14 @@ option {
 
 select::-ms-expand {
   display: none; }
+
+#main-review {
+  font-size: 12px;
+  text-align: right; }
+
+#slider {
+  margin-left: 20px;
+  font-size: 20px; }
 
 /**end of the styling of add property page **/
 /* done of custom one */

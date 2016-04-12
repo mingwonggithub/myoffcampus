@@ -1,14 +1,14 @@
 <!--View Information-->
-<!--View name : addlroperty-->
-<!--Controller name : addLropertyCtrl-->
-<!--Controller path : www/themes/location-feed/controllers.js-->
-<!--State name : app.addlocation-->
-<!--URL : #app/addlocatioy-->
+<!--View name : addreview-->
+<!--Controller name : addReviewCtrl-->
+<!--Controller path : www/templates/reviews/controllers.js-->
+<!--State name : app.addreview-->
+<!--URL : #app/addreview-->
 
 <ion-view view-title="Add a Review">
     <!--left button on navigation bar-->
 <ion-nav-buttons side="left">
-    <a ng-click="$ionicGoBack()" class="button back-button buttons  button-clear header-item nav-back-btn">
+    <a ng-click="$ionicGoBack()" class="button back-button buttons button-clear header-item nav-back-btn">
         <i class="ion-android-arrow-back"></i>
     </a>
 </ion-nav-buttons>
@@ -17,7 +17,7 @@
 <!--property detail section-->
 <ion-content id="social-sign-up-content">
     <br/>
-    <form name="propForm" novalidate="" ng-submit="createProperty(prop, propForm.$valid)">
+    <form name="reviewForm" novalidate="" ng-submit="addReview(reviewForm)">
           <div class="input" style="border: none; padding: 0; ">
           <i class="ion-ios-calendar-outline" style="font-size: 16px; padding-right: 3px;"></i> {{review.createDate}}
           </div>
@@ -33,21 +33,21 @@
 
 
             <!--cost-->
-            <label class="item item-input" ng-class="{ 'has-errors' : propForm.cName.$invalid && propForm.$submitted, 'no-errors' : propForm.cName.$valid  && propForm.$submitted}">
-                <input type="text" placeholder="Cost" name="cName" ng-model="prop.communityName">
+            <label class="item item-input" ng-class="{ 'has-errors' : reviewForm.cost.$invalid && reviewForm.$submitted, 'no-errors' : reviewForm.cost.$valid  && reviewForm.$submitted}">
+                <input type="text" placeholder="Cost" name="cost" ng-model="review.cost">
             </label>
 
-            <div class="error-container last-error-container" ng-show="propForm.cName.$error && propForm.$submitted" ng-messages="propForm.cName.$error">
+            <div class="error-container last-error-container" ng-show="reviewForm.cost.$error && reviewForm.$submitted" ng-messages="reviewForm.cost.$error">
                 <div ng-messages-include="error-list.html"></div> 
             </div> 
             <br />
             <!-- main review-->
-             <textarea rows="5" ng-model="review.text" maxlength="250" placeholder="Any additional comments"></textarea>
+             <textarea style="  resize: vertical;" rows="5" ng-model="review.text" maxlength="250" placeholder="Any additional comments"></textarea>
                 <div id="main-review">
                     {{(review.text.length > 0 ? review.text.length :0) | json}}/250
                 </div>
             
-            <div class="error-container last-error-container" ng-show="propForm.address.$error && propForm.$submitted" ng-messages="propForm.address.$error">
+            <div class="error-container last-error-container" ng-show="reviewForm.address.$error && reviewForm.$submitted" ng-messages="reviewForm.address.$error">
                 <div ng-messages-include="error-list.html"></div> 
             </div>
 
@@ -62,6 +62,4 @@
       This is required
     </div>
 </script>
-
-<!--end angular template section-->
 </ion-view>

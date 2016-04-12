@@ -6,7 +6,7 @@ appControllers.controller('menuCtrl', function ($scope, $timeout, $mdUtil, $mdSi
         var currentUser = JSON.parse(localStorage.getItem("mocUser"));
 
         if(currentUser) {
-            console.log("menuCtrl: " + JSON.stringify(currentUser));
+          //  console.log("menuCtrl: " + JSON.stringify(currentUser));
         $scope.user = currentUser;
         }  
     });

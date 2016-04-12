@@ -409,10 +409,13 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
 
     .state('app.addreview', {
         url: "/addreview",
+        params: {
+            propDetail: null,
+        },
         views: {
             'menuContent': {
                 templateUrl: "templates/reviews/html/add-review.html",
-                controller: 'addReviewCtrl' //for right now using the same thing
+                controller: 'addReviewCtrl' 
             }
         }
     })

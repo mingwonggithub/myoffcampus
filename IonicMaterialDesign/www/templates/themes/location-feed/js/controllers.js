@@ -350,106 +350,13 @@
 
      }) // End of Location Feed Controller.
 
- // Controller of Note Setting Page.
- appControllers.controller('noteSettingCtrl', function($scope, NoteDB, $state, $ionicViewSwitcher, $stateParams, $ionicHistory, $mdBottomSheet, $mdDialog, $mdToast) {
-
-         // initialForm is the first activity in the controller. 
-         // It will initial all variable data and let the function works when page load.
-         $scope.initialForm = function() {
-
-             //$scope.noteLenght is is the variable for get note count.
-             $scope.noteLenght = NoteDB.count();
-         }; // End initialForm.
-
-         // clearAllData is for remove all notes data.
-         // Parameter :  
-         // $event(object) = position of control that user tap.
-         $scope.clearAllData = function($event) {
-
-                 //$mdBottomSheet.hide() use for hide bottom sheet.
-                 $mdBottomSheet.hide();
-
-                 //mdDialog.show use for show alert box for Confirm to remove all data.
-                 $mdDialog.show({
-                     controller: 'DialogController',
-                     templateUrl: 'confirm-dialog.html',
-                     targetEvent: $event,
-                     locals: {
-                         displayOption: {
-                             title: "Confirm to remove all data?",
-                             content: "All data will remove from local storage.",
-                             ok: "Confirm",
-                             cancel: "Close"
-                         }
-                     }
-                 }).then(function() {
-                     // For confirm button to remove all data.
-                     try {
-                         //To remove all notes data by calling NoteDB.clear() service.
-                         NoteDB.clear();
-                         $scope.initialForm();
-
-                         // Showing toast for remove data is success.
-                         $mdToast.show({
-                             controller: 'toastController',
-                             templateUrl: 'toast.html',
-                             hideDelay: 400,
-                             position: 'top',
-                             locals: {
-                                 displayOption: {
-                                     title: "All data removed !"
-                                 }
-                             }
-                         });
-                     } catch (e) {
-                         //Showing toast for unable to remove data.
-                         $mdToast.show({
-                             controller: 'toastController',
-                             templateUrl: 'toast.html',
-                             hideDelay: 800,
-                             position: 'top',
-                             locals: {
-                                 displayOption: {
-                                     title: window.globalVariable.message.errorMessage
-                                 }
-                             }
-                         });
-                     }
-                 }, function() {
-                     // For cancel button to remove all data.
-                 });
-             } // End clearAllData.
-
-         // navigateTo is for navigate to other page
-         // by using targetPage to be the destination state.
-         // Parameter :
-         // stateNames = target state to go.
-         // objectData = Object data will send to destination state.
-         $scope.navigateTo = function(stateName, objectData) {
-             if ($ionicHistory.currentStateName() != stateName) {
-                 $ionicHistory.nextViewOptions({
-                     disableAnimate: false,
-                     disableBack: true
-                 });
-
-                 //Next view animate will display in back direction
-                 $ionicViewSwitcher.nextDirection('back');
-
-                 $state.go(stateName, {
-                     isAnimated: objectData,
-                 });
-             }
-         }; // End of navigateTo.
-
-         $scope.initialForm();
-     }) // End of Notes Setting Page  Controller.
 
  // Controller of Location Detail Page.
- appControllers.controller('locationDetailCtrl', function($scope, $ionicPlatform, $stateParams, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
+ appControllers.controller('locationDetailCtrl', function($scope, $ionicPlatform, $stateParams, $state, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
 
-     console.log($stateParams);
+   //  console.log($stateParams);
      $scope.property = $stateParams.propDetail;
-     console.log("locationDetailCtrl: ", $scope.property);
+    // console.log("locationDetailCtrl: ", $scope.property);
 
      $ionicPlatform.ready(function() {
          initialize($scope.property.lat, $scope.property.long);
@@ -487,19 +394,11 @@
      };
 
 
-     //getNoteData is for get note detail data.
-     $scope.getNoteData = function(propDetail) {
-         // tempNoteData is temporary note data detail.
-         var tempPropData = {
-             street: '',
-             city: '',
-             zipcode: ''
-         };
-
-         // If actionDelete is true note Detail Page will show note detail that receive form note list page.
-         // else it will show tempNoteData for user to add new data.
-         return (angular.copy(propDetail));
-     }; // End getNoteData.
+     $scope.navigateTo = function(targetPage, objectData) {
+         $state.go(targetPage, {
+             propDetail: objectData
+         });
+     };
 
 
 

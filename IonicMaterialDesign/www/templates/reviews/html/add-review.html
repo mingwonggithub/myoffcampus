@@ -42,12 +42,12 @@
             </div> 
             <br />
             <!-- main review-->
-             <textarea style="  resize: vertical;" rows="5" ng-model="review.text" maxlength="250" placeholder="Any additional comments"></textarea>
+             <textarea style="resize: vertical;" rows="5" ng-model="review.text" maxlength="250" name="text" placeholder="Any additional comments"></textarea>
                 <div id="main-review">
                     {{(review.text.length > 0 ? review.text.length :0) | json}}/250
                 </div>
             
-            <div class="error-container last-error-container" ng-show="reviewForm.address.$error && reviewForm.$submitted" ng-messages="reviewForm.address.$error">
+            <div class="error-container last-error-container" ng-show="reviewForm.text.$error && reviewForm.$submitted" ng-messages="reviewForm.text.$error">
                 <div ng-messages-include="error-list.html"></div> 
             </div>
 

@@ -144,15 +144,26 @@
                  newProp.state = property.get('state');
                  newProp.zipcode = property.get('zipcode');
                  newProp.address = property.get('address');
+                 newProp.object = property;
 
                  console.log("addLocationCtrl: saveProp is ", newProp);
-
+                 $mdToast.show({
+                     controller: 'toastController',
+                     templateUrl: 'toast.html',
+                     hideDelay: 400,
+                     position: 'top',
+                     locals: {
+                         displayOption: {
+                             title: "Property added"
+                         }
+                     }
+                 });
                  $state.go('app.locationFeed');
                  // The object was saved successfully.
                  // console.log("addPropertyCtrl: in Parse ", property);
                  // $scope.navigateTo('app.locationDetails', newProp);
              },
-             error: function(gameScore, error) {
+             error: function(properties, error) {
                  // The save failed.
                  // error is a Parse.Error with an error code and message.
                  console.log(error);

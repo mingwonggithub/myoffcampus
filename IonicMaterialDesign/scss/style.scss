@@ -2754,13 +2754,23 @@ md-sidenav {
         }
 
         p {
-        text-align: left;
+          text-align: left;
           font-size: 12px;
           margin: 0;
           padding: 0;
           color: $color_gray;
         }
-
+        .review-item {
+          margin-top: 10px;
+          border-top: 1px solid $color_black_14;
+          p {
+          text-align: left;
+          font-size: 13px;
+          margin: 0;
+          padding: 0;
+          color: $color_gray;
+          }
+        }
         .text-add {
           float: right;
           background-color: $color_carnation_approx;

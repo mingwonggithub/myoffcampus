@@ -43,13 +43,26 @@
             </div>
             </div>
             <div class="location-item">
-            <div class="location-content row">
+            <div class="location-content">
+            <div class="row">
                 <div class="col-80">
                     <h1>Reviews</h1>
                 </div>
                 <div class="col-20" style="text-align: right">
                     <button class="button button-outline button-positive add-button-small" ng-click="navigateTo('app.addreview', property)">+</button>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-100">
+                <ion-list ng-repeat="review in reviews">
+                    <div class="review-item">
+                        <p>Rating: {{review.rating}}/10   |   Cost: {{review.cost}}</p>
+                        <p>{{review.text}}</p>
+                        <br />
+                    </div>
+                </ion-list>
+                </div>
+            </div>
             </div>
             </div>
         </div>

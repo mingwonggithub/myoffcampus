@@ -367,6 +367,7 @@
 
    //  console.log($stateParams);
      $scope.property = $stateParams.propDetail;
+     $scope.reviews = []; //list of reviews on feed page 
     // console.log("locationDetailCtrl: ", $scope.property);
 
      $ionicPlatform.ready(function() {
@@ -403,6 +404,46 @@
          });
 
      };
+
+     var prop = $scope.property.object;
+     var myProperty = Parse.Object.extend("myProperty");
+     var query = new Parse.Query(myProperty);
+     console.log("prop.getaddress: " + prop.get("address"))
+     query.equalTo("address", prop.get("address"));
+     query.include("reviews");
+     query.select("reviews");
+     var review = {};
+
+     //SLOW BECAUSE 2 QUERIES ARE NEEDED. REWRITE
+     query.find({
+         success: function(results) {
+             var relation = results[0].relation("reviews");
+             relation.query().find({
+                 success: function(qReviews) {
+                     $scope.$apply(function() {
+                         console.log("Successfully retrieved " + qReviews.length + " reviews.");
+
+                         for (i in qReviews) {
+                             aR = qReviews[i];
+                             review.object = aR;
+                             review.cost = aR.get('cost');
+                             review.text = aR.get('mainText');
+                             review.rating = aR.get('rating');
+                             $scope.reviews.push(review);
+                             review = {};
+
+                         }
+                     }); //end $scope.apply
+                 },
+                 error: function(error) {
+                     console.log("Error2: " + error.code + " " + error.message);
+                 }
+             }); //end 2nd query
+         },
+         error: function(error) {
+             console.log("Error1: " + error.code + " " + error.message);
+         }
+     });
 
 
      $scope.navigateTo = function(targetPage, objectData) {

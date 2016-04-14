@@ -1022,6 +1022,7 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
         })
         .state('app.locationDetails', {
             url: "/locationDetails",
+            cache: false,
             params: {
                 propDetail: null,
             },

@@ -32,16 +32,25 @@
         <div id="map" data-tap-disabled="false">
         </div>
          <div class="location-list">
+
             <div class="location-item">
+            
             <div class="location-content row">
                 <div class="col-80">
-                    <h1>Photos</h1>
+                <h1> <i class="ion-images"></i> Photos</h1>
                 </div>
                 <div class="col-20" style="text-align: right">
-                    <button class="button button-outline button-positive add-button-small" ng-click="navigateTo('app.addphoto', property)">+</button>
+                    <button class="button button-outline button-positive add-button-small" ng-click = "navigateTo('app.addphoto', property)">+</button>
                 </div>
             </div>
+
+            <a class="item item-list-detail">
+            <ion-scroll direction="x">
+                <img ng-repeat="image in allImages" ng-src="{{image.src}}" ng-click="showImages($index)" class="image-list-thumb"/>
+            </ion-scroll>
+            </a>
             </div>
+
             <div class="location-item">
             <div class="location-content">
             <div class="row">
@@ -67,6 +76,17 @@
             </div>
         </div>
         <!--end list section-->
+
+        <script type="text/ng-template" id="imageModal.html">
+            <div class="modal image-modal transparent"  ng-click="closeModal()">
+                <ion-slide-box on-slide-changed="slideChanged(index)" show-pager="true" active-slide="activeSlide">
+                    <ion-slide ng-repeat="image in allImages">
+                        <img ng-src="{{image.src}}" class="fullscreen-image"/>
+                    </ion-slide>
+                </ion-slide-box>
+            </div> 
+        </script> 
+
 
     </ion-content>
     <!--end location feed section-->

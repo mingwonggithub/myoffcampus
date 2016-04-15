@@ -363,12 +363,56 @@
 
 
  // Controller of Location Detail Page.
- appControllers.controller('locationDetailCtrl', function($scope, $ionicPlatform, $stateParams, $state, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
+ appControllers.controller('locationDetailCtrl', function($scope, $ionicModal, $ionicPlatform, $stateParams, $state, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
 
-   //  console.log($stateParams);
      $scope.property = $stateParams.propDetail;
      $scope.reviews = []; //list of reviews on feed page 
     // console.log("locationDetailCtrl: ", $scope.property);
+
+
+    /* start of image slider */ 
+
+    //hard-coded images 
+    $scope.birdimages = ["https://i.ytimg.com/vi/s9dbAfjlrks/maxresdefault.jpg",
+         "http://28oa9i1t08037ue3m1l0i861.wpengine.netdna-cdn.com/wp-content/uploads/2014/10/mdtanager.jpg",
+         "http://discovermagazine.com/~/media/Images/Issues/2014/Nov/cat-with-bird.jpg",
+         "https://img.buzzfeed.com/buzzfeed-static/static/enhanced/web03/2012/6/4/17/enhanced-buzz-21710-1338844529-13.jpg",
+         "https://s-media-cache-ak0.pinimg.com/736x/7b/6f/b5/7b6fb5533932d2e114168641b2c44a5c.jpg",
+     ];
+
+    $scope.allImages = [{
+         'src': 'img/ari.jpg'
+     }];
+
+    for (var i = 0; i < $scope.birdimages.length; i++) {
+         var img = $scope.birdimages[i];
+         $scope.allImages.push({ src: img });
+     }
+
+     $scope.showImages = function(index) {
+         $scope.activeSlide = index;
+         $scope.showModal('imageModal.html');
+     }
+
+     $scope.showModal = function(templateUrl) {
+         $ionicModal.fromTemplateUrl(templateUrl, {
+             scope: $scope,
+             animation: 'slide-in-up'
+         }).then(function(modal) {
+             $scope.modal = modal;
+             $scope.modal.show();
+         });
+     }
+
+     // Close the modal
+     $scope.closeModal = function() {
+         $scope.modal.hide();
+         $scope.modal.remove()
+     };
+
+     /* end of image slider */ 
+
+
 
      $ionicPlatform.ready(function() {
          initialize($scope.property.lat, $scope.property.long);

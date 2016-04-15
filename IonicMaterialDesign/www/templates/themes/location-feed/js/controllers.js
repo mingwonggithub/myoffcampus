@@ -1,3 +1,69 @@
+ appControllers.controller('addPhotoCtrl', function($scope, $mdBottomSheet, $cordovaImagePicker, $ionicPlatform, $stateParams, $state, $ionicHistory) {
+
+     // initialForm is the first activity in the controller. 
+     // It will initial all variable data and let the function works when page load.
+     $scope.initialForm = function() {
+         $scope.imageList = [];
+         $scope.imageParseList = [];
+     }; // End initialForm.
+
+     $scope.removePic = function(index) {
+         console.log("removephoto at index" + index);
+         $scope.imageList.splice(index, 1);
+         $scope.imageParseList.splice(index, 1);
+
+     }
+
+     $scope.selectImage = function(limit) {
+         //hide BottomSheet.
+         $mdBottomSheet.hide();
+
+        //Image picker will load images according to these settings
+         var options = {
+             maximumImagesCount: limit, // Max number of selected images
+             width: 800,
+             height: 800,
+             quality: 80, // Higher is better
+        }
+
+        // select image by calling $cordovaImagePicker.getPictures(options)
+         $cordovaImagePicker.getPictures(options)
+
+         .then(function(results) {
+             // store image data to imageList.
+             for (var i = 0; i < results.length; i++) {
+                 $scope.imageList.push(results[i]);
+                 console.log("images selected", results[i]);
+                 $scope.imageUri = results[i];
+
+                 // Encode URI to Base64
+                 window.plugins.Base64.encodeFile($scope.imageUri, function(base64) {
+                     // Save images in Base64
+                     $scope.imageParseList.push(base64);
+                     console.log("base64 is ", base64);
+
+                 });
+
+             }
+         }, function(error) {
+             console.log(error);
+         });
+
+     } 
+
+     // showListBottomSheet for show BottomSheet.
+     $scope.showListBottomSheet = function($event) {
+         $mdBottomSheet.show({
+             templateUrl: 'image-picker-actions-template',
+             targetEvent: $event,
+             scope: $scope.$new(false),
+         });
+     }; // End showListBottomSheet.
+
+     $scope.initialForm();
+
+ });
+
  appControllers.controller('addLocationCtrl', function($scope, $state, NoteDB, $stateParams, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
 
      console.log("addLocationCtrl is here");

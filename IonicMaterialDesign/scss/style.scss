@@ -70,6 +70,59 @@ $url_background_cover_restaurant_03: url(../img/food_cover_03.png);
 
 
 /* We should put our css on top to make it easier to find */ 
+
+/* add photo page */ 
+.instruction {
+    padding: 8px;
+    margin-left: 80px;
+    font-size: 14px;
+    color: gray;
+}
+
+#i-picker-content md-list {
+    margin-top: 3px;
+}
+
+#i-picker-content md-list md-card {
+    margin-bottom: 30px;
+}
+
+#i-picker-content md-list md-card md-card-content {
+    padding: 14px 10px 10px 16px;
+}
+
+#i-picker-content md-list md-card md-card-content h2 {
+    color: gray !important;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+#besidetrash{
+  display: inline-block;
+}
+
+#trash{  
+  display: inline-block;
+  margin-top: -8px;
+}
+
+.md-button.md-accent.md-fab {
+  &.i-picker {
+    left: -8px;
+    top: -8px;
+    padding: 15px;
+    line-height: 0 !important;
+    margin-top: 18px;
+
+    i {
+      vertical-align: text-top;
+      font-size: x-large;
+      color: $color_white;
+    }
+  }
+}
+/* end of addphoto page */ 
+
 /* property detail page */
 #map {
     width: 100%;

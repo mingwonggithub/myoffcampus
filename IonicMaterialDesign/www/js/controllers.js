@@ -1,2 +1,2 @@
-var appControllers = angular.module('starter.controllers', ['ionic', 'ngMessages', 'ngCordova', 'google.places']); // Use for all controller of application.
+var appControllers = angular.module('starter.controllers', ['google.places']); // Use for all controller of application.
 var appServices = angular.module('starter.services', []);// Use for all service of application.

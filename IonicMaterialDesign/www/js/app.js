@@ -430,15 +430,15 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
         }
     })
 
-    // .state('app.addphoto', {
-    //     url: "/addphoto",
-    //     views: {
-    //         'menuContent': {
-    //             templateUrl: "templates/themes/location-feed/html/addPhoto.html",
-    //             controller: 'addPhotoCtrl'
-    //         }
-    //     }
-    // })
+    .state('app.addphoto', {
+        url: "/addphoto",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/themes/location-feed/html/addPhoto.html",
+                controller: 'addPhotoCtrl'
+            }
+        }
+    })
 
     .state('app.reviewdetail', {
         url: "/reviewdetail",

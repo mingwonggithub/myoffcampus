@@ -1,0 +1,9 @@
+List of things left to do:
+
+LANDLORD
+Give every property an image to be displayed in the feed format
+Calculate average of reviews. Just sum of ratings/reviews.length
+  If no reviews, overall rating should be '-'. Should be black
+Reviews
+  Add new categories
+  Make it beautiful

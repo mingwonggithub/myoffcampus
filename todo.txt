@@ -7,3 +7,5 @@ Calculate average of reviews. Just sum of ratings/reviews.length
 Reviews
   Add new categories
   Make it beautiful
+Add spinners and error messages to pages
+  Especially the login screen

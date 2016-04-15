@@ -15,8 +15,8 @@
             <div class="location-item">
             <div class="location-content row">
                 <div class="col-80">
-                    <h1 style="padding-bottom: -5px;">{{property.streetNo}} {{property.street}}</h1>
-                    <p style="padding-bottom:  5px;">{{property.city}}, {{property.state}} {{property.zipcode}}</p>
+                    <h1>{{property.streetNo}} {{property.street}}</h1>
+                    <p>{{property.city}}, {{property.state}} {{property.zipcode}}</p>
                      <!--<p> {{property.price}}</p>
                      <p>{{property.land_lord}}</p>-->
                 </div>
@@ -32,19 +32,17 @@
         <div id="map" data-tap-disabled="false">
         </div>
          <div class="location-list">
-
             <div class="location-item">
-            
             <div class="location-content row">
                 <div class="col-80">
-                <h1> <i class="ion-images"></i> Photos</h1>
+                <h1> <!--<i class="ion-images"></i>--> Photos</h1>
                 </div>
-                <div class="col-20" style="text-align: right">
+                <div class="col-20"  style="text-align: right">
                     <button class="button button-outline button-positive add-button-small" ng-click = "navigateTo('app.addphoto', property)">+</button>
                 </div>
             </div>
 
-            <a class="item item-list-detail">
+            <a class="item item-list-detail" style="border-bottom: none;">
             <ion-scroll direction="x">
                 <img ng-repeat="image in allImages" ng-src="{{image.src}}" ng-click="showImages($index)" class="image-list-thumb"/>
             </ion-scroll>
@@ -52,27 +50,21 @@
             </div>
 
             <div class="location-item">
-            <div class="location-content">
-            <div class="row">
+            <div class="location-content row">
                 <div class="col-80">
-                    <h1>Reviews</h1>
+                    <h1 style="padding-right: 0; display: inline-block;">Reviews</h1><h3>&nbsp;&nbsp; •&nbsp;&nbsp; {{reviews.length}}</h3>
                 </div>
                 <div class="col-20" style="text-align: right">
                     <button class="button button-outline button-positive add-button-small" ng-click="navigateTo('app.addreview', property)">+</button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-100">
-                <ion-list ng-repeat="review in reviews">
-                    <div class="review-item">
-                        <p>Rating: {{review.rating}}/10   |   Cost: {{review.cost}}</p>
-                        <p>{{review.text}}</p>
-                        <br />
-                    </div>
-                </ion-list>
+            
+            <ion-list ng-repeat="review in reviews">
+                <div class="item item-list-detail item-text-wrap" style="border-bottom: none;">
+                    <p>Rating: {{review.rating}}/10   |   Cost: {{review.cost}}</p>
+                    <p>{{review.text}}</p>
                 </div>
-            </div>
-            </div>
+            </ion-list>
             </div>
         </div>
         <!--end list section-->
@@ -86,8 +78,7 @@
                 </ion-slide-box>
             </div> 
         </script> 
-
-
+        <br />
     </ion-content>
     <!--end location feed section-->
 </ion-view>

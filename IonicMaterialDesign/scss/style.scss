@@ -14,6 +14,7 @@ $color_mercury: #e5e5e5;
 $color_black_14: rgba(0, 0, 0, 0.14);
 $color_black_12: rgba(0, 0, 0, 0.12);
 $color_black_20: rgba(0, 0, 0, 0.2);
+$color_black_25: rgba(0, 0, 0, 0.25);
 $color_black_40: rgba(0, 0, 0, 0.4);
 $color_black_084: rgba(0, 0, 0, 0.084);
 $color_black_098: rgba(0, 0, 0, 0.098);
@@ -70,6 +71,9 @@ $url_background_cover_restaurant_03: url(../img/food_cover_03.png);
 
 
 /* We should put our css on top to make it easier to find */ 
+.center {
+  text-align: center;  
+}
 
 /* add photo page */ 
 .instruction {
@@ -2780,13 +2784,13 @@ md-sidenav {
   padding: 10px 10px 10px 8px;
   background-color: $color_black_haze_approx;
   p {
-    text-align: center;
+    //text-align: center;
     color: $color_gray;
     font-size: 12px;
   }
   //list section
   .add-button {
-    margin: 7px;
+    margin: 0;
     line-height: 15px !important;
     min-height: 35px !important;
     min-width: 37px !important;
@@ -2798,7 +2802,6 @@ md-sidenav {
     min-width: 27px !important;
   }
   .location-list {
-   // text-align: left;
     //location item section
     .location-item {
       box-shadow: 0px 3px 1px -2px $color_black_14, 0px 2px 2px 0px $color_black_098, 0px 1px 5px 0px $color_black_084;
@@ -2838,29 +2841,19 @@ md-sidenav {
           padding: 10px 10px 5px 0;
           text-align: left;
         }
-
         h2 {
           text-align: center;
         }
+        h3 {
+          font-size: 14px;
+          display: inline;
+          margin: 0;
+          color: $color_black_25;
+          padding: 10px 10px 5px 0;
+          text-align: left;
+        }
 
-        p {
-          text-align: left;
-          font-size: 12px;
-          margin: 0;
-          padding: 0;
-          color: $color_gray;
-        }
-        .review-item {
-          margin-top: 10px;
-          border-top: 1px solid $color_black_14;
-          p {
-          text-align: left;
-          font-size: 13px;
-          margin: 0;
-          padding: 0;
-          color: $color_gray;
-          }
-        }
+
         .text-add {
           float: right;
           background-color: $color_carnation_approx;

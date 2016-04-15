@@ -43,14 +43,14 @@ appControllers.controller('addReviewCtrl', function ($scope, $state, $stateParam
                              });
                             $scope.navigateTo('app.locationDetails', $scope.property);
                         },
-                        error: function(gameScore, error) {
+                        error: function(prop, error) {
                              // The save failed.
                              // error is a Parse.Error with an error code and message.
                              console.log(error);
                         }
                     });
                 },
-                    error: function(myComment, error) {
+                    error: function(review, error) {
                     // The save failed.
                     // error is a Parse.Error with an error code and description.
                     }

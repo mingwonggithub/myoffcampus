@@ -17,7 +17,7 @@
 <!--property detail section-->
 <ion-content id="social-sign-up-content">
     <br/>
-    <form name="reviewForm" novalidate="" ng-submit="addReview(reviewForm)">
+    <form name="reviewForm" novalidate="">
           <div class="input" style="border: none; padding: 0; ">
           <i class="ion-ios-calendar-outline" style="font-size: 16px; padding-right: 3px;"></i> {{review.createDate}}
           </div>
@@ -42,7 +42,7 @@
             </div> 
             <br />
             <!-- main review-->
-             <textarea style="resize: vertical;" rows="5" ng-model="review.text" maxlength="750" name="text" placeholder="Any additional comments"></textarea>
+             <textarea style="resize: vertical;" rows="5" ng-model="review.text" required maxlength="750" name="text" placeholder="Any additional comments"></textarea>
                 <div id="main-review">
                     {{(review.text.length > 0 ? review.text.length :0) | json}}/750
                 </div>
@@ -51,7 +51,7 @@
                 <div ng-messages-include="error-list.html"></div> 
             </div>
 
-            <md-button class="md-raised social-button md-button md-default-theme material-background" type="submit">Submit</md-button>
+            <a class="md-raised social-button md-button md-default-theme material-background" ng-click="reviewForm.$submitted = true; addReview(reviewForm)" >Submit</a>
     </form>
 
         <!--end content section-->

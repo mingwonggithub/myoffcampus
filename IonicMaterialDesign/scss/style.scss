@@ -106,10 +106,21 @@ $url_background_cover_restaurant_03: url(../img/food_cover_03.png);
   margin-top: -8px;
 }
 
+#photoSubmit {
+  width: 90%;
+  margin-left: 5%; 
+}
+
+#submitFormButton{
+  width: 98%;
+  margin-left: 1%;
+}
+
+
 .md-button.md-accent.md-fab {
   &.i-picker {
-    left: -8px;
-    top: -8px;
+    left: -12px;
+    top: 25px;
     padding: 15px;
     line-height: 0 !important;
     margin-top: 18px;

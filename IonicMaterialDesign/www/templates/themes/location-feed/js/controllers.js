@@ -1,80 +1,84 @@
- appControllers.controller('addPhotoCtrl', function($scope, $mdBottomSheet, $cordovaImagePicker, $ionicPlatform, $stateParams, $state, $ionicHistory) {
+ appControllers.controller('addPhotoCtrl', function($scope, $stateParams, $mdBottomSheet, $cordovaImagePicker, $ionicPlatform, $stateParams, $state, $ionicHistory) {
+
 
      // initialForm is the first activity in the controller. 
      // It will initial all variable data and let the function works when page load.
      $scope.initialForm = function() {
          $scope.imageList = [];
          $scope.imageParseList = [];
+         $scope.property = $stateParams.propDetail;
+
      }; // End initialForm.
+    $scope.initialForm();
 
      $scope.removePic = function(index) {
-         console.log("removephoto at index" + index);
          $scope.imageList.splice(index, 1);
          $scope.imageParseList.splice(index, 1);
-
      }
 
-     $scope.selectImage = function(limit) {
-         //hide BottomSheet.
-         $mdBottomSheet.hide();
-
-        //Image picker will load images according to these settings
-         var options = {
-             maximumImagesCount: limit, // Max number of selected images
-             width: 800,
-             height: 800,
-             quality: 80, // Higher is better
-        }
-
-        // select image by calling $cordovaImagePicker.getPictures(options)
-         $cordovaImagePicker.getPictures(options)
-
-         .then(function(results) {
-             // store image data to imageList.
 
 
-             for (var i = 0; i < results.length; i++) {
-                 $scope.imageList.push(results[i]);
-                 console.log("images selected", results[i]);
-                 $scope.imageUri = results[i];
-
-                 // Encode URI to Base64
-                 window.plugins.Base64.encodeFile($scope.imageUri, function(base64) {
-                     // Save images in Base64
-                     $scope.imageParseList.push(base64);
-                     //console.log("base64 is ", base64);
-                    // console.log("the parse list is ," , $scope.imageParseList); 
-
-
-                 });
+     //make sure device is ready before cordova plugins can be called 
+     $ionicPlatform.ready(function() {
 
 
 
-             }
+         $scope.selectImage = function(limit) {
+                 //hide BottomSheet.
+                 $mdBottomSheet.hide();
+
+                 //Image picker will load images according to these settings
+                 var options = {
+                     maximumImagesCount: limit, // Max number of selected images
+                     width: 800,
+                     height: 800,
+                     quality: 100,
+                 }
+
+                 // select image by calling $cordovaImagePicker.getPictures(options)
+                 $cordovaImagePicker.getPictures(options)
+                     .then(function(results) {
+                         // store image data to imageList.
+
+                         for (var i = 0; i < results.length; i++) {
+                             $scope.imageList.push(results[i]);
+                             console.log("images selected", results[i]);
+                             $scope.imageUri = results[i];
+
+                             // Encode URI to Base64
+                             window.plugins.Base64.encodeFile($scope.imageUri, function(base64) {
+                                 // Save images in Base64
+                                 $scope.imageParseList.push(base64);
+                                 //console.log("addPhotoCtrl': base64 - ", base64);
+
+                             });
+                         }
+
+                     }, function(error) {
+                         console.log(error);
+                     });
+
+             } //end of scope.selectImage 
+     })
 
 
-         }, function(error) {
-             console.log(error);
-         });
+     // submit images into parse 
+     $scope.submitParse = function() {
 
-         console.log($scope.imageParseList.length);
-
-
-
-     } 
-
-
-     $scope.submitParse = function(){
-
-                for(var k = 0; k < $scope.imageParseList.length; k++){
-
-                console.log("I am saving into parse");
-                var Images = new Parse.Object("propImages");
-                Images.set("imgData", $scope.imageParseList[k]);
-                Images.save();
-
-        }
-
+         for (var k = 0; k < $scope.imageParseList.length; k++) {
+             var propImages = new Parse.Object("propImages");
+             propImages.set("imgData", $scope.imageParseList[k]);
+             propImages.set('underProp', $scope.property.object);
+             propImages.save(null, {
+                 success: function(savedimage) {
+                     console.log("addPhotoCtrl: Succesfully saved images to Parse");
+                     $scope.navigateTo('app.locationDetails', $scope.property);
+                 },
+                 error: function(savedimage, error) {
+                     console.log('addPhotoCtrl:', JSON.stringify(error));
+                 }
+             });
+         } //end for loop 
      }
 
      // showListBottomSheet for show BottomSheet.
@@ -86,16 +90,20 @@
          });
      }; // End showListBottomSheet.
 
-     $scope.initialForm();
 
+
+     //navigate to the property detail page 
+     $scope.navigateTo = function(targetPage, objectData) {
+         $state.go(targetPage, {
+             propDetail: objectData
+         });
+     };
  });
 
  appControllers.controller('addLocationCtrl', function($scope, $state, NoteDB, $stateParams, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
 
-     console.log("addLocationCtrl is here");
      //function that cleans up and retreive the relevant info from the form data 
      // and call the save function 
-
      $scope.createProperty = function(prop, isValid) {
 
          console.log("addLocationCtrl: at create property");
@@ -203,7 +211,7 @@
 
      //clear the form text and the errors 
      $scope.reset = function(propForm) {
-         console.log("propForm: propForm is ", propForm);
+         console.log("addLocationCtrl: propForm - ", propForm);
          if (propForm) {
              propForm.$setPristine();
              propForm.$setUntouched();
@@ -252,13 +260,12 @@
                  });
                  $state.go('app.locationFeed');
                  // The object was saved successfully.
-                 // console.log("addPropertyCtrl: in Parse ", property);
-                 // $scope.navigateTo('app.locationDetails', newProp);
+                 // console.log("addLocationCtrl: in Parse ", property);
              },
              error: function(properties, error) {
                  // The save failed.
                  // error is a Parse.Error with an error code and message.
-                 console.log(error);
+                 console.log("addLocationCtrl:", error);
              }
          });
      }
@@ -306,11 +313,11 @@
 
          $scope.initialize = function(query) {
 
-             //if empty query, list out five highet rating apartment 
+             //if empty query, list out ten highest rating apartment 
              if (query == null) {
                  var myProperty = Parse.Object.extend("myProperty");
                  var query = new Parse.Query(myProperty);
-                 query.limit(5);
+                 query.limit(10);
                  query.descending("rating");
              }
 
@@ -352,6 +359,7 @@
                              property.lat = aProp.get('lat');
                              property.long = aProp.get('long');
                              $scope.properties.push(property);
+
                              property = {};
 
                          }
@@ -362,10 +370,11 @@
                      });
                  },
                  error: function(error) {
-                     alert("Error: " + error.code + " " + error.message);
+                     alert("locationFeedCtrl: Error - " + error.code + " " + error.message);
                  }
              });
          }
+
 
          //initialize page 
          $scope.initialize(query);
@@ -459,47 +468,37 @@
 
      $scope.property = $stateParams.propDetail;
      $scope.reviews = []; //list of reviews on feed page 
-    // console.log("locationDetailCtrl: ", $scope.property);
+     $scope.allImages = [];
+    //all images for that propery 
 
 
-    /* start of image slider */ 
-
-    //hard-coded images 
-    $scope.birdimages = ["https://i.ytimg.com/vi/s9dbAfjlrks/maxresdefault.jpg",
-         "http://28oa9i1t08037ue3m1l0i861.wpengine.netdna-cdn.com/wp-content/uploads/2014/10/mdtanager.jpg",
-         "http://discovermagazine.com/~/media/Images/Issues/2014/Nov/cat-with-bird.jpg",
-         "https://img.buzzfeed.com/buzzfeed-static/static/enhanced/web03/2012/6/4/17/enhanced-buzz-21710-1338844529-13.jpg",
-         "https://s-media-cache-ak0.pinimg.com/736x/7b/6f/b5/7b6fb5533932d2e114168641b2c44a5c.jpg",
-     ];
-
-    $scope.allImages = [{
-         'src': 'img/ari.jpg'
-     }];
+     /* start of image slider */
 
 
-    for (var i = 0; i < $scope.birdimages.length; i++) {
-         var img = $scope.birdimages[i];
-         $scope.allImages.push({ src: img });
-     }
-
+     //Obtaining all the property images 
      $scope.img = '';
+     var myPhotos = Parse.Object.extend("propImages");
+     var query = new Parse.Query("propImages");
+     query.equalTo("underProp", $scope.property.object);
+     query.find({
+         success: function(results) {
 
-    var myPhotos = Parse.Object.extend("propImages");
-    var query = new Parse.Query("propImages");
-    query.find({
-        success: function(results) {
-            console.log("propImage results are ",results.length); 
+            $scope.$apply(function() {
 
-            for(var j = 0; j < results.length; j++){
-                var imagedata = results[j].get("imgData");
-                $scope.allImages.push({ src: imagedata });
-                
-            }
-        },
-        error: function(error){
-            console.log(error);
+             console.log("locationDetailCtrl: " + results.length + " propImages found");
+
+             for (var j = 0; j < results.length; j++) {
+                 var imagedata = results[j].get("imgData");
+                 $scope.allImages.push({ src: imagedata });
+
+             }
+         }); 
+
+         },
+         error: function(error) {
+             console.log('locationDetailCtrl: ', error);
          }
-    }); 
+     });
 
 
      $scope.showImages = function(index) {
@@ -523,10 +522,10 @@
          $scope.modal.remove()
      };
 
-     /* end of image slider */ 
+     /* end of image slider */
 
 
-
+     //initialize ht emap 
      $ionicPlatform.ready(function() {
          initialize($scope.property.lat, $scope.property.long);
      });
@@ -562,23 +561,26 @@
 
      };
 
+     //Obtaining all the reviews 
      var prop = $scope.property.object;
      var myProperty = Parse.Object.extend("myProperty");
      var query = new Parse.Query(myProperty);
-     console.log("prop.getaddress: " + prop.get("address"))
+     console.log("locationDetailCtrl: prop.getaddress is" + prop.get("address"))
      query.equalTo("address", prop.get("address"));
      query.include("reviews");
      query.select("reviews");
      var review = {};
 
      //SLOW BECAUSE 2 QUERIES ARE NEEDED. REWRITE
+     //for future, one to many relationship should use pointer
+     // see the image 
      query.find({
          success: function(results) {
              var relation = results[0].relation("reviews");
              relation.query().find({
                  success: function(qReviews) {
                      $scope.$apply(function() {
-                         console.log("Successfully retrieved " + qReviews.length + " reviews.");
+                         console.log("locationDetailCtrl: Successfully retrieved " + qReviews.length + " reviews.");
 
                          for (i in qReviews) {
                              aR = qReviews[i];
@@ -593,12 +595,12 @@
                      }); //end $scope.apply
                  },
                  error: function(error) {
-                     console.log("Error2: " + error.code + " " + error.message);
+                     console.log("locationDetailCtrl: Error2 - " + error.code + " " + error.message);
                  }
              }); //end 2nd query
          },
          error: function(error) {
-             console.log("Error1: " + error.code + " " + error.message);
+             console.log("locationDetailCtrl: Error1 - " + error.code + " " + error.message);
          }
      });
 
@@ -635,7 +637,7 @@
              relation.query().find({
                  success: function(locations) {
                      $scope.$apply(function() {
-                         console.log("Successfully retrieved " + results.length + " properties.");
+                         console.log("savedLocationCtrl: Successfully retrieved " + results.length + " properties.");
                          /*for (var i = 0; i < results.length; i++) {
                            $scope.properties.push(results[i]);
                            console.log($scope.properties);
@@ -670,12 +672,12 @@
                      }); //end $scope.apply
                  },
                  error: function(error) {
-                     console.log("Error2: " + error.code + " " + error.message);
+                     console.log("savedLocationCtrl': Error2 - " + error.code + " " + error.message);
                  }
              }); //end 2nd query
          },
          error: function(error) {
-             console.log("Error1: " + error.code + " " + error.message);
+             console.log("savedLocationCtrl': Error1 - " + error.code + " " + error.message);
          }
      });
 
@@ -689,7 +691,7 @@
          var user = Parse.User.current();
          var relation = user.relation("savedProps");
 
-         console.log("removing property: " + property);
+         console.log("savedLocationCtrl: removing property " + property);
          // Add the post as a value in the comment
          relation.remove(property);
 
@@ -710,7 +712,7 @@
                  $state.go($state.current, {}, { reload: true });
              },
              error: function(error) {
-                 console.log("error: " + error.message);
+                 console.log("savedLocationCtrl: error - " + error.message);
              }
          });
      }

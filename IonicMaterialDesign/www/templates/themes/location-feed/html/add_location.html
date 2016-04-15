@@ -55,7 +55,9 @@
                 <div ng-messages-include="error-list.html"></div> 
             </div>
 
-            <button class="md-raised social-button md-button md-default-theme material-background" type="submit">Submit</md-button>
+<!--             <button class="md-raised social-button md-button md-default-theme material-background" type="submit">Submit</md-button>
+ -->
+            <a id="submitFormButton" class="md-raised social-button md-button md-default-theme material-background" ng-click="propForm.$submitted = true; createProperty(prop, propForm.$valid)" >Submit</a>
     </form>
 
         <!--end content section-->

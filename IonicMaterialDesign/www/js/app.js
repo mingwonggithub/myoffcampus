@@ -432,6 +432,9 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
 
     .state('app.addphoto', {
         url: "/addphoto",
+        params: {
+            propDetail: null,
+        },
         views: {
             'menuContent': {
                 templateUrl: "templates/themes/location-feed/html/addPhoto.html",

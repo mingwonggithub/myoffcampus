@@ -29,20 +29,6 @@
         <md-list>
         <div class="instruction">Please press button to select photos. </div> 
 
-
-           <md-card>
-                
-                <md-card-content  class = "row">
-                <div id="besidetrash" class="col-90">
-                    <h2 class="md-title">Image </h2>
-                </div>
-                <div id = "trash" class = "col-10">
-                    <a id="trash" class="button button-icon icon ion-ios-trash-outline" ng-click="removePic($index)"></a>
-                </div>
-                </md-card-content>
-            </md-card>
-
-
             <md-card ng-repeat="image in imageList track by $index">
                 <img ng-src="{{image}}" class="md-card-image" alt="image{{$index+1}}">
                 <md-card-content  class = "row">
@@ -55,7 +41,7 @@
                 </md-card-content>
             </md-card>
         </md-list>  <!--end list section-->
-
+ <a class="md-raised social-button md-button md-default-theme material-background" ng-click ="submitParse()" >Submit</a>
     </ion-content><!--end image picker section-->
 
     <!--angular template section-->

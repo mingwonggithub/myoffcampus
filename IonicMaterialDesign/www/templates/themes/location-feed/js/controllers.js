@@ -31,6 +31,8 @@
 
          .then(function(results) {
              // store image data to imageList.
+
+
              for (var i = 0; i < results.length; i++) {
                  $scope.imageList.push(results[i]);
                  console.log("images selected", results[i]);
@@ -40,16 +42,40 @@
                  window.plugins.Base64.encodeFile($scope.imageUri, function(base64) {
                      // Save images in Base64
                      $scope.imageParseList.push(base64);
-                     console.log("base64 is ", base64);
+                     //console.log("base64 is ", base64);
+                    // console.log("the parse list is ," , $scope.imageParseList); 
+
 
                  });
 
+
+
              }
+
+
          }, function(error) {
              console.log(error);
          });
 
+         console.log($scope.imageParseList.length);
+
+
+
      } 
+
+
+     $scope.submitParse = function(){
+
+                for(var k = 0; k < $scope.imageParseList.length; k++){
+
+                console.log("I am saving into parse");
+                var Images = new Parse.Object("propImages");
+                Images.set("imgData", $scope.imageParseList[k]);
+                Images.save();
+
+        }
+
+     }
 
      // showListBottomSheet for show BottomSheet.
      $scope.showListBottomSheet = function($event) {
@@ -450,10 +476,31 @@
          'src': 'img/ari.jpg'
      }];
 
+
     for (var i = 0; i < $scope.birdimages.length; i++) {
          var img = $scope.birdimages[i];
          $scope.allImages.push({ src: img });
      }
+
+     $scope.img = '';
+
+    var myPhotos = Parse.Object.extend("propImages");
+    var query = new Parse.Query("propImages");
+    query.find({
+        success: function(results) {
+            console.log("propImage results are ",results.length); 
+
+            for(var j = 0; j < results.length; j++){
+                var imagedata = results[j].get("imgData");
+                $scope.allImages.push({ src: imagedata });
+                
+            }
+        },
+        error: function(error){
+            console.log(error);
+         }
+    }); 
+
 
      $scope.showImages = function(index) {
          $scope.activeSlide = index;

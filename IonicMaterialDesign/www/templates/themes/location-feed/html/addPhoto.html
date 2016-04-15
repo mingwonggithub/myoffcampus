@@ -31,7 +31,7 @@
 
             <md-card ng-repeat="image in imageList track by $index">
                 <img ng-src="{{image}}" class="md-card-image" alt="image{{$index+1}}">
-                <md-card-content  class = "row">
+                <md-card-content class="row">
                 <div id="besidetrash" class="col-90">
                     <h2 class="md-title">Image {{$index+1}}</h2>
                 </div>
@@ -43,7 +43,7 @@
         </md-list>  <!--end list section-->
 
     </br > 
- <a id="photoSubmit" class="md-raised social-button md-button md-default-theme material-background" ng-click ="submitParse()" >Submit</a>
+ <a id="photoSubmit" class="md-raised social-button md-button md-default-theme material-background" ng-click ="submitParse()">Submit</a>
     </ion-content><!--end image picker section-->
 
     <!--angular template section-->

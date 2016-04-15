@@ -1,6 +1,6 @@
 appControllers.controller('addReviewCtrl', function($scope, $state, $stateParams, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
   $scope.property = $stateParams.propDetail;
-  console.log($scope.property);
+  // console.log($scope.property);
   $scope.review = {
     createDate: $filter('date')(new Date(), 'MMM dd, yyyy'),
     overallRating: 1,
@@ -50,6 +50,18 @@ appControllers.controller('addReviewCtrl', function($scope, $state, $stateParams
       });
     }
   };
+
+  $scope.navigateTo = function(targetPage, objectData) {
+    $state.go(targetPage, {
+      propDetail: objectData
+    });
+  };
+})
+
+appControllers.controller('allReviewsCtrl', function($scope, $state, $stateParams, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
+  $scope.property = $stateParams.propDetail;
+  $scope.reviews = $stateParams.reviews
+  // console.log($scope.property);
 
   $scope.navigateTo = function(targetPage, objectData) {
     $state.go(targetPage, {

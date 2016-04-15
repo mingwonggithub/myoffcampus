@@ -1,6 +1,4 @@
  appControllers.controller('addPhotoCtrl', function($scope, $stateParams, $mdBottomSheet, $cordovaImagePicker, $ionicPlatform, $stateParams, $state, $ionicHistory) {
-    $scope.property = $stateParams.propDetail;
-
      // initialForm is the first activity in the controller. 
      // It will initial all variable data and let the function works when page load.
      $scope.initialForm = function() {
@@ -605,9 +603,10 @@
      });
 
 
-     $scope.navigateTo = function(targetPage, objectData) {
+     $scope.navigateTo = function(targetPage, object1Data, object2Data) {
          $state.go(targetPage, {
-             propDetail: objectData
+             propDetail: object1Data,
+             reviews: object2Data
          });
      };
 

@@ -421,6 +421,21 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
         }
     })
 
+    .state('app.allreviews', {
+        url: "/allreviews",
+        cache: false,
+        params: {
+            propDetail: null, 
+            reviews: null,
+        },
+        views: {
+            'menuContent': {
+                templateUrl: "templates/reviews/html/all-reviews.html",
+                controller: 'allReviewsCtrl' 
+            }
+        }
+    })
+
     .state('app.addlocation', {
         url: "/addlocation",
         views: {
@@ -1040,6 +1055,7 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
             cache: false,
             params: {
                 propDetail: null,
+                reviews: null,
             },
             views: {
                 'menuContent': {

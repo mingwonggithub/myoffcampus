@@ -409,6 +409,7 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
 
     .state('app.addreview', {
         url: "/addreview",
+        cache: false,
         params: {
             propDetail: null,
         },
@@ -432,6 +433,7 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
 
     .state('app.addphoto', {
         url: "/addphoto",
+        cache: false,
         params: {
             propDetail: null,
         },

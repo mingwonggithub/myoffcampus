@@ -1,4 +1,7 @@
 /* We should put our css on top to make it easier to find */
+.center {
+  text-align: center; }
+
 /* add photo page */
 .instruction {
   padding: 8px;
@@ -1794,11 +1797,10 @@ md-sidenav {
   padding: 10px 10px 10px 8px;
   background-color: #f6f6f6; }
   #location-feed-content p {
-    text-align: center;
     color: gray;
     font-size: 12px; }
   #location-feed-content .add-button {
-    margin: 7px;
+    margin: 0;
     line-height: 15px !important;
     min-height: 35px !important;
     min-width: 37px !important; }
@@ -1837,21 +1839,13 @@ md-sidenav {
         text-align: left; }
       #location-feed-content .location-list .location-item .location-content h2 {
         text-align: center; }
-      #location-feed-content .location-list .location-item .location-content p {
-        text-align: left;
-        font-size: 12px;
+      #location-feed-content .location-list .location-item .location-content h3 {
+        font-size: 14px;
+        display: inline;
         margin: 0;
-        padding: 0;
-        color: gray; }
-      #location-feed-content .location-list .location-item .location-content .review-item {
-        margin-top: 10px;
-        border-top: 1px solid rgba(0, 0, 0, 0.14); }
-        #location-feed-content .location-list .location-item .location-content .review-item p {
-          text-align: left;
-          font-size: 13px;
-          margin: 0;
-          padding: 0;
-          color: gray; }
+        color: rgba(0, 0, 0, 0.25);
+        padding: 10px 10px 5px 0;
+        text-align: left; }
       #location-feed-content .location-list .location-item .location-content .text-add {
         float: right;
         background-color: #ff5252;

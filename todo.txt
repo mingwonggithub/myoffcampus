@@ -8,10 +8,14 @@ Profile Image
 LANDLORD
 	add a gender category on page so that the listpage have some image to display
 Give every property an image to be displayed in the feed format
-Calculate average of reviews. Just sum of ratings/reviews.length
   If no reviews, overall rating should be '-'. Should be black
+  Also, change the css for ratings with two digits on location detail page. 
 Reviews
   Add new categories
   Make it beautiful
 Add spinners and error messages to pages
+
+Completed things: 
   SPINNERS DONE SO FAR: login, register, location feed
+  Calculate average of reviews. Just sum of ratings/reviews.length
+

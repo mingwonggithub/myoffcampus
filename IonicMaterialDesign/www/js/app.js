@@ -429,7 +429,7 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
         },
         views: {
             'menuContent': {
-                templateUrl: "templates/landlord/html/add-landlord.html",
+                templateUrl: "templates/themes/landlord/html/add-landlord.html",
                 controller: 'addLandLordCtrl' 
             }
         }

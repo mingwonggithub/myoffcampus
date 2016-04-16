@@ -1,3 +1,6 @@
+ // appControllers.controller('addLandLordCtrl', function($scope, $state, NoteDB, $stateParams, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
+
+ // }); 
  appControllers.controller('addLandLordCtrl', function($scope, $state, NoteDB, $stateParams, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
 
      console.log("addLandLordCtrl is here");
@@ -86,11 +89,11 @@
                  }
              }
 
-             $scope.landlord.kind = $scope.categories.kind;
+             // $scope.landlord.kind = $scope.categories.kind;
              $scope.landlord.hrating = parseInt($scope.landlord.hrating);
 
-             searchArray.push($scope.landlord.kind.toLowerCase());
-             searchArray = searchArray.concat($scope.landlord.communityName.toLowerCase().split(" "));
+             // searchArray.push($scope.landlord.kind.toLowerCase());
+             // searchArray = searchArray.concat($scope.landlord.communityName.toLowerCase().split(" "));
              console.log("keywords are: ", searchArray);
 
              $scope.landlord.searchArray = searchArray; 

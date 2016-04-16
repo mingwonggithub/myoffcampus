@@ -20,9 +20,12 @@
         <br/>
         <form name="landlordForm" novalidate="" ng-submit="createLandLord(landlord,landlordForm.$valid)">
 
+            <div class="input" style="border: none; padding: 0; padding-top: 10px;">
+                Personal Info: 
+            </div>
             <!--landlord first name-->
             <label class="item item-input" ng-class="{ 'has-errors' : landlordForm.fName.$invalid && landlordForm.$submitted, 'no-errors' : landlordForm.fName.$valid  && landlordForm.$submitted}">
-                <input type="text" placeholder="First Name" name="fName" ng-model="landlord.firstName" required>
+                <input type="text" placeholder="First Name" name="fName" ng-model="landlord.firstname" required>
             </label>
             <div class="error-container last-error-container" ng-show="landlordForm.fName.$error && landlordForm.$submitted" ng-messages="landlordForm.fName.$error">
                 <div ng-messages-include="error-list.html"></div>
@@ -31,21 +34,26 @@
 
             <!--landlord last name-->
             <label class="item item-input" ng-class="{ 'has-errors' : landlordForm.lName.$invalid && landlordForm.$submitted, 'no-errors' : landlordForm.lName.$valid  && landlordForm.$submitted}">
-                <input type="text" placeholder="Last Name" name="lName" ng-model="landlord.lastName" required>
+                <input type="text" placeholder="Last Name" name="lName" ng-model="landlord.lastname" required>
             </label>
             <div class="error-container last-error-container" ng-show="landlordForm.lName.$error && landlordForm.$submitted" ng-messages="landlordForm.lName.$error">
                 <div ng-messages-include="error-list.html"></div>
             </div>
             <!--end landlord last name-->
 
+            <md-radio-group  ng-model = "landlord.gender" layout="row">
+            <md-radio-button value='M' class="md-primary">Male</md-radio-button>
+             <md-radio-button value='F'>Female</md-radio-button>
+            </md-radio-group>
+
             <!-- address-->
             <div class="input" style="border: none; padding: 0; padding-top: 10px;">
                 Mailing address:
             </div>
-            <label class="item item-input" ng-class="{ 'has-errors' : landlordForm.address.$invalid && landlordForm.$submitted, 'no-errors' : landlordForm.address.$valid  && landlordForm.$submitted}">
-                <input type="text" g-places-autocomplete ng-blur="updateMap()" ng-enter="updateMap()" name="address" ng-model="addr.addressL" placeholder="Mailing Address" required>
+            <label class="item item-input" ng-class="{ 'has-errors' : landlordForm.mailaddress.$invalid && landlordForm.$submitted, 'no-errors' : landlordForm.mailaddress.$valid  && landlordForm.$submitted}">
+                <input type="text" g-places-autocomplete ng-blur="updateMap()" ng-enter="updateMap()" name="address" ng-model="addr.mailaddress" placeholder="Mailing Address" >
             </label>
-            <div class="error-container last-error-container" ng-show="landlordForm.address.$error && landlordForm.$submitted" ng-messages="landlordForm.address.$error">
+            <div class="error-container last-error-container" ng-show="landlordForm.mailaddress.$error && landlordForm.$submitted" ng-messages="landlordForm.mailaddress.$error">
                 <div ng-messages-include="error-list.html"></div>
             </div>
             <!--end address-->
@@ -73,7 +81,8 @@
             </div>
             <!--end phone-->
 
-            <button class="md-raised social-button md-button md-default-theme material-background" type="submit">Submit</md-button>
+         <a id="submitFormButton" class="md-raised social-button md-button md-default-theme material-background" ng-click="landlordForm.$submitted = true; createLandLord(landlord,landlordForm.$valid)">Submit</a>
+    </form>
         </form>
         <!--end content section-->
     </ion-content>

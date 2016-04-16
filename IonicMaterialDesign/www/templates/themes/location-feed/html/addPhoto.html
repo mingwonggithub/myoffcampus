@@ -1,0 +1,75 @@
+<!--View Information-->
+<!--View name : Photo Selection-->
+<!--Controller name : addPhotoCtrl-->
+<!--Controller path : www/templates/themes/location-feeed/js/controllers.js-->
+<!--State name : app.addPhoto-->
+<!--URL : #app/addphoto-->
+
+<ion-view view-title="Photo Selection">
+
+<!--left button on navigation bar-->
+    <ion-nav-buttons side="left">
+        <a ng-click="navigateTo('app.locationDetails', property)" class="button back-button buttons  button-clear header-item nav-back-btn">
+            <i class="ion-android-arrow-back"></i>
+        </a>
+
+        <a class="md-button md-accent md-fab i-picker"
+                   ng-click="showListBottomSheet($event,noteForm)"
+                   aria-label="showListBottomSheet">
+        <i class="fa fa-picture-o"></i>  
+
+    </a>
+    </ion-nav-buttons><!--end left button on navigation bar-->
+
+
+    <!--image picker section-->
+    <ion-content id="i-picker-content">
+
+        <!--list section-->
+        <md-list>
+        <div class="instruction">Please press button to select photos. </div> 
+
+            <md-card ng-repeat="image in imageList track by $index">
+                <img ng-src="{{image}}" class="md-card-image" alt="image{{$index+1}}">
+                <md-card-content class="row">
+                <div id="besidetrash" class="col-90">
+                    <h2 class="md-title">Image {{$index+1}}</h2>
+                </div>
+                <div id = "trash" class = "col-10">
+                    <a id="trash" class="button button-icon icon ion-ios-trash-outline" ng-click="removePic($index)"></a>
+                </div>
+                </md-card-content>
+            </md-card>
+        </md-list>  <!--end list section-->
+
+    </br > 
+ <a id="photoSubmit" class="md-raised social-button md-button md-default-theme material-background" ng-click ="submitParse()">Submit</a>
+    </ion-content><!--end image picker section-->
+
+    <!--angular template section-->
+    <script type="text/ng-template" id="image-picker-actions-template">
+        <md-bottom-sheet class="md-list md-has-header">
+            <h1 class="md-bottom-sheet-header">Image Picker Options</h1>
+            <!--list section-->
+            <md-list>
+                <md-list-item>
+                    <a class="md-default-theme md-bottom-sheet-list-item"
+                       ng-click="selectImage(1)">
+                        <i class="ion-image"></i>
+                        <span>Single Select</span>
+                    </a>
+                </md-list-item>
+
+                <md-list-item>
+                    <a class="md-default-theme md-bottom-sheet-list-item"
+                       ng-click="selectImage(9999)">
+                        <i class="ion-images"></i>
+                        <span>Multiple Select</span>
+                    </a>
+                </md-list-item>
+            </md-list><!--end list section-->
+        </md-bottom-sheet>
+    </script><!--end angular template section-->
+
+
+</ion-view>

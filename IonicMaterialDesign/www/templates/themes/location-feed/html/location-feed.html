@@ -1,0 +1,87 @@
+<!--View Information-->
+<!--View name : Location Feed-->
+<!--State name : app.locationFeed-->
+<!--URL : #app/locationFeed-->
+<ion-view title="Properties Search">
+    <!--add the sort button -->
+    <ion-nav-buttons side="right">
+        <md-menu class="sortingMenu">
+            <md-button id="sortingMenuButton" aria-label="sorting menu" class="md-icon-button ion-nav-button-right" ng-click="$mdOpenMenu($event)">
+                <i class="ion-android-more-vertical"></i>
+            </md-button>
+            <md-menu-content width="2">
+                <md-menu-item>
+                    <md-button ng-disabled="true"> Sort by: </md-button>
+                </md-menu-item>
+                <md-menu-item ng-repeat="item in ['Ratings', 'Title']">
+                    <md-button ng-click="sortBy($index)">
+                        <div layout="row" flex>
+                            <span md-menu-align-target class="sortorder" ng-class="{reverse:reverse}"style="padding-right: 5px; margin-top: -1px;"></span> {{item}}
+                        </div>
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </ion-nav-buttons>
+    <!--end right button on navigation bar-->
+    <!--location feed section-->
+    <ion-content id="location-feed-content">
+        <!--debug usage -->
+        <!--<pre>Sorting predicate = {{predicate}}; reverse = {{reverse}}</pre> -->
+        <!--
+        list section
+        Here you need to load in the different locations and their 
+        basic information. Similar to in the orders and order detail
+        from the previous homeworks. Would need this to be present in
+        the sample data. 
+
+        An updated list of all the new locations and reccomended locations.
+        Could be new listings or sponsored listings. Or mixed in with both.
+        -->
+        <md-input-container md-no-float="" class="search-box">
+            <a class="minibutton" ng-click="searchlocFeed()"><i class="ion-android-search"></i></a>
+            <input ng-model="userInput.propText" placeholder="Search by address or community">
+        </md-input-container>
+        <div class="location-list">
+            <!--location item section-->
+            <ion-list ng-repeat="property in properties | orderBy:predicate: reverse ">
+                <div class="location-item" ng-click="navigateTo('app.locationDetails', property)">
+                    <div class="location-img" style="background-image: url('img/house.jpg')">
+                    </div>
+                    <div class="location-content row">
+                        <div class="col-80">
+                            <h1>
+                            {{property.title}}
+                        </h1>
+                            <p>
+                                <i class="ion-location"></i> {{property.streetNo}} {{property.street}}
+                                <br>
+                                <i class="ion-android-map"></i> {{property.city}}, {{property.state}} {{property.zipcode}}
+                            </p>
+                        </div>
+                        <div class="col-20">
+                            <h2 id="rating" ng-class="{red:property.rating<4, green:property.rating>6, yellow:property.rating>3 && property.rating<7}">{{property.rating}}</h2>
+                            <span class="text-add" ng-click="save(property.object); $event.stopPropagation();"> Save </span>
+                        </div>
+                    </div>
+                </div>
+            </ion-list>
+            <!--end location item section-->
+        </div>
+        <!--end list section-->
+        <br />
+        <div class="center">
+            <p>Can't find the property you're looking for? Add a new one:
+            </p>
+            <button class="button button-outline button-positive add-button" ng-click="navigateTo('app.addlocation')">+</button>
+        </div>
+        <br />
+    </ion-content>
+    <!--end location feed section-->
+    <!--loading progress-->
+    <div id="location-list-loading-progress" class="loading-progress fade-in">
+        <ion-spinner ng-if="!isAndroid" class="progress-circular"></ion-spinner>
+        <md-progress-circular ng-if="isAndroid" md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <!--end loading progress-->
+</ion-view>

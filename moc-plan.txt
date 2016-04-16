@@ -1,0 +1,75 @@
+Navigation Bar
+  Home
+  Settings
+
+Settings
+  change profile pic
+  change name
+  change password
+
+Login
+  only accepts email.sc.edu addresses
+  sends confirmation email
+  marks account verified
+  password rules: length of 5, alphanumeric
+
+Welcome Page (Search)
+  Find a property
+  Find a landlord
+
+No Search Result
+  Add a property
+  Add a landlord
+
+Property/landlord page
+  Photo
+  Maps location
+  Reviews
+
+??Calculate uber cost
+  choose 5points or vista as destination
+  accessible from property page
+  
+??Crime statistics
+  accessible from property page
+  possibly show crimes on map
+  start with maybe a safety rating
+
+user fields:
+  first name
+  last name
+  photo
+  email
+  class standing
+  password
+
+property fields:
+  address
+  overall rating /10
+  submit a correction
+  reviews
+    other rating scales
+    cost: rent/utilities
+    time lived at
+
+landlord fields:
+  name
+  address
+  overall rating /10
+  submit a correction
+  reviews
+    other rating scales
+    cost: rent/utilities
+    time lived at
+
+3rd category?: apartments (lofts, hub, grw, etc.)
+
+other rating scales:
+  value
+  amenities
+  management
+  hidden fees
+  location
+  
+Share?
+  post review to fb

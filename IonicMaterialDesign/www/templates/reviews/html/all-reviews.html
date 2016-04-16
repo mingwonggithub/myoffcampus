@@ -1,0 +1,20 @@
+<!--All Reviews-->
+<!--View name : allreviews-->
+<!--State name : app.allreviews-->
+<!--URL : #app/allreviews-->
+<ion-view title="{{property.title}} Reviews">
+  <ion-nav-buttons side="left">
+    <a ng-click="navigateTo('app.locationDetails', property)" class="button back-button buttons  button-clear header-item nav-back-btn">
+      <i class="ion-android-arrow-back"></i>
+    </a>
+  </ion-nav-buttons>
+
+  <ion-content>
+    <ion-list ng-repeat="review in reviews">
+      <div class="item item-list-detail item-text-wrap" style="border-bottom: none;">
+        <h3 ng-class="{red:review.rating<4, green:review.rating>6, yellow:review.rating>3 && review.rating<7}">Rating: {{review.rating}}/10   |   Cost: {{review.cost}}</h3>
+        <p>{{review.text}}</p>
+      </div>
+  </ion-list>
+  </ion-content>
+</ion-view>

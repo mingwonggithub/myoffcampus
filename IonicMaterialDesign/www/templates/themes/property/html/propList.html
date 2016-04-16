@@ -1,0 +1,84 @@
+<!--View Information-->
+<!--View name : Property List-->
+<!--Controller name : propListCtrl-->
+<!--Controller path : www/themes/property/controllers.js-->
+<!--State name : app.proplist-->
+<!--URL : #app/proplist-->
+<ion-view title="Property List">
+    <!--right button on navigation bar-->
+    <ion-nav-buttons side="right">
+        <md-button ng-disabled="isLoading" class="md-icon-button ion-nav-button-right" ng-click="navigateTo('app.notesetting')" aria-label="Setting">
+            <i class="ion-android-more-vertical"></i>
+        </md-button>
+    </ion-nav-buttons>
+    <!--end right button on navigation bar-->
+    <!--prop list section-->
+    <ion-content id="prop-list-content" class="fade-in">
+        <!--list section-->
+        <md-list>
+            <!--list item section-->
+            <md-list-item>
+                <md-input-container md-no-float="" class="search-box">
+                    <i class="ion-android-search"></i>
+                    <input ng-model="filterText" placeholder="Search for notes.">
+                </md-input-container>
+            </md-list-item>
+            <md-card ng-if="!isAnimated" ng-click="navigateTo('app.notedetail' , note )" class="card-item" ng-repeat="prop in propertyList | filter: { ptitle: filterText } | orderBy: 'ptitle'"> <!-- this need to change once property detail page is set up --> 
+                <md-card-content>
+                    <div class="card-content">
+                        <h1 class="md-title">
+                                    <span>
+                                        <i class="ion-android-list"></i>{{prop.ptitle}}
+                                    </span>
+                            </h1>
+                        <div class="prop-content-detail">
+                            {{prop.address}} </br>
+                            Rating: {{prop.rating}}
+                        </div>
+
+                         <!-- <div star-rating stars="5" outer-star-selection="stars" outer-percent="rating" rating-define="percent" rating-percent="50" star-radius="15" sel-color="gold" back-color="white" ></div> -->
+                    </div>
+                </md-card-content>
+            </md-card>
+
+            <!--Below code it will show animation when selecting row.-->
+            <md-list-item ng-if="isAnimated" ng-repeat="prop in propertyList | filter: { ptitle: filterText } | orderBy: 'ptitle'">
+                <md-card>
+                    <md-button ng-click="navigateTo('app.addproperty' , prop )">
+                        <md-card-content>
+                            <div class="card-content">
+                                <h1 class="md-title">
+                                    <span>
+                                        <i class="ion-android-list"></i>{{prop.ptitle}}
+                                    </span>
+                                </h1>
+                                <div>
+                                    {{prop.address}} </br>
+                                    Rating: {{prop.rating}} </div>
+                            </div>
+                        </md-card-content>
+                    </md-button>
+                </md-card>
+            </md-list-item>
+            <!--end list item section-->
+        </md-list>
+        <!--end list section-->
+    </ion-content>
+    <!--end property list section-->
+
+    <!--footer fab bar, contains button that direct to the add new property page --> 
+    <div class="footer-fab-bar">
+        <a class="md-button md-accent md-fab fab-footer" ng-click="navigateTo('app.addproperty')" aria-label="Add">
+            <i class="ion-android-create"></i>
+        </a>
+    </div>
+    <!--end footer fab bar-->
+
+    <!--loading progress-->
+    <div id="prop-list-loading-progress" class="loading-progress fade-in">
+        <ion-spinner ng-if="!isAndroid" class="progress-circular"></ion-spinner>
+        <md-progress-circular ng-if="isAndroid" md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <!--end loading progress-->
+
+</ion-view>

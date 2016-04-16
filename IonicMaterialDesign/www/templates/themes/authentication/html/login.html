@@ -1,0 +1,41 @@
+<!--URL : #app/login-->
+<ion-view has-subheader="true" hide-nav-bar="true" title="Login" ng-controller="loginCtrl as controller">
+    <!--login content section-->
+    <ion-content id="social-login" class="signup-background">
+        <form name="loginForm" novalidate="" ng-submit="login(loginForm)">
+            <!--STYLE FOUND IN SCSS GET RID OF THE OPTIONS BAR, replace image with our own? Maybe switch master color schemes?-->
+            <div class="sub-header">
+                MyOffCampus
+                </div>
+            <div class="list list-inset" id="login">
+                <label id="header" class="item item-divider material-background-nav-bar">Login</label>
+                <label class="item item-input" ng-class="{'has-errors-log': loginForm.email.$invalid && loginForm.$submitted}">
+                    <input name="email" type="email" placeholder="Email" ng-model="controller.email" required>
+                </label>
+                <label class="item item-input" ng-class="{'has-errors-log': loginForm.password.$invalid && loginForm.$submitted}">
+                    <input name="password" type="password" placeholder="Password" ng-model="controller.password" ng-minlength="5" required>
+                </label>
+            </div>
+            <button class="md-raised social-button md-button md-default-theme material-background" type="submit">Sign In</button>
+        </form>
+        <div id="options">
+            <div id="password">
+                <a href="#/app/password" class="link">
+                    password
+                 </a>
+            </div>
+            <div id="register">
+                <a href="#/app/register" class="link">
+                    register
+                </a>
+            </div>
+        </div>
+    </ion-content>
+
+    <div id="login-loading-progress" class="loading-progress fade-in">
+        <ion-spinner ng-if="!isAndroid" class="progress-circular"></ion-spinner>
+        <md-progress-circular ng-if="isAndroid" md-mode="indeterminate"></md-progress-circular>
+    </div>
+
+</ion-view>
+

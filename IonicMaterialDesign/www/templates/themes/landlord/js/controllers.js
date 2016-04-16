@@ -1,17 +1,77 @@
  appControllers.controller('addLandLordCtrl', function($scope, $state, $ionicPopup, $stateParams, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
 
+
+     // the following commented out code may be neccessary 
+         // if search landlord can searched by address 
+         //latitude and longitude
+         // $scope.landlord.lat = address.geometry.location.lat();
+         // $scope.landlord.long = address.geometry.location.lng();
+
+    $scope.extractAddress = function(addressComponents) {
+
+        for (var i = 0; i < addressComponents.length; i++) {
+            var aType = addressComponents[i].types[0];
+            console.log(aType);
+            var currentLongName = addressComponents[i].long_name;
+            var currentShortName = addressComponents[i].short_name;
+
+            if (aType == 'street_number') {
+                $scope.landlord.streetNo = parseInt(currentLongName);
+                //searchArray.push(currentLongName);
+            }
+
+            if (aType == 'route') {
+                $scope.landlord.street = currentLongName;
+
+                //build the keywords for the route 
+                // searchArray = searchArray.concat(currentLongName.toLowerCase().split(" "));
+                // var shortNameArray = currentShortName.toLowerCase().split(" ");
+                // console.log(shortNameArray);
+                //  for (var j = 0; j < shortNameArray.length; j++) {
+                //     if (elementExists(searchArray, shortNameArray[i]) == false) {
+                //        searchArray.push(shortNameArray[i]);
+                //     }
+                //  }
+            }
+
+            if (aType == 'locality') {
+                $scope.landlord.city = currentLongName;
+                // console.log('locatlity', currentLongName);
+                // searchArray.push(currentLongName.toLowerCase());
+            }
+
+            if (aType == 'administrative_area_level_1') {
+                $scope.landlord.state = currentLongName;
+                // searchArray.push(currentLongName.toLowerCase());
+                // searchArray.push(currentShortName.toLowerCase());
+            }
+            if (aType == 'country') {
+                $scope.landlord.country = currentLongName;
+                // searchArray.push(currentLongName.toLowerCase());
+                // searchArray.push(currentShortName.toLowerCase());
+            }
+            if (aType == 'postal_code') {
+                $scope.landlord.zipcode = currentLongName;
+                // searchArray.push(currentLongName);
+            }
+        } // end of for loop 
+
+        console.log("scope landlord is ", $scope.landlord);
+        $scope.saveLandLord(); 
+
+    } // end of scope address
+
      // A confirm dialog for user input address string 
      $scope.showConfirm = function(addressL) {
          var confirmPopup = $ionicPopup.confirm({
              title: 'Comfirm Address',
-             template: 'Is ' + addressL + ' the correct address?'
+             template: 'Is ' + addressL.formatted_address + ' the correct address?'
          });
 
          confirmPopup.then(function(res) {
              if (res) {
                  console.log('addLandlordCtrl: You are sure');
-                $scope.saveLandLord();
-
+                $scope.extractAddress(addressL.address_components);
 
              } else {
                  console.log('addLandlordCtrl: You are not sure');
@@ -61,8 +121,9 @@
 
                  if (status == google.maps.GeocoderStatus.OK) {
 
+                     $scope.landlord.addressL = results[0];
                      $scope.landlord.address = results[0].formatted_address;
-                     $scope.showConfirm( $scope.landlord.address);
+                     $scope.showConfirm( $scope.landlord.addressL);
                      console.log("addLandLordCtrl: $scope.landlord is ", $scope.landlord);
 
                  } else {
@@ -77,66 +138,15 @@
                  $scope.landlord.address = $scope.addr.mailaddress.formatted_address;
              }
              console.log("addLandLordCtrl: $scope.landlord is ", $scope.landlord);
-             $scope.saveLandLord();
+            $scope.extractAddress($scope.addr.mailaddress.address_components);
 
-         }
+        }
 
-         // the following commented out code may be neccessary 
-         // if search landlord can searched by address 
-         //latitude and longitude
-         // $scope.landlord.lat = address.geometry.location.lat();
-         // $scope.landlord.long = address.geometry.location.lng();
+    
 
-         // var addressComponents = address.address_components;
 
-         // for (var i = 0; i < addressComponents.length; i++) {
-         //     var aType = addressComponents[i].types[0];
-         //     console.log(aType);
-         //     var currentLongName = addressComponents[i].long_name;
-         //     var currentShortName = addressComponents[i].short_name;
 
-         //     if (aType == 'street_number') {
-         //         // $scope.landlord.streetNo = parseInt(currentLongName);
-         //         searchArray.push(currentLongName);
-         //     }
-
-         //      if (aType == 'route') {
-         //          // $scope.landlord.street = currentLongName;
-
-         //         //build the keywords for the route 
-         //          searchArray = searchArray.concat(currentLongName.toLowerCase().split(" "));
-         //          var shortNameArray = currentShortName.toLowerCase().split(" ");
-         //          console.log(shortNameArray);
-         //           for (var j = 0; j < shortNameArray.length; j++) {
-         //              if (elementExists(searchArray, shortNameArray[i]) == false) {
-         //                 searchArray.push(shortNameArray[i]);
-         //              }
-         //           }
-         //     }
-
-         //     if (aType == 'locality') {
-         //         // $scope.landlord.city = currentLongName;
-         //         console.log('locatlity', currentLongName);
-         //         searchArray.push(currentLongName.toLowerCase());
-         //     }
-
-         //     if (aType == 'administrative_area_level_1') {
-         //         // $scope.landlord.state = currentLongName;
-         //         searchArray.push(currentLongName.toLowerCase());
-         //         searchArray.push(currentShortName.toLowerCase());
-         //     }
-         //     if (aType == 'country') {
-         //         // $scope.landlord.country = currentLongName;
-         //         searchArray.push(currentLongName.toLowerCase());
-         //         searchArray.push(currentShortName.toLowerCase());
-         //     }
-         //     if (aType == 'postal_code') {
-         //         // $scope.landlord.zipcode = currentLongName;
-         //         searchArray.push(currentLongName);
-         //     }
-         // }
-
-     }
+}
  };
 
 
@@ -167,10 +177,19 @@
              newLandLord.rating = landlord.get('prating');
              newLandLord.address = landlord.get('address');
              newLandLord.gender = landlord.get('gender');
+             newLandLord.phone = landlord.get('phone');
+             newLandLord.email = landlord.get('email');
+
+             newLandLord.streetNo = landlord.get('streetNo');
+             newLandLord.street = landlord.get('street');
+             newLandLord.city = landlord.get('city');
+             newLandLord.state = landlord.get('state');
+             newLandLord.zipcode = landlord.get('zipcode');
+             newLandLord.address = landlord.get('address');
 
              console.log("addLocationCtrl: saveLandLord is ", newLandLord);
 
-             //$state.go('app.landLordDetails');
+             $scope.navigateTo('app.landLordDetails', newLandLord);
          },
          error: function(gameScore, error) {
              // The save failed.
@@ -197,7 +216,7 @@
  //navigate to the new property detail page 
  $scope.navigateTo = function(targetPage, objectData) {
      $state.go(targetPage, {
-         propDetail: objectData
+        lordDetail: objectData
      });
  };
 
@@ -212,43 +231,9 @@
  appControllers.controller('landLordDetailCtrl', function($scope, $ionicPlatform, $stateParams, $state, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
 
      //  console.log($stateParams);
-     $scope.property = $stateParams.propDetail;
+     $scope.landlord = $stateParams.lordDetail;
+     console.log('landLordDetailCtrl', $scope.landlord); 
      // console.log("locationDetailCtrl: ", $scope.property);
-
-     $ionicPlatform.ready(function() {
-         initialize($scope.property.lat, $scope.property.long);
-     });
-
-     //initalize the map with the property's latitude and longitude 
-     function initialize(lat, long) {
-
-         var latLng = new google.maps.LatLng(lat, long);
-         var mapOptions = {
-             center: latLng,
-             zoom: 15,
-             mapTypeId: google.maps.MapTypeId.ROADMAP
-         };
-         $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-         $scope.lat = (lat).toFixed(5);
-         $scope.long = (long).toFixed(5);
-         console.log("locationDetailCtrl: initialize map " + $scope.lat, $scope.long);
-
-         //Wait until the map is loaded to add the marker 
-         google.maps.event.addListenerOnce($scope.map, 'idle', function() {
-             var marker = new google.maps.Marker({
-                 map: $scope.map,
-                 animation: google.maps.Animation.DROP,
-                 position: latLng
-             });
-             var infoWindow = new google.maps.InfoWindow({
-                 content: $scope.property.address
-             });
-             google.maps.event.addListener(marker, 'click', function() {
-                 infoWindow.open($scope.map, marker);
-             });
-         });
-
-     };
 
 
      $scope.navigateTo = function(targetPage, objectData) {

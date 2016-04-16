@@ -435,6 +435,7 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
         }
     })
 
+
     .state('app.allreviews', {
         url: "/allreviews",
         cache: false,
@@ -1083,7 +1084,7 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
             url: "/landLordDetails",
             cache: false,
             params: {
-                propDetail: null,
+                lordDetail: null,
                 reviews: null,
             },
             views: {

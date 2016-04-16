@@ -10,26 +10,37 @@
     </ion-nav-buttons>
     <ion-content id="landlord-content">
         <div class="col-80">
-            <h1 style="padding-bottom: -5px;">{{landlord.streetNo}} {{landlord.street}}</h1>
-            <p style="padding-bottom:  5px;">{{landlord.city}}, {{landlord.state}} {{landlord.zipcode}}</p>
-        </div>
+            <h1 style="padding-bottom: -5px;">{{landlord.title}}</h1>
+   
         <div class="col-20" style="padding: 8px; text-align: right">
             <h2 style="display: inline;" id="rating" ng-class="{red:landlord.rating<4, green:landlord.rating>6, yellow:landlord.rating>3 && landlord.rating<7}">{{landlord.rating}}</h2>
             <p style="display: inline;"> / 10</p>
         </div>
-        <div id="map" data-tap-disabled="false">
-        </div>
-        <div class="location-list">
-            <div class="location-item">
+
+        <div class="location-item">
                 <div class="location-content row">
                     <div class="col-80">
-                        <h1>Photos</h1>
+                        <h1>Contact Information</h1>
+                        <p> {{ landlord.phone}} </p>
+                        <p> {{ landlord.email }} </p>
+                         <p>{{landlord.streetNo}} {{landlord.street}}</p>
+                       <p>{{landlord.city}}, {{landlord.state}} {{landlord.zipcode}}</p>
+                    </div>
+         
+                </div>
+            </div>
+         <div class="location-item">
+                <div class="location-content row">
+                    <div class="col-80">
+                        <h1>Properties</h1>
                     </div>
                     <div class="col-20" style="text-align: right">
-                        <button class="button button-outline button-positive add-button-small" ng-click="navigateTo('app.addphoto', landlord)">+</button>
+                        <button class="button button-outline button-positive add-button-small" ng-click="navigateTo('app.addreview', landlord)">+</button>
                     </div>
                 </div>
             </div>
+
+
             <div class="location-item">
                 <div class="location-content row">
                     <div class="col-80">

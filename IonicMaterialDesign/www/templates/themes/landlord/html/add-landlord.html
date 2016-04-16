@@ -51,7 +51,7 @@
                 Mailing address:
             </div>
             <label class="item item-input" ng-class="{ 'has-errors' : landlordForm.mailaddress.$invalid && landlordForm.$submitted, 'no-errors' : landlordForm.mailaddress.$valid  && landlordForm.$submitted}">
-                <input type="text" g-places-autocomplete ng-blur="updateMap()" ng-enter="updateMap()" name="address" ng-model="addr.mailaddress" placeholder="Mailing Address" >
+                <input type="text" required g-places-autocomplete ng-blur="updateMap()" ng-enter="updateMap()" name="address" ng-model="addr.mailaddress" placeholder="Mailing Address" >
             </label>
             <div class="error-container last-error-container" ng-show="landlordForm.mailaddress.$error && landlordForm.$submitted" ng-messages="landlordForm.mailaddress.$error">
                 <div ng-messages-include="error-list.html"></div>

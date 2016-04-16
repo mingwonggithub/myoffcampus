@@ -18,7 +18,6 @@
         <div class="material-background" id="toggle-menu-left-header">
             <!--menu header section-->
             <div class="menu-left-header">
-                
                 <img class="user-img" src="img/icons/Daniel_Ingram_Profile.png">
                 <p>
                     <span class="title">MyOffCampus</span>
@@ -91,9 +90,14 @@
                         <span>add location version 2</span>
                     </div>
                 </div>
-      
-
-
+                <div class="row menu-item" ng-click="navigateTo('app.addlandlord')">
+                    <div class="col-33">
+                        <i class="fa fa-flag"></i>
+                    </div>
+                    <div class="col-66">
+                        <span>add landlord</span>
+                    </div>
+                </div>
                 <md-subheader class="md-warn">Account</md-subheader>
                 <div class="row menu-item" ng-click="navigateTo('app.settings')">
                     <div class="col-33">
@@ -392,14 +396,18 @@
                     <i class="fa fa-flag"></i>
                     <span>All My Properties</span>
                 </md-list-item>
-                 <md-list-item class="menu-list-item" ng-click="navigateTo('app.addlocation')">
+                <md-list-item class="menu-list-item" ng-click="navigateTo('app.addlocation')">
                     <i class="fa fa-flag"></i>
-                    <span>add location version 1</span>  
-                </md-list-item> 
-                     <md-list-item class="menu-list-item" ng-click="navigateTo('app.addproperty')">
+                    <span>add location version 1</span>
+                </md-list-item>
+                <md-list-item class="menu-list-item" ng-click="navigateTo('app.addproperty')">
                     <i class="fa fa-flag"></i>
                     <span>add location version 2</span>
-                </md-list-item> 
+                </md-list-item>
+                <md-list-item class="menu-list-item" ng-click="navigateTo('app.addlandlord')">
+                    <i class="fa fa-flag"></i>
+                    <span>add landlord</span>
+                </md-list-item>
                 <md-subheader class="md-warn">Account</md-subheader>
                 <md-list-item class="menu-list-item" ng-click="navigateTo('app.settings')">
                     <i class="ion-android-person"></i>

@@ -9,13 +9,6 @@ appControllers.controller('registerCtrl', function($scope, $state) {
 
   $scope.register = function(form) {
     if(form.$valid) {
-      // spinning progress 
-      if ($scope.isAndroid) {
-        jQuery('#register-loading-progress').show();
-      } else {
-        jQuery('#register-loading-progress').fadeIn(700);
-      }
-
       console.log("register is here ");
       console.log("Register user: " + self.email + "  " + self.firstName);
 
@@ -29,8 +22,6 @@ appControllers.controller('registerCtrl', function($scope, $state) {
       user.signUp(null, {
         success: function(user) {
           localStorage.setItem("mocUser", JSON.stringify(user));
-          jQuery('#register-loading-progress').hide();
-          jQuery('#register-content').fadeIn();
           $state.go("app.welcome"); 
         },
         error: function(user, error) {
@@ -52,18 +43,11 @@ appControllers.controller('loginCtrl', function($scope, $state) {
 
   $scope.login = function(form) {
     if(form.$valid) {
-      if ($scope.isAndroid) {
-        jQuery('#login-loading-progress').show();
-      } else {
-        jQuery('#login-loading-progress').fadeIn(700);
-      }
       console.log("Login user: " + self.email + "  " + self.password);
       
       Parse.User.logIn(self.email, self.password, {
         success: function(user) {
           localStorage.setItem("mocUser", JSON.stringify(user));
-          jQuery('#login-loading-progress').hide();
-          jQuery('#login-content').fadeIn();
           $state.go("app.welcome"); 
         },
         error: function(user, error) {

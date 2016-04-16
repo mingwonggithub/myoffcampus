@@ -1,0 +1,87 @@
+<!--View Information-->
+<!--View name : addlandlord-->
+<!--Controller name : addLandlordCtrl-->
+<!--Controller path : www/themes/location-feed/controllers.js-->
+<!--State name : app.addlocation-->
+<!--URL : #app/addlandlord-->
+<!--Title-->
+<ion-view view-title="Add a Landlord">
+
+    <!--left button on navigation bar-->
+    <ion-nav-buttons side="left">
+        <a ng-click="$ionicGoBack()" class="button back-button buttons  button-clear header-item nav-back-btn">
+            <i class="ion-android-arrow-back"></i>
+        </a>
+    </ion-nav-buttons>
+    <!--end left button on navigation bar-->
+
+    <!--landlord detail section-->
+    <ion-content id="social-sign-up-content">
+        <br/>
+        <form name="landlordForm" novalidate="" ng-submit="createLandLord(landlord,landlordForm.$valid)">
+
+            <!--landlord first name-->
+            <label class="item item-input" ng-class="{ 'has-errors' : landlordForm.fName.$invalid && landlordForm.$submitted, 'no-errors' : landlordForm.fName.$valid  && landlordForm.$submitted}">
+                <input type="text" placeholder="First Name" name="fName" ng-model="landlord.firstName" required>
+            </label>
+            <div class="error-container last-error-container" ng-show="landlordForm.fName.$error && landlordForm.$submitted" ng-messages="landlordForm.fName.$error">
+                <div ng-messages-include="error-list.html"></div>
+            </div>
+            <!--end landlord first name-->
+
+            <!--landlord last name-->
+            <label class="item item-input" ng-class="{ 'has-errors' : landlordForm.lName.$invalid && landlordForm.$submitted, 'no-errors' : landlordForm.lName.$valid  && landlordForm.$submitted}">
+                <input type="text" placeholder="Last Name" name="lName" ng-model="landlord.lastName" required>
+            </label>
+            <div class="error-container last-error-container" ng-show="landlordForm.lName.$error && landlordForm.$submitted" ng-messages="landlordForm.lName.$error">
+                <div ng-messages-include="error-list.html"></div>
+            </div>
+            <!--end landlord last name-->
+
+            <!-- address-->
+            <div class="input" style="border: none; padding: 0; padding-top: 10px;">
+                Mailing address:
+            </div>
+            <label class="item item-input" ng-class="{ 'has-errors' : landlordForm.address.$invalid && landlordForm.$submitted, 'no-errors' : landlordForm.address.$valid  && landlordForm.$submitted}">
+                <input type="text" g-places-autocomplete ng-blur="updateMap()" ng-enter="updateMap()" name="address" ng-model="addr.addressL" placeholder="Mailing Address" required>
+            </label>
+            <div class="error-container last-error-container" ng-show="landlordForm.address.$error && landlordForm.$submitted" ng-messages="landlordForm.address.$error">
+                <div ng-messages-include="error-list.html"></div>
+            </div>
+            <!--end address-->
+
+            <!--Contact Information-->
+            <div class="input" style="border: none; padding: 0; padding-top: 10px;">
+                Contact Information:
+            </div>
+
+            <!--Email-->
+            <label class="item item-input" ng-class="{ 'has-errors' : landlordForm.email.$invalid && landlordForm.$submitted, 'no-errors' : landlordForm.email.$valid  && landlordForm.$submitted}">
+                <input type="text" placeholder="Email" name="email" ng-model="landlord.email" required>
+            </label>
+            <div class="error-container last-error-container" ng-show="landlordForm.email.$error && landlordForm.$submitted" ng-messages="landlordForm.email.$error">
+                <div ng-messages-include="error-list.html"></div>
+            </div>
+            <!--end email-->
+
+            <!--Phone-->
+            <label class="item item-input" ng-class="{ 'has-errors' : landlordForm.phone.$invalid && landlordForm.$submitted, 'no-errors' : landlordForm.phone.$valid  && landlordForm.$submitted}">
+                <input type="text" placeholder="Phone" name="phone" ng-model="landlord.phone" required>
+            </label>
+            <div class="error-container last-error-container" ng-show="landlordForm.phone.$error && landlordForm.$submitted" ng-messages="landlordForm.phone.$error">
+                <div ng-messages-include="error-list.html"></div>
+            </div>
+            <!--end phone-->
+
+            <button class="md-raised social-button md-button md-default-theme material-background" type="submit">Submit</md-button>
+        </form>
+        <!--end content section-->
+    </ion-content>
+    <!--end landlord detail section-->
+    <script id="error-list.html" type="text/ng-template">
+        <div class="error" ng-message="required">
+            This is required
+        </div>
+    </script>
+    <!--end angular template section-->
+</ion-view>

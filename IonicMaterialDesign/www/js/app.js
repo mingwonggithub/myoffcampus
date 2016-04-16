@@ -421,6 +421,20 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
         }
     })
 
+    .state('app.addlandlord', {
+        url: "/addlandlord",
+        cache: false,
+        params: {
+            propDetail: null,
+        },
+        views: {
+            'menuContent': {
+                templateUrl: "templates/landlord/html/add-landlord.html",
+                controller: 'addLandLordCtrl' 
+            }
+        }
+    })
+
     .state('app.allreviews', {
         url: "/allreviews",
         cache: false,
@@ -941,6 +955,7 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
                 }
             }
         })
+        /*
         .state('app.tryAppNoBackBtn', {
             url: "/tryAppNoBackBtn",
             cache: false,
@@ -949,7 +964,7 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
                     templateUrl: "templates/themes/try-app/html/try-app-no-back-btn.html"
                 }
             }
-        })
+        })*/
         .state('app.pricing', {
             url: "/pricing",
             views: {
@@ -1061,6 +1076,20 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
                 'menuContent': {
                     templateUrl: "templates/themes/location-feed/html/location_details.html",
                     controller: "locationDetailCtrl"
+                }
+            }
+        })
+        .state('app.landLordDetails', {
+            url: "/landLordDetails",
+            cache: false,
+            params: {
+                propDetail: null,
+                reviews: null,
+            },
+            views: {
+                'menuContent': {
+                    templateUrl: "templates/themes/landlord/html/landlord_details.html",
+                    controller: "landLordDetailCtrl"
                 }
             }
         })

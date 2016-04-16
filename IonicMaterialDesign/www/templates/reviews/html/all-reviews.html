@@ -12,7 +12,7 @@
   <ion-content>
     <ion-list ng-repeat="review in reviews">
       <div class="item item-list-detail item-text-wrap" style="border-bottom: none;">
-        <p>Rating: {{review.rating}}/10   |   Cost: {{review.cost}}</p>
+        <h3 ng-class="{red:review.rating<4, green:review.rating>6, yellow:review.rating>3 && review.rating<7}">Rating: {{review.rating}}/10   |   Cost: {{review.cost}}</h3>
         <p>{{review.text}}</p>
       </div>
   </ion-list>

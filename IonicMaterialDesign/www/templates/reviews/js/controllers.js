@@ -16,12 +16,14 @@ appControllers.controller('addReviewCtrl', function($scope, $state, $stateParams
       review.set("cost", $scope.review.cost);
       review.set("mainText", $scope.review.text);
       review.set("rating", $scope.review.overallRating);
-      console.log("reviewprop: " + prop);
+      console.log("addReviewCtrl: reviewprop - " + prop);
 
       review.save(null, {
         success: function(review) {
+          
           var relation = prop.relation("reviews");
           relation.add(review);
+          
           prop.save(null, {
             success: function(review) {
               $mdToast.show({
@@ -35,20 +37,48 @@ appControllers.controller('addReviewCtrl', function($scope, $state, $stateParams
                   }
                 }
               });
-              $scope.navigateTo('app.locationDetails', $scope.property);
+
+            $scope.$apply(function() {
+              //average the property ratings
+              Parse.Cloud.run('getPropertyRating', { propid: prop.id }, {
+              
+                success: function(rating) {
+                  console.log("addReviewCtrl: rating - ", rating); 
+                  prop.set('hrating', rating);
+                  $scope.property.rating = rating;
+                
+                  prop.save(null, {
+                    success: function(aprop) {
+                      console.log("addReviewCtrl: Save property with new rating successfully");
+                    },
+                    error: function(aprop, error) {
+                      console.log("addReviewCtrl: Error - ", error);
+                    }
+                  }); // end of inner prop save   
+
+                },
+                error: function(error) {
+                  console.log(JSON.stringify(error)); 
+                } 
+              }); // end of parse cloud function 
+            }); // end of scope apply
+
+            $scope.navigateTo('app.locationDetails', $scope.property);
+
             },
             error: function(prop, error) {
               // save property failed
-              console.log("Save property failed: " + error);
-            }
-          });
+              console.log("addReviewCtrl: Save property with review fail " + JSON.stringify(error));
+            } 
+          }); //end of outer prop save 
         },
         error: function(review, error) {
           // save review failed
-          console.log("Save review failed: " + error);
-        }
-      });
+          console.log("addReviewCtrl: Save review fail " + JSON.stringify(error));
+        } 
+      }); // end of review save 
     }
+
   };
 
   $scope.navigateTo = function(targetPage, objectData) {

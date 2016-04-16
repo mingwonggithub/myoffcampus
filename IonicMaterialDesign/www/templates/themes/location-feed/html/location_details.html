@@ -61,7 +61,7 @@
             
             <ion-list ng-repeat="review in reviews | limitTo:3">
                 <div class="item item-list-detail item-text-wrap" style="border-bottom: none;">
-                    <p>Rating: {{review.rating}}/10   |   Cost: {{review.cost}}</p>
+                    <p>Rating: {{review.rating | number:2}}/10   |   Cost: {{review.cost}}</p> 
                     <p>{{review.text}}</p>
                 </div>
             </ion-list>

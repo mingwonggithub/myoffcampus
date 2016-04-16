@@ -7,7 +7,7 @@
          $scope.property = $stateParams.propDetail;
 
      }; // End initialForm.
-    $scope.initialForm();
+     $scope.initialForm();
 
      $scope.removePic = function(index) {
          $scope.imageList.splice(index, 1);
@@ -346,7 +346,7 @@
                                  property.title = aProp.get("communityName") + " " + property.title;
                              }
 
-                             property.rating = aProp.get('hrating');
+                             property.rating = parseFloat($filter('number')(aProp.get('hrating'), 2)); //$filter('number')(aProp.get('hrating'), 2);
                              property.streetNo = aProp.get('streetNo');
                              property.street = aProp.get('street');
                              property.city = aProp.get('city');
@@ -467,7 +467,7 @@
      $scope.property = $stateParams.propDetail;
      $scope.reviews = []; //list of reviews on feed page 
      $scope.allImages = [];
-    //all images for that propery 
+     //all images for that propery 
 
 
      /* start of image slider */
@@ -481,16 +481,16 @@
      query.find({
          success: function(results) {
 
-            $scope.$apply(function() {
+             $scope.$apply(function() {
 
-             console.log("locationDetailCtrl: " + results.length + " propImages found");
+                 console.log("locationDetailCtrl: " + results.length + " propImages found");
 
-             for (var j = 0; j < results.length; j++) {
-                 var imagedata = results[j].get("imgData");
-                 $scope.allImages.push({ src: imagedata });
+                 for (var j = 0; j < results.length; j++) {
+                     var imagedata = results[j].get("imgData");
+                     $scope.allImages.push({ src: imagedata });
 
-             }
-         }); 
+                 }
+             });
 
          },
          error: function(error) {
@@ -579,7 +579,7 @@
                  success: function(qReviews) {
                      $scope.$apply(function() {
                          console.log("locationDetailCtrl: Successfully retrieved " + qReviews.length + " reviews.");
-
+                         var counter = 1;
                          for (i in qReviews) {
                              aR = qReviews[i];
                              review.object = aR;
@@ -587,7 +587,26 @@
                              review.text = aR.get('mainText');
                              review.rating = aR.get('rating');
                              $scope.reviews.push(review);
+
+
+                             if (counter == 0) {
+                                 var query = new Parse.Query("myProperty");
+                                 query.equalTo("reviews", aR);
+
+                                 query.find({
+                                     success: function(results) {
+                                         console.log("cloud results are", JSON.stringify(results));
+                                     },
+                                     error: function(error) {
+                                         response.error("error is ", JSON.stringify(error));
+                                     }
+                                 });
+
+                             }
+                             counter = 1; 
+
                              review = {};
+
 
                          }
                      }); //end $scope.apply

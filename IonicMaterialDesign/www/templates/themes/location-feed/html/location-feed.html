@@ -45,9 +45,8 @@
         <div class="location-list">
             <!--location item section-->
             <ion-list ng-repeat="property in properties | orderBy:predicate: reverse ">
-                <div class="location-item" ng-click="navigateTo('app.locationDetails', property)">
-                    <div class="location-img" style="background-image: url('../../../../img/house.jpg')">
-                    </div>
+                <div class="location-item" ng-click="navigateTo('app.locationDetails', property)">                
+                  <div class="location-img" style="background-image: url('img/house.jpg')"></div>
                     <div class="location-content row">
                         <div class="col-80">
                             <h1>

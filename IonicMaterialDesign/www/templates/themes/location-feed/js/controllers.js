@@ -15,11 +15,8 @@
      }
 
 
-
      //make sure device is ready before cordova plugins can be called 
      $ionicPlatform.ready(function() {
-
-
 
          $scope.selectImage = function(limit) {
                  //hide BottomSheet.
@@ -98,7 +95,30 @@
      };
  });
 
- appControllers.controller('addLocationCtrl', function($scope, $state, NoteDB, $stateParams, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
+ appControllers.controller('addLocationCtrl', function($scope, $state, NoteDB, $stateParams, $ionicPopup, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
+
+
+     // A confirm dialog for user input address string 
+     $scope.showConfirm = function(addressL) {
+         var confirmPopup = $ionicPopup.confirm({
+             title: 'Comfirm Address',
+             template: 'Is ' + addressL.formatted_address + ' the correct address?'
+         });
+
+         confirmPopup.then(function(res) {
+             if (res) {
+                 console.log('addLocationCtrl: You are sure');
+                 $scope.savingProp(addressL);
+
+             } else {
+                 console.log('addLocationCtrl: You are not sure');
+             }
+         });
+     };
+
+     function isString(val) {
+         return typeof val === 'string' || ((!!val && typeof val === 'object') && Object.prototype.toString.call(val) === '[object String]');
+     }
 
      //function that cleans up and retreive the relevant info from the form data 
      // and call the save function 
@@ -114,97 +134,115 @@
              }
              return false;
          }
-
          //if form is valid, will save the property into the parse database
          if (isValid) {
 
-             //address object from google 
-             var address = $scope.addr.addressL;
-             //will write the geocode function to convert str to google object later
-             // when address is a user input string 
+             // when address is a user input string, convert to google object 
+             if (isString($scope.addr.addressL)) {
+                 var geocoder = new google.maps.Geocoder();
+                 geocoder.geocode({ 'address': $scope.addr.addressL }, function(results, status) {
 
-             console.log("addLocationCtrl: valid form with address", address);
+                     if (status == google.maps.GeocoderStatus.OK) {
 
-             //keywords used to search for the property 
-             var searchArray = [];
+                         $scope.addr.addressL = results[0];
+                         console.log("geocoding", $scope.addr.addressL);
+                         $scope.showConfirm($scope.addr.addressL);
 
-             //formatted address 
-             $scope.prop.address = address.formatted_address;
+                     } else {
+                         console.log("Geocode was not successful for the following reason: " + status);
 
-             //latitude and longitude
-             $scope.prop.lat = address.geometry.location.lat();
-             $scope.prop.long = address.geometry.location.lng();
-
-             var addressComponents = address.address_components;
-
-             //debugger; 
-             for (var i = 0; i < addressComponents.length; i++) {
-                 var aType = addressComponents[i].types[0];
-                 var currentLongName = addressComponents[i].long_name;
-                 var currentShortName = addressComponents[i].short_name;
-
-                 if (aType == 'street_number') {
-                     $scope.prop.streetNo = parseInt(currentLongName);
-                     searchArray.push(currentLongName);
-                 }
-
-
-                 if (aType == 'route') {
-                     $scope.prop.street = currentLongName;
-
-                     //build the keywords for the route 
-                     searchArray = searchArray.concat(currentLongName.toLowerCase().split(" "));
-                     var shortNameArray = currentShortName.toLowerCase().split(" ");
-                     for (var j = 0; j < shortNameArray.length; j++) {
-                         if (elementExists(searchArray, shortNameArray[i]) == false) {
-                             searchArray.push(shortNameArray[i]);
-                         }
                      }
-                 }
-
-                 if (aType == 'locality') {
-                     $scope.prop.city = currentLongName;
-                     searchArray.push(currentLongName.toLowerCase());
-                     var shortNameArray = currentShortName.toLowerCase().split(" ");
-                     for (var k = 0; k < shortNameArray.length; k++) {
-                         if (elementExists(searchArray, shortNameArray[k]) == false) {
-                             searchArray.push(shortNameArray[k]);
-                         }
-                     }
-                 }
-
-
-                 if (aType == 'administrative_area_level_1') {
-                     $scope.prop.state = currentLongName;
-                     searchArray.push(currentLongName.toLowerCase());
-                     searchArray.push(currentShortName.toLowerCase());
-                 }
-                 if (aType == 'country') {
-                     $scope.prop.country = currentLongName;
-                     searchArray.push(currentLongName.toLowerCase());
-                     searchArray.push(currentShortName.toLowerCase());
-                 }
-                 if (aType == 'postal_code') {
-                     $scope.prop.zipcode = currentLongName;
-                     searchArray.push(currentLongName);
-                 }
+                 });
+             } else {
+                 $scope.savingProp($scope.addr.addressL);
              }
 
-             $scope.prop.kind = $scope.categories.kind;
-             $scope.prop.hrating = parseInt($scope.prop.hrating);
+             //address object from google 
+             $scope.savingProp = function(addressL) {
+                 var address = addressL;
 
-             searchArray.push($scope.prop.kind.toLowerCase());
-             searchArray = searchArray.concat($scope.prop.communityName.toLowerCase().split(" "));
-             //console.log("addLocationCtrl: keywords are: ", searchArray);
+                 console.log("addLocationCtrl: valid form with address", address);
 
-             $scope.prop.searchArray = searchArray;
-             //console.log("addLocationCtrl: $scope.prop is ", $scope.prop);
+                 //keywords used to search for the property 
+                 var searchArray = [];
 
-             //call the actual function to save the $scope.prop into parse database 
-             $scope.saveProp();
+                 //formatted address 
+                 $scope.prop.address = address.formatted_address;
 
+                 //latitude and longitude
+                 $scope.prop.lat = address.geometry.location.lat();
+                 $scope.prop.long = address.geometry.location.lng();
+
+                 var addressComponents = address.address_components;
+
+                 //debugger; 
+                 for (var i = 0; i < addressComponents.length; i++) {
+                     var aType = addressComponents[i].types[0];
+                     var currentLongName = addressComponents[i].long_name;
+                     var currentShortName = addressComponents[i].short_name;
+
+                     if (aType == 'street_number') {
+                         $scope.prop.streetNo = parseInt(currentLongName);
+                         searchArray.push(currentLongName);
+                     }
+
+
+                     if (aType == 'route') {
+                         $scope.prop.street = currentLongName;
+
+                         //build the keywords for the route 
+                         searchArray = searchArray.concat(currentLongName.toLowerCase().split(" "));
+                         var shortNameArray = currentShortName.toLowerCase().split(" ");
+                         for (var j = 0; j < shortNameArray.length; j++) {
+                             if (elementExists(searchArray, shortNameArray[i]) == false) {
+                                 searchArray.push(shortNameArray[i]);
+                             }
+                         }
+                     }
+
+                     if (aType == 'locality') {
+                         $scope.prop.city = currentLongName;
+                         searchArray.push(currentLongName.toLowerCase());
+                         var shortNameArray = currentShortName.toLowerCase().split(" ");
+                         for (var k = 0; k < shortNameArray.length; k++) {
+                             if (elementExists(searchArray, shortNameArray[k]) == false) {
+                                 searchArray.push(shortNameArray[k]);
+                             }
+                         }
+                     }
+
+
+                     if (aType == 'administrative_area_level_1') {
+                         $scope.prop.state = currentLongName;
+                         searchArray.push(currentLongName.toLowerCase());
+                         searchArray.push(currentShortName.toLowerCase());
+                     }
+                     if (aType == 'country') {
+                         $scope.prop.country = currentLongName;
+                         searchArray.push(currentLongName.toLowerCase());
+                         searchArray.push(currentShortName.toLowerCase());
+                     }
+                     if (aType == 'postal_code') {
+                         $scope.prop.zipcode = currentLongName;
+                         searchArray.push(currentLongName);
+                     }
+                 }
+
+                 $scope.prop.kind = $scope.categories.kind;
+                 $scope.prop.hrating = parseInt($scope.prop.hrating);
+
+                 searchArray.push($scope.prop.kind.toLowerCase());
+                 searchArray = searchArray.concat($scope.prop.communityName.toLowerCase().split(" "));
+                 //console.log("addLocationCtrl: keywords are: ", searchArray);
+
+                 $scope.prop.searchArray = searchArray;
+                 //console.log("addLocationCtrl: $scope.prop is ", $scope.prop);
+
+                 //call the actual function to save the $scope.prop into parse database 
+                 $scope.saveProp();
+
+             }
          }
-
      };
 
      //clear the form text and the errors 
@@ -283,7 +321,7 @@
              { 'kind': 'Townhouse' },
          ];
 
-         $scope.prop.hrating = 5;
+         $scope.prop.hrating = 0;
      };
 
      //initiailze the form 
@@ -469,7 +507,6 @@
      $scope.allImages = [];
      //all images for that propery 
 
-
      /* start of image slider */
 
 
@@ -603,7 +640,7 @@
                                  });
 
                              }
-                             counter = 1; 
+                             counter = 1;
 
                              review = {};
 

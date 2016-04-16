@@ -21,7 +21,7 @@
                      <p>{{property.land_lord}}</p>-->
                 </div>
                 <div class="col-20" style="padding: 8px; text-align: right">
-                    <h2 style="display: inline;" id="rating" ng-class="{red:property.rating<4, green:property.rating>6, yellow:property.rating>3 && property.rating<7}">{{property.rating}}</h2><p style="display: inline;"> / 10</p>
+                    <h2 style="display: inline;" id="rating" ng-class="{red:property.rating<4, green:property.rating>6, yellow:property.rating>3 && property.rating<7}">{{property.rating | number:2}}</h2><p style="display: inline;"> / 10</p>
                 </div>
             </div>
             </div>
@@ -61,7 +61,7 @@
             
             <ion-list ng-repeat="review in reviews | limitTo:3">
                 <div class="item item-list-detail item-text-wrap" style="border-bottom: none;">
-                    <p>Rating: {{review.rating | number:2}}/10   |   Cost: {{review.cost}}</p> 
+                    <p>Rating: {{review.rating}}/10   |   Cost: {{review.cost}}</p> 
                     <p>{{review.text}}</p>
                 </div>
             </ion-list>

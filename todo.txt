@@ -1,21 +1,31 @@
 List of things left to do:
 
 Fix login page
-	No scrolling, no white space when keyboard shows up
+	No scrolling, no white space when keyboard shows up  (enhancement) 
+	An error message when user type wrong password or name
 Profile Image
-	DONE temporary fix: add a person icon onto that circle box
+	DONE temporary fix: add a person icon onto that circle box 
+	// I was thinking a generic computer person icon because a female user might 
+	// not want a guy image, unless he’s handsome… (enhancement) 
 	permenant fix: let user take profile image from camera or gallery
 LANDLORD
-	add a gender category on page so that the listpage have some image to display
-Give every property an image to be displayed in the feed format
-  If no reviews, overall rating should be '-'. Should be black
-  Also, change the css for ratings with two digits on location detail page. 
+	I am thinking on the detail page: rating, name, contact info, reviews, and a 	a button for user to add a property. After adding, will create create a link
+	to that prop detail page. 
+Property
+	Put a list of landlord onto the detail page somewhere (enhancement)
+
+Give every property an image to be displayed in the feed format (enhancement)
+  If no reviews, overall rating should be '-'. Should be black  // right now, it’s 0
+  Change the css for ratings with two digits on location detail page. 
 Reviews
-  Add new categories
-  Make it beautiful
-Add spinners and error messages to pages
+  Add new categories (enhancement)
+  Make it beautiful (enhancement) 
+Add spinners (required b/c parse is so slow)and error messages to pages (enhancement)
 
 Completed things: 
-  SPINNERS DONE SO FAR: login, register, location feed
+  SPINNERS DONE SO FAR: login, register, location feed (NEED TO ADD THEM BACK)
   Calculate average of reviews. Just sum of ratings/reviews.length
+  Able to save a landlord into a database
+
+
 

@@ -27,7 +27,7 @@
          });
 
          alertPopup.then(function(res) {
-             console.log('Thank you for not eating my delicious ice cream cone');
+             console.log('Crap, address');
          });
      };
  
@@ -47,12 +47,13 @@
      //if form is valid, will save the landlord into the parse database
      if (isValid) {
 
-
          //keywords used to search for the landlord 
          var searchArray = [];
+         searchArray.push($scope.landlord.firstname);
+         searchArray.push($scope.landlord.lastname); 
+        $scope.landlord.searchArray = searchArray;
+
          $scope.landlord.prating = parseInt($scope.landlord.prating);
-         console.log("keywords are: ", searchArray);
-         $scope.landlord.searchArray = searchArray;
 
          if (isString($scope.addr.mailaddress)) {
              var geocoder = new google.maps.Geocoder();
@@ -63,8 +64,6 @@
                      $scope.landlord.address = results[0].formatted_address;
                      $scope.showConfirm( $scope.landlord.address);
                      console.log("addLandLordCtrl: $scope.landlord is ", $scope.landlord);
-
-
 
                  } else {
                      console.log("Geocode was not successful for the following reason: " + status);
@@ -81,7 +80,6 @@
              $scope.saveLandLord();
 
          }
-
 
          // the following commented out code may be neccessary 
          // if search landlord can searched by address 

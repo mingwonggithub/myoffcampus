@@ -14,4 +14,4 @@ Reviews
   Add new categories
   Make it beautiful
 Add spinners and error messages to pages
-  Especially the login screen
+  SPINNERS DONE SO FAR: login, register, location feed

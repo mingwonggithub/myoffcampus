@@ -1,12 +1,9 @@
  appControllers.controller('addLandLordCtrl', function($scope, $state, $ionicPopup, $stateParams, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
 
+ console.log("addLandLordCtrl is here");
 
      // the following commented out code may be neccessary 
-         // if search landlord can searched by address 
-         //latitude and longitude
-         // $scope.landlord.lat = address.geometry.location.lat();
-         // $scope.landlord.long = address.geometry.location.lng();
-
+    // if search landlord can searched by address 
     $scope.extractAddress = function(addressComponents) {
 
         for (var i = 0; i < addressComponents.length; i++) {
@@ -79,7 +76,7 @@
          });
      };
 
-     // An alert dialog
+     // An alert dialog for address not recognized by google 
      $scope.showAlert = function() {
          var alertPopup = $ionicPopup.alert({
              title: 'Not Valid Address',
@@ -92,7 +89,6 @@
      };
  
 
- console.log("addLandLordCtrl is here");
  //function that cleans up and retreive the relevant info from the form data 
  // and call the save function 
  $scope.createLandLord = function(landlord, isValid) {
@@ -149,7 +145,6 @@
 }
  };
 
-
  //clear the form text and the errors 
  $scope.reset = function(landlordForm) {
      console.log("landlordForm: landlordForm is ", landlordForm);
@@ -173,6 +168,7 @@
          success: function(landlord) {
              var newLandLord = {};
 
+             newLandLord.object = landlord; 
              newLandLord.title = landlord.get("firstname") + " " + landlord.get("lastname");
              newLandLord.rating = landlord.get('prating');
              newLandLord.address = landlord.get('address');
@@ -186,6 +182,11 @@
              newLandLord.state = landlord.get('state');
              newLandLord.zipcode = landlord.get('zipcode');
              newLandLord.address = landlord.get('address');
+             if (newLandLord.gender == 'F') {
+                 newLandLord.image_url = 'img/landlord_girl.jpg';
+             } else {
+                 newLandLord.image_url = 'img/landlord_boy.jpg';
+             }
 
              console.log("addLocationCtrl: saveLandLord is ", newLandLord);
 
@@ -238,7 +239,7 @@
 
      $scope.navigateTo = function(targetPage, objectData) {
          $state.go(targetPage, {
-             propDetail: objectData
+             landlord: objectData
          });
      };
 
@@ -348,3 +349,123 @@
          });
      }
  })
+
+  // Controller of Property List Page.
+ // It will call Parse (not NodeDB Services)to present data to html view. /
+ appControllers.controller('landlordListCtrl', function($scope, $stateParams, $timeout, NoteDB, $state, starsUtility) {
+
+     console.log("propListCtrl");
+
+     // initialForm is the first activity in the controller. 
+     // It will initial all variable data and let the function works when page load.
+     $scope.initialForm = function() {
+
+
+        $scope.landlords = [];
+
+         //$scope.isLoading is the variable that use for check statue of process.
+         $scope.isLoading = true;
+
+         //$scope.isAnimated is the variable that use for receive object data from state params.
+         //For enable/disable row animation.
+         $scope.isAnimated = $stateParams.isAnimated;
+
+         // $scope.noteList is the variable that store data from NoteDB service.
+         $scope.noteList = [];
+         $scope.propertyList = [];
+
+            //if empty query, list out ten highest rating apartment 
+         if (query == null) {
+            var myLandLord = Parse.Object.extend("myLandLord");
+            var query = new Parse.Query(myLandLord);
+            // query.limit(10);
+            // query.descending("rating");
+        }
+
+
+        var landlord = {};
+
+
+         // $scope.filterText is the variable that use for searching.
+         $scope.filterText = "";
+
+         // The function for loading progress.
+             if ($scope.isAndroid) {
+                 jQuery('#prop-list-loading-progress').show();
+             } else {
+                 jQuery('#prop-list-loading-progress').fadeIn(700);
+             }
+
+             //Get all notes from NoteDB service.
+             // $scope.noteList = NoteDB.selectAll();
+
+             var landlord= {};
+             query.find({
+                 success: function(results) {
+                     $scope.$apply(function() {
+                         console.log("locationFeedCtrl: Successfully retrieved " + results.length + " properties.");
+                         // for (var i = 0; i < results.length; i++) {
+                         //   $scope.landlords.push(results[i]);
+                         //   console.log($scope.landlords);
+                         // }
+
+                         for (i in results){
+
+                            alandlord = results[i]; 
+                            landlord.object = alandlord; 
+                            landlord.title = alandlord.get("firstname") + " " + alandlord.get("lastname");
+                            landlord.rating = alandlord.get('prating');
+                            landlord.address = alandlord.get('address');
+                            landlord.gender = alandlord.get('gender');
+                            landlord.phone = alandlord.get('phone');
+                            landlord.email = alandlord.get('email');
+
+                            landlord.streetNo = alandlord.get('streetNo');
+                            landlord.street = alandlord.get('street');
+                            landlord.city = alandlord.get('city');
+                            landlord.state = alandlord.get('state');
+                            landlord.zipcode = alandlord.get('zipcode');
+                            landlord.address = alandlord.get('address');
+                            if (landlord.gender == 'F'){
+                                landlord.image_url = 'img/landlord_girl.jpg';
+                            }else{
+                                landlord.image_url = 'img/landlord_boy.jpg';
+                            }
+    
+                            $scope.landlords.push(landlord); 
+                             console.log($scope.landlords);
+                             landlord={}; 
+
+                         }
+
+                         $scope.isLoading = false;
+                         jQuery('#prop-list-loading-progress').hide();
+                         jQuery('#prop-list-content').fadeIn();
+                     });
+                 },
+                 error: function(error) {
+                     alert("locationFeedCtrl: Error - " + error.code + " " + error.message);
+                 }
+             });
+        
+
+     }; //End initialForm.
+
+
+     //navigation to property detail page has not been written yet 
+     //Default code from sterter app 
+     // navigateTo is for navigate to other page 
+     // by using targetPage to be the destination page 
+     // and sending objectData to the destination page.
+     // Parameter :  
+     // targetPage = destination page.
+     // objectData = object that will sent to destination page.
+     $scope.navigateTo = function(targetPage, objectData) {
+         $state.go(targetPage, {
+            lordDetail: objectData,
+             actionDelete: (objectData == null ? false : true)
+         });
+     }; // End navigateTo.
+
+     $scope.initialForm();
+ }); // End of Notes List Page  Controller.

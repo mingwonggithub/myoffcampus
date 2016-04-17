@@ -453,6 +453,9 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
 
     .state('app.addlocation', {
         url: "/addlocation",
+        params:{
+            landlord: null,
+        },
         views: {
             'menuContent': {
                 templateUrl: "templates/themes/location-feed/html/add_location.html",
@@ -1047,6 +1050,19 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
                 'menuContent': {
                     templateUrl: "templates/themes/location-feed/html/location-feed.html",
                     controller: "locationFeedCtrl"
+                }
+            }
+        })
+        .state('app.landlordFeed', {
+            url: "/landlordFeed",
+             params: {
+                searchResults: null,
+            },
+            cache: false,
+            views: {
+                'menuContent': {
+                    templateUrl: "templates/themes/landlord/html/landlordList.html",
+                    controller: "landlordListCtrl"
                 }
             }
         })

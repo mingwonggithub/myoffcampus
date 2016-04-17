@@ -2,6 +2,12 @@
 .center {
   text-align: center; }
 
+.landlord-img {
+  height: 70px;
+  background-size: cover;
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px; }
+
 /* add photo page */
 .instruction {
   padding: 8px;

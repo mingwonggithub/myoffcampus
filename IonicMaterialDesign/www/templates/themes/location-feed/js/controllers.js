@@ -97,6 +97,7 @@
 
  appControllers.controller('addLocationCtrl', function($scope, $state, NoteDB, $stateParams, $ionicPopup, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
 
+ 
    //check whether the element exist in the array 
     function elementExists(array, el) {
         for (var i = 0; i < array.length; i++) {
@@ -303,8 +304,19 @@
          var Property = Parse.Object.extend("myProperty");
          var property = new Property();
 
+         console.log("stateparms are ", $stateParams)
+         $scope.landlord = $stateParams.landlord.object; 
+         console.log("saveProp ", $scope.landlord);
+
+         if($scope.landlord != null){
+             var relation = property.relation("hasLandlords"); 
+            relation.add($scope.landlord); 
+         }
+
          property.save($scope.prop, {
              success: function(property) {
+
+                console.log(property);
                  var newProp = {};
 
                  newProp.title = property.get("kind")

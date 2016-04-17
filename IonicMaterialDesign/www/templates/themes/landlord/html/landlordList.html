@@ -46,7 +46,8 @@
                         </div> 
                             <div  id='landlordratingbox' class="col-20">
                              <h2 id="rating" ng-class="{black:landlord.rating=0, red:landlord.rating>0 && landlord.rating<4, green:landlord.rating>6, yellow:landlord.rating>3 && landlord.rating<7}">{{landlord.rating}}</h2>
-                     
+                            <span class="text-add" ng-click="save(property.object); $event.stopPropagation();"> Save </span>
+
                             </div>
                         </div>
 

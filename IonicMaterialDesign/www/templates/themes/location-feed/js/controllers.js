@@ -27,7 +27,7 @@
                      maximumImagesCount: limit, // Max number of selected images
                      width: 800,
                      height: 800,
-                     quality: 100,
+                     quality: 80,
                  }
 
                  // select image by calling $cordovaImagePicker.getPictures(options)
@@ -624,6 +624,8 @@
      /* start of image slider */
 
 
+    //initialize ht emap 
+     $ionicPlatform.ready(function() {
      //Obtaining all the property images 
      $scope.img = '';
      var myPhotos = Parse.Object.extend("propImages");
@@ -674,8 +676,7 @@
      /* end of image slider */
 
 
-     //initialize ht emap 
-     $ionicPlatform.ready(function() {
+ 
          initialize($scope.property.lat, $scope.property.long);
      });
 

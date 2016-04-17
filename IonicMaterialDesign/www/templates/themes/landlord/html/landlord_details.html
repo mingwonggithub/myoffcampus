@@ -43,6 +43,13 @@
                         <button class="button button-outline button-positive add-button-small" ng-click="navigateTo('app.addlocation', landlord)">+</button>
                     </div>
                 </div>
+
+                <ion-list ng-repeat="property in properties">                
+                <a class="item item-list-detail item-text-wrap" style="border-bottom: none;" ng-click="navigateTo('app.locationDetails', property)">
+                    <h3> {{property.title}}</h3> 
+                </a>
+                <ion-list> 
+
             </div>
             <div class="location-item">
                 <div class="location-content row">

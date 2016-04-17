@@ -454,7 +454,7 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
     .state('app.addlocation', {
         url: "/addlocation",
         params:{
-            landlord: null,
+            lordDetail: null,
         },
         views: {
             'menuContent': {

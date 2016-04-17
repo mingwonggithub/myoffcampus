@@ -87,16 +87,18 @@
 
 
 
+
      //navigate to the property detail page 
      $scope.navigateTo = function(targetPage, objectData) {
          $state.go(targetPage, {
-             propDetail: objectData
+             propDetail: objectData, 
          });
      };
  });
 
  appControllers.controller('addLocationCtrl', function($scope, $state, NoteDB, $stateParams, $ionicPopup, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
 
+    console.log("addLocationCtrl: stateparams- ", $stateParams);
  
    //check whether the element exist in the array 
     function elementExists(array, el) {
@@ -167,28 +169,75 @@
      };
 
      //check whether the address exist in DB already 
-    $scope.isAddressInDB = function(addressL){
-        var query = new Parse.Query("myProperty");
-        query.equalTo("address", addressL.formatted_address);
-        query.find({
-        success: function(results) {
-    
-            if(results.length > 0){
-                console.log("addLocationCtrl: address is in database already"); 
-                $scope.showAlert(); 
-            }else{
-                console.log("addLocationCtrl: address is not in database already"); 
-                $scope.convertAddress(addressL);
+     //if landlord is null and address exist, save that
+     //else, simply save call the function to save new property
+    $scope.isAddressInDB = function(addressL) {
+     var query = new Parse.Query("myProperty");
+     query.equalTo("address", addressL.formatted_address);
+     query.find({
+         success: function(results) {
 
-            }
-        },
-        error: function(error) {
-            alert("addLocationCtrlError: " + error.code + " " + error.message);
-        }
+             if (results.length > 0) {
+                 console.log("addLocationCtrl: address is in database already");
 
-        }); // end of query 
-    } 
+                 if ($stateParams.lordDetail != null) {
+                     console.log("landlord is not null");
 
+                     var Property = Parse.Object.extend("myProperty");
+                     var property = results[0]; 
+                     var relation = property.relation("hasLandlords");
+                     relation.add($stateParams.lordDetail.object);
+
+                     property.save(null, {
+                         success: function(prop) {
+                             $mdToast.show({
+                                 controller: 'toastController',
+                                 templateUrl: 'toast.html',
+                                 hideDelay: 600,
+                                 position: 'top',
+                                 locals: {
+                                     displayOption: {
+                                         title: "Address already exists. Property add to landlord.",
+                                     }
+                                 }
+                             });
+
+                             $scope.navigateTo('app.landLordDetails', $stateParams.lordDetail); 
+                         },
+                         error: function(error) {
+                             console.log("error: " + error.message);
+                              $mdToast.show({
+                                 controller: 'toastController',
+                                 templateUrl: 'toast.html',
+                                 hideDelay: 600,
+                                 position: 'top',
+                                 locals: {
+                                     displayOption: {
+                                         title: "Fail to save landlord into existing db"
+                                     }
+                                 }
+                             });
+                         }
+
+                     });
+
+
+
+                 }else{
+                    $scope.showAlert();
+                 }
+             } else {
+                 console.log("addLocationCtrl: address is not in database already");
+                 $scope.convertAddress(addressL);
+
+             }
+         },
+         error: function(error) {
+             alert("addLocationCtrlError: " + error.code + " " + error.message);
+         }
+
+     }); // end of query 
+ }
      // A confirm dialog for user input address string 
      $scope.showConfirm = function(addressL) {
          var confirmPopup = $ionicPopup.confirm({
@@ -304,13 +353,11 @@
          var Property = Parse.Object.extend("myProperty");
          var property = new Property();
 
-         console.log("stateparms are ", $stateParams)
-         $scope.landlord = $stateParams.landlord.object; 
-         console.log("saveProp ", $scope.landlord);
+         console.log("addLocationCtrl: stateparms are ", $stateParams) 
 
-         if($scope.landlord != null){
+         if($stateParams.lordDetail != null){
              var relation = property.relation("hasLandlords"); 
-            relation.add($scope.landlord); 
+            relation.add($stateParams.lordDetail.object);  
          }
 
          property.save($scope.prop, {
@@ -323,7 +370,7 @@
                  if (property.get("communityName") != undefined) {
                      newProp.title = property.get("communityName");
                  }
-                 newProp.rating = property.get('hrating');
+                 newProp.rating = parseFloat($filter('number')(property.get('hrating'), 2));
                  newProp.streetNo = property.get('streetNo');
                  newProp.street = property.get('street');
                  newProp.city = property.get('city');
@@ -331,6 +378,8 @@
                  newProp.zipcode = property.get('zipcode');
                  newProp.address = property.get('address');
                  newProp.object = property;
+                 newProp.lat = property.get('lat');
+                 newProp.long = property.get('long'); 
 
                  console.log("addLocationCtrl: saveProp is ", newProp);
                  $mdToast.show({
@@ -344,7 +393,13 @@
                          }
                      }
                  });
-                 $state.go('app.locationFeed');
+
+                  if($stateParams.lordDetail!= null){
+                    $scope.navigateTo('app.landLordDetails', $stateParams.lordDetail); 
+                  }else{
+                    $scope.navigateTo('app.locationDetails', newProp);
+                  }
+
                  // The object was saved successfully.
                  // console.log("addLocationCtrl: in Parse ", property);
              },
@@ -352,6 +407,17 @@
                  // The save failed.
                  // error is a Parse.Error with an error code and message.
                  console.log("addLocationCtrl:", JSON.stringify(error));
+                 $mdToast.show({
+                     controller: 'toastController',
+                     templateUrl: 'toast.html',
+                     hideDelay: 400,
+                     position: 'top',
+                     locals: {
+                         displayOption: {
+                             title: "Server error: property fail to save"
+                         }
+                     }
+                 });
              }
          });
      }
@@ -369,12 +435,14 @@
 
      };
 
-     //navigate to the new property detail page 
+     //navigate to the correct page 
      $scope.navigateTo = function(targetPage, objectData) {
          $state.go(targetPage, {
-             propDetail: objectData
+             propDetail: objectData,
+             lordDetail: objectData,
          });
      };
+
 
  });
 
@@ -501,7 +569,8 @@
          //navigate to the property detail page 
          $scope.navigateTo = function(targetPage, objectData) {
              $state.go(targetPage, {
-                 propDetail: objectData
+                 propDetail: objectData,
+                 lordDetail: objectData,
              });
          };
 

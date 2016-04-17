@@ -117,9 +117,9 @@
 
                  if (status == google.maps.GeocoderStatus.OK) {
 
-                     $scope.landlord.addressL = results[0];
+                     addressL = results[0];
                      $scope.landlord.address = results[0].formatted_address;
-                     $scope.showConfirm( $scope.landlord.addressL);
+                     $scope.showConfirm( addressL);
                      console.log("addLandLordCtrl: $scope.landlord is ", $scope.landlord);
 
                  } else {
@@ -137,9 +137,6 @@
             $scope.extractAddress($scope.addr.mailaddress.address_components);
 
         }
-
-    
-
 
 
 }
@@ -229,23 +226,64 @@
  */
 
  // Controller of Location Detail Page.
- appControllers.controller('landLordDetailCtrl', function($scope, $ionicPlatform, $stateParams, $state, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
+appControllers.controller('landLordDetailCtrl', function($scope, $ionicPlatform, $stateParams, $state, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
 
-     //  console.log($stateParams);
-     $scope.landlord = $stateParams.lordDetail;
-     console.log('landLordDetailCtrl', $scope.landlord); 
-     // console.log("locationDetailCtrl: ", $scope.property);
+    //  console.log($stateParams);
+    $scope.landlord = $stateParams.lordDetail;
+    console.log('landLordDetailCtrl', $scope.landlord);
+
+    $scope.properties = []; 
+    var property = {}; 
+    var query = new Parse.Query("myProperty");
+    query.equalTo("hasLandlords", $scope.landlord.object);
+    query.find({
+        success: function(results) {
+            console("landLordDetailCtrl: Successfully retrieved " + results.length + " properties.");
+            console.log(JSON.stringify(results));
 
 
-     $scope.navigateTo = function(targetPage, objectData) {
-         $state.go(targetPage, {
-             landlord: objectData
-         });
-     };
+            for (i in results) {
+                aProp = results[i];
+                property.object = aProp;
+                property.title = aProp.get("kind")
+                if (aProp.get("communityName") != undefined) {
+                    property.title = aProp.get("communityName") + " " + property.title;
+                }
+
+                property.rating = parseFloat($filter('number')(aProp.get('hrating'), 2)); //$filter('number')(aProp.get('hrating'), 2);
+                property.streetNo = aProp.get('streetNo');
+                property.street = aProp.get('street');
+                property.city = aProp.get('city');
+                property.state = aProp.get('state');
+                property.zipcode = aProp.get('zipcode');
+                property.address = aProp.get('address');
+                console.log(property.title.split(" "))
+                property.lat = aProp.get('lat');
+                property.long = aProp.get('long');
+                $scope.properties.push(property);
+
+                property = {};
+
+            }
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
 
 
 
- }); // End of Notes Detail Page  Controller.
+    //navigate to the property detail page 
+    $scope.navigateTo = function(targetPage, objectData) {
+        $state.go(targetPage, {
+            propDetail: objectData,
+            lordDetail: objectData, 
+        });
+    };
+
+
+
+}); // End of Notes Detail Page  Controller.
 
  appControllers.controller('savedLandLordCtrl', function($scope, $state, $stateParams, $mdToast, $ionicHistory, $ionicViewSwitcher) {
 

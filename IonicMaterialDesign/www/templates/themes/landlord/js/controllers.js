@@ -105,8 +105,8 @@
 
          //keywords used to search for the landlord 
          var searchArray = [];
-         searchArray.push($scope.landlord.firstname);
-         searchArray.push($scope.landlord.lastname); 
+         searchArray.push(($scope.landlord.firstname).toLowerCase());
+         searchArray.push(($scope.landlord.lastname).toLowerCase()); 
         $scope.landlord.searchArray = searchArray;
 
          $scope.landlord.prating = parseInt($scope.landlord.prating);

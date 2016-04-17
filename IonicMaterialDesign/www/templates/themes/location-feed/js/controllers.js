@@ -503,6 +503,7 @@
  appControllers.controller('locationDetailCtrl', function($scope, $ionicModal, $ionicPlatform, $stateParams, $state, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
 
      $scope.property = $stateParams.propDetail;
+     $scope.property.rating = parseFloat($filter('number')($scope.property.rating, 2)); //hope this solve the ugly number without refresh, didn't work
      $scope.reviews = []; //list of reviews on feed page 
      $scope.allImages = [];
      //all images for that propery 

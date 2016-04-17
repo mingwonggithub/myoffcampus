@@ -238,7 +238,7 @@ appControllers.controller('landLordDetailCtrl', function($scope, $ionicPlatform,
     query.equalTo("hasLandlords", $scope.landlord.object);
     query.find({
         success: function(results) {
-            console("landLordDetailCtrl: Successfully retrieved " + results.length + " properties.");
+            console.log("landLordDetailCtrl: Successfully retrieved " + results.length + " properties.");
             console.log(JSON.stringify(results));
 
 
@@ -294,11 +294,11 @@ appControllers.controller('landLordDetailCtrl', function($scope, $ionicPlatform,
      query.include("savedProps");
      query.select("savedProps");
      //query.equalTo("playerName", "Dan Stemkoski");
-     if ($scope.isAndroid) {
-         jQuery('#landlord-list-loading-progress').show();
-     } else {
-         jQuery('#landlord-list-loading-progress').fadeIn(700);
-     }
+     // if ($scope.isAndroid) {
+     //     jQuery('#landlord-list-loading-progress').show();
+     // } else {
+     //     jQuery('#landlord-list-loading-progress').fadeIn(700);
+     // }
      var property = {};
      //SLOW BECAUSE 2 QUERIES ARE NEEDED. REWRITE
      query.find({
@@ -336,8 +336,8 @@ appControllers.controller('landLordDetailCtrl', function($scope, $ionicPlatform,
 
                          }
 
-                         jQuery('#landlord-list-loading-progress').hide();
-                         jQuery('#landlord-list-content').fadeIn();
+                         // jQuery('#landlord-list-loading-progress').hide();
+                         // jQuery('#landlord-list-content').fadeIn();
                          $scope.isLoading = false;
                      }); //end $scope.apply
                  },
@@ -392,7 +392,7 @@ appControllers.controller('landLordDetailCtrl', function($scope, $ionicPlatform,
  // It will call Parse (not NodeDB Services)to present data to html view. /
  appControllers.controller('landlordListCtrl', function($scope, $stateParams, $timeout, NoteDB, $state, starsUtility) {
 
-     console.log("propListCtrl");
+     console.log("landlordListCtrl");
 
      // initialForm is the first activity in the controller. 
      // It will initial all variable data and let the function works when page load.
@@ -429,9 +429,9 @@ appControllers.controller('landLordDetailCtrl', function($scope, $ionicPlatform,
 
          // The function for loading progress.
              if ($scope.isAndroid) {
-                 jQuery('#prop-list-loading-progress').show();
+                 jQuery('#landlord-feed-content-loading-progress').show();
              } else {
-                 jQuery('#prop-list-loading-progress').fadeIn(700);
+                 jQuery('#landlord-feed-content-loading-progress').fadeIn(700);
              }
 
              //Get all notes from NoteDB service.
@@ -477,8 +477,8 @@ appControllers.controller('landLordDetailCtrl', function($scope, $ionicPlatform,
                          }
 
                          $scope.isLoading = false;
-                         jQuery('#prop-list-loading-progress').hide();
-                         jQuery('#prop-list-content').fadeIn();
+                         jQuery('#landlord-feed-content-loading-progress').hide();
+                         jQuery('#landlord-feed-content').fadeIn();
                      });
                  },
                  error: function(error) {

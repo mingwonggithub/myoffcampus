@@ -13,42 +13,43 @@
     </ion-nav-buttons>
     <!--end right button on navigation bar-->
     <!--prop list section-->
-    <ion-content id="prop-list-content" class="fade-in">
+    <ion-content id="landlord-feed-content" class="fade-in">
         <!--list section-->
         <md-list>
             <!--list item section-->
             <md-list-item>
-                <md-input-container md-no-float="" class="search-box">
-                    <i class="ion-android-search"></i>
-                    <input ng-model="filterText" placeholder="Search for notes.">
-                </md-input-container>
-            </md-list-item>
+
+            <md-input-container md-no-float="" class="search-box">
+            <a class="minibutton" ng-click="searchlordFeed()"><i class="ion-android-search"></i></a>
+            <input ng-model="userInput.lordText" placeholder="Search by landlord's name">
+        </md-input-container>
+         </md-list-item>
+
+
             <md-card ng-if="!isAnimated" ng-click="navigateTo('app.landLordDetails' , landlord)" class="card-item" ng-repeat="landlord in landlords track by $index"> <!-- this need to change once property detail page is set up --> 
                 <md-card-content>
                     <div class="card-content">
                         <h1 class="md-title">
-                                    <span>
-                                       {{landlord.title}}  <!-- <i class="fa fa-female" aria-hidden="true"></i> -->
+                            <span>
+                            {{landlord.title}}  <!-- <i class="fa fa-female" aria-hidden="true"></i> -->
+                        </span>
+                        </h1>
+                        <div class="landlord-content-detail row">
+                            <div id="landlordbox" class="col-20">
+                            <div class="landlord-img" ng-style="{'background-image': 'url(' + landlord.image_url + ')' }"></div>
+                            </div>
 
-                                    </span>
-                            </h1>
-                        <div class="prop-content-detail row">
                             <div class="col-80">
-                             {{landlord.phone}} </br>
+
+                            {{landlord.phone}} </br>
                             {{landlord.email}}   </br>
-                            Rating: {{landlord.rating}}
-                        </div>
-                        <div class="col-20">
-
-                                                        <h2 id="rating" ng-class="{red:property.rating<4, green:property.rating>6, yellow:property.rating>3 && property.rating<7}">{{property.rating}}</h2>
-
-                  <div class="landlord-img" ng-style="{'background-image': 'url(' + landlord.image_url + ')' }"
-></div>
-                    </div>
-                        </div>
+                        </div> 
+                            <div  id='landlordratingbox' class="col-20">
+                             <h2 id="rating" ng-class="{black:landlord.rating=0, red:landlord.rating>0 && landlord.rating<4, green:landlord.rating>6, yellow:landlord.rating>3 && landlord.rating<7}">{{landlord.rating}}</h2>
+                     
+                            </div>
                         </div>
 
-                         <!-- <div star-rating stars="5" outer-star-selection="stars" outer-percent="rating" rating-define="percent" rating-percent="50" star-radius="15" sel-color="gold" back-color="white" ></div> -->
                     </div>
                 </md-card-content>
             </md-card>
@@ -87,7 +88,7 @@
     <!--end footer fab bar-->
 
     <!--loading progress-->
-    <div id="prop-list-loading-progress" class="loading-progress fade-in">
+    <div id="landlord-feed-loading-progress" class="loading-progress fade-in">
         <ion-spinner ng-if="!isAndroid" class="progress-circular"></ion-spinner>
         <md-progress-circular ng-if="isAndroid" md-mode="indeterminate"></md-progress-circular>
     </div>

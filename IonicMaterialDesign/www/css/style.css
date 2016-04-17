@@ -1,16 +1,115 @@
 /* We should put our css on top to make it easier to find */
+/* landlord feed page  */
+#landlordbox {
+  margin-left: -15px;
+  margin-top: -10px; }
+
+#landlordratingbox {
+  margin-left: -10px; }
+
+.landlord-img {
+  height: 50px;
+  background-size: cover;
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px; }
+
+#landlord-feed-content {
+  background-color: #f6f6f6; }
+
+#landlord-feed-content md-card.card-item {
+  height: 110px;
+  overflow: hidden;
+  margin-top: -15px;
+  margin-bottom: 28px;
+  text-transform: uppercase; }
+
+#landlord-feed-content md-card.card-item md-card-content .card-content h1 {
+  text-align: left;
+  font-size: 16px;
+  font-weight: 500;
+  color: grey; }
+
+#landlord-feed-content md-card.card-item md-card-content .card-content .landlord-content-detail {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 500;
+  color: grey; }
+
+#landlord-feed-content md-list {
+  margin-top: 5px; }
+
+#landlord-feed-content md-list md-list-item md-input-container.search-box {
+  width: 100%;
+  margin-top: -5px;
+  margin-left: -8px; }
+
+#landlord-feed-content md-list md-list-item md-input-container.search-box i {
+  font-size: 22px;
+  color: white; }
+
+#landlord-feed-content md-list md-list-item md-input-container.search-box a.minibutton {
+  position: absolute;
+  width: 35px;
+  height: 29px;
+  text-align: center;
+  background: #4E9CAF;
+  background: #72beef;
+  padding: 4px;
+  margin-right: 5px;
+  border-radius: 3px;
+  color: white;
+  font-weight: bold;
+  display: inline-block; }
+
+#landlord-feed-content md-list md-list-item md-input-container.search-box a.minibutton:hover {
+  background: rgba(114, 190, 239, 0.5); }
+
+#landlord-feed-content md-list md-list-item md-input-container.search-box a.minibutton:active {
+  background: rgba(114, 190, 239, 0.8); }
+
+#landlord-feed-content md-list md-list-item md-input-container.search-box input {
+  margin-left: 38px; }
+
+#landlord-feed-content md-list md-list-item md-card {
+  height: 136px;
+  width: 100%; }
+
+#landlord-feed-content md-list md-list-item md-card button {
+  margin: 0; }
+
+#landlord-feed-content md-list md-list-item md-card button md-card-content {
+  text-align: left;
+  color: gray;
+  padding: 10px; }
+
+#landlord-feed-content md-list md-list-item md-card button md-card-content .card-content {
+  margin-top: -24px;
+  margin-left: 10px; }
+
+#landlord-feed-content md-list md-list-item md-card button md-card-content .card-content h1 {
+  margin-bottom: 5px; }
+
+#landlord-feed-content md-list md-list-item md-card button md-card-content .card-content h1 span {
+  max-width: 260px;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis; }
+
+#landlord-feed-content md-list md-list-item md-card button md-card-content .card-content h1 span i {
+  margin-right: 2px; }
+
+#landlord-feed-content md-list md-list-item md-card button md-card-content .card-content div {
+  white-space: normal;
+  line-height: 18px;
+  font-size: 11px;
+  height: 64px; }
+
 /*landlord detila page */
 .item.item-list-detail.item-text-wrap h3 {
   color: #4E82B5; }
 
 .center {
   text-align: center; }
-
-.landlord-img {
-  height: 70px;
-  background-size: cover;
-  border-top-right-radius: 2px;
-  border-top-left-radius: 2px; }
 
 /* add photo page */
 .instruction {

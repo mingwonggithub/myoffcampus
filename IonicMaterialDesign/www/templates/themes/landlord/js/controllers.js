@@ -445,7 +445,6 @@
                          landlord.lastname = alandlord.get('lastname');
                          landlord.title = alandlord.get("firstname") + " " + alandlord.get("lastname");
                          landlord.rating = parseFloat($filter('number')(alandlord.get('prating'), 2))
-                         console.log(landlord.rating);
                          landlord.address = alandlord.get('address');
                          landlord.gender = alandlord.get('gender');
                          landlord.phone = alandlord.get('phone');
@@ -464,7 +463,6 @@
                          }
 
                          $scope.landlords.push(landlord);
-                         console.log($scope.landlords);
                          landlord = {};
 
                      }
@@ -521,10 +519,13 @@
              var query = new Parse.Query(Landlord);
              query.containsAll("searchArray", keywords);
 
-             //reload current state
-             $state.current.params.searchResults = query;
-             $state.transitionTo($state.current, $state.current.params, { reload: true, inherit: true, notify: true });
+           
          }
+
+        //reload current state
+        $state.current.params.searchResults = query;
+        $state.transitionTo($state.current, $state.current.params, { reload: true, inherit: true, notify: true });
+
 
      }
 

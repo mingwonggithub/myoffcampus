@@ -55,7 +55,7 @@ appControllers.controller('dashboardSettingCtrl', function ($scope, $state,$ioni
 appControllers.controller('welcomeCtrl', function($scope, $state, $ionicHistory, $ionicViewSwitcher, $stateParams) {
       var self = this;
       self.location = '';
-      // this.location = '';
+      self.landLordName = ''; 
 
     var currentUser = JSON.parse(localStorage.getItem("mocUser"));
 
@@ -68,6 +68,7 @@ appControllers.controller('welcomeCtrl', function($scope, $state, $ionicHistory,
     console.log("welcomeCtrl: " + JSON.stringify(currentUser));
 
     $scope.searchLandlord = function(){
+         console.log ("welcomeCtrl: self lordname is ", self.landLordName);
 
         var formattedlord = (self.landLordName.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")).trim(); 
 
@@ -87,6 +88,8 @@ appControllers.controller('welcomeCtrl', function($scope, $state, $ionicHistory,
     }
 
     $scope.searchProperty = function(){
+
+        console.log ("welcomeCtrl: self location is ", self.location);
 
         var formattedloc = (self.location.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")).trim(); 
 
@@ -136,8 +139,8 @@ appControllers.controller('welcomeCtrl', function($scope, $state, $ionicHistory,
 
 
     $scope.navigateTo = function (targetPage, objectData) {
-        console.log(targetPage); 
-        console.log("objectdata is " , objectData);
+        console.log("welcomeCtrl: ", targetPage); 
+        console.log("welcomeCtrl: objectdata is " , objectData);
         $state.go(targetPage, {
             searchResults: objectData
         });

@@ -67,6 +67,26 @@ appControllers.controller('welcomeCtrl', function($scope, $state, $ionicHistory,
 
     console.log("welcomeCtrl: " + JSON.stringify(currentUser));
 
+    $scope.searchLandlord = function(){
+
+        var formattedlord = (self.landLordName.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")).trim(); 
+
+
+        if( formattedlord.length == 0) {
+            var query = null; 
+
+        }else{
+            var keywords = formattedlord.toLowerCase().split(" "); 
+            console.log("welcomeCtrl: keywords are ", keywords);
+            var Landlord = Parse.Object.extend("myLandLord");
+            var query = new Parse.Query(Landlord);
+            query.containsAll("searchArray", keywords);
+        }
+
+        $scope.navigateTo('app.landlordFeed', query);
+
+    }
+
     $scope.searchProperty = function(){
 
         var formattedloc = (self.location.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")).trim(); 
@@ -75,7 +95,6 @@ appControllers.controller('welcomeCtrl', function($scope, $state, $ionicHistory,
             var query = null; 
 
         }else{
-             console.log("I am in serachPropy", self.location);
             var keywords = formattedloc.toLowerCase().split(" "); 
             console.log("welcomeCtrl: keywords are ", keywords);
             var Property = Parse.Object.extend("myProperty");
@@ -114,31 +133,6 @@ appControllers.controller('welcomeCtrl', function($scope, $state, $ionicHistory,
         // }
     // }); 
 
-
-
-
-
-// var mainQuery = Parse.Query.or(lotsOfWins, fewWins); mainQuery.find({ success: function(results) {
-
-//  // results contains a list of players that either have won a lot of games or won only a few games.
-// }, error: function(error) {
-
-// // There was an error.
-// } });
-
-//         // query.equalTo("playerEmail", "dstemkoski@example.com");
-// query.first({
-//   success: function(object) {
-//     // Successfully retrieved the object.
-//   },
-//   error: function(error) {
-//     alert("Error: " + error.code + " " + error.message);
-//   }
-// });
-
-//         // Finds scores from any of Jonathan, Dario, or Shawn
-//         query.containedIn("playerName",
-//                   ["Jonathan Walsh", "Dario Wunsch", "Shawn Simon"]);
   }
 
 

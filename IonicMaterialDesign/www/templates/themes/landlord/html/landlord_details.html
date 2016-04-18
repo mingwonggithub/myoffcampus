@@ -44,11 +44,18 @@
                     </div>
                 </div>
 
-                <ion-list ng-repeat="property in properties">                
-                <a class="item item-list-detail item-text-wrap" style="border-bottom: none;" ng-click="navigateTo('app.locationDetails', property)">
-                    <h3> {{property.title}}</h3> 
-                </a>
-                <ion-list> 
+                <ion-list ng-repeat="property in properties">         
+                    <a class=" item item-list-detail item-text-wrap " style="border-bottom: none; margin:0; padding-top: 4px; padding-bottom: 4px;" ng-click="navigateTo('app.locationDetails', property)">
+                        <div class="row">
+                            <div class="col-80">
+                                <h3> {{property.title}}</h3> 
+                            </div>
+                            <div class="col-20">
+                            <h2 style="text-align: right;" ng-class="{red:property.rating<4, green:property.rating>6, yellow:property.rating>3 && property.rating<7}">{{property.rating}}</h2>
+                            </div>
+                        </div>
+                    </a>
+                </ion-list> 
 
             </div>
             <div class="location-item">

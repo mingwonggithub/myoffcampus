@@ -180,7 +180,7 @@
 
                  newLandLord.object = landlord;
                  newLandLord.title = landlord.get("firstname") + " " + landlord.get("lastname");
-                 newLandLord.rating = parseFloat($filter('number')(alandlord.get('prating'), 2));
+                 newLandLord.rating = parseFloat($filter('number')(alandlord.get('prating'), 1));
                  newLandLord.address = landlord.get('address');
                  newLandLord.gender = landlord.get('gender');
                  newLandLord.phone = landlord.get('phone');
@@ -251,7 +251,7 @@
                      property.title = aProp.get("communityName") + " " + property.title;
                  }
 
-                 property.rating = parseFloat($filter('number')(aProp.get('hrating'), 2)); //$filter('number')(aProp.get('hrating'), 2);
+                 property.rating = parseFloat($filter('number')(aProp.get('hrating'), 1)); //$filter('number')(aProp.get('hrating'), 2);
                  property.streetNo = aProp.get('streetNo');
                  property.street = aProp.get('street');
                  property.city = aProp.get('city');
@@ -444,7 +444,7 @@
                          landlord.object = alandlord;
                          landlord.lastname = alandlord.get('lastname');
                          landlord.title = alandlord.get("firstname") + " " + alandlord.get("lastname");
-                         landlord.rating = parseFloat($filter('number')(alandlord.get('prating'), 2))
+                         landlord.rating = parseFloat($filter('number')(alandlord.get('prating'), 1))
                          landlord.address = alandlord.get('address');
                          landlord.gender = alandlord.get('gender');
                          landlord.phone = alandlord.get('phone');

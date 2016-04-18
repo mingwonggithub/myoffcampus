@@ -370,7 +370,7 @@
                  if (property.get("communityName") != undefined) {
                      newProp.title = property.get("communityName");
                  }
-                 newProp.rating = parseFloat($filter('number')(property.get('hrating'), 2));
+                 newProp.rating = parseFloat($filter('number')(property.get('hrating'), 1));
                  newProp.streetNo = property.get('streetNo');
                  newProp.street = property.get('street');
                  newProp.city = property.get('city');
@@ -494,7 +494,7 @@
                                  property.title = aProp.get("communityName") + " " + property.title;
                              }
 
-                             property.rating = parseFloat($filter('number')(aProp.get('hrating'), 2)); //$filter('number')(aProp.get('hrating'), 2);
+                             property.rating = parseFloat($filter('number')(aProp.get('hrating'), 1)); //$filter('number')(aProp.get('hrating'), 2);
                              property.streetNo = aProp.get('streetNo');
                              property.street = aProp.get('street');
                              property.city = aProp.get('city');
@@ -616,7 +616,7 @@
  appControllers.controller('locationDetailCtrl', function($scope, $ionicModal, $ionicPlatform, $stateParams, $state, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
 
      $scope.property = $stateParams.propDetail;
-     $scope.property.rating = parseFloat($filter('number')($scope.property.rating, 2)); //hope this solve the ugly number without refresh, didn't work
+     $scope.property.rating = parseFloat($filter('number')($scope.property.rating, 1)); //hope this solve the ugly number without refresh, didn't work
      $scope.reviews = []; //list of reviews on feed page 
      $scope.allImages = [];
      //all images for that propery 

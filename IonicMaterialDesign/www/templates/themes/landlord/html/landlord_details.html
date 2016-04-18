@@ -16,7 +16,7 @@
                         <h1 style=";display: inline-block">{{landlord.title}}</h1>
                     </div>
                     <div class="col-20" style="padding-bottom: 5px; text-align: right; ">
-                        <h2 style="display: inline;" id="rating" ng-class="{red:landlord.rating<4, green:landlord.rating>6, yellow:landlord.rating>3 && landlord.rating<7}">{{landlord.rating}}</h2>
+                        <h2 style="display: inline;" id="rating" ng-class="{black:landlord.rating==0, red:landlord.rating > 0 && landlord.rating<4, green:landlord.rating>6, yellow:landlord.rating>3 && landlord.rating<7}">{{landlord.rating}}</h2>
                         <p style="display: inline;"> / 10</p>
                     </div>
                 </div>

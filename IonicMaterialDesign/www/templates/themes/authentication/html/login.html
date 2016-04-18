@@ -16,7 +16,8 @@
                     <input name="password" type="password" placeholder="Password" ng-model="controller.password" ng-minlength="5" required>
                 </label>
             </div>
-            <button class="md-raised social-button md-button md-default-theme material-background" type="submit">Sign In</button>
+            <a class="md-raised social-button md-button md-default-theme material-background" ng-click="loginForm.$submitted=true; login(loginForm)">Sign In</a>
+
         </form>
         <div id="options">
             <div id="password">

@@ -64,7 +64,7 @@
                     <h1 style="padding-right: 0; display: inline-block;">Reviews</h1><h3>&nbsp;&nbsp; • &nbsp;&nbsp;{{reviews.length}}</h3>
                 </div>
                 <div class="col-20" style="text-align: right">
-                    <button class="button button-outline button-positive add-button-small" ng-click="navigateTo('app.addreview', property)">+</button>
+                    <button class="button button-outline button-positive add-button-small" ng-click="navigateTo('app.addreviewforlandlord', landlord)">+</button>
                 </div>
             </div>
             
@@ -74,10 +74,11 @@
                     <p>{{review.text}}</p>
                 </div>
             </ion-list>
-            <div class="item item-list-detail center" ng-hide="reviews.length <= 3" ng-click="navigateTo('app.allreviewsll', landlord, reviews)">View all reviews</div>
+            <div class="item item-list-detail center" ng-hide="reviews.length <= 3" ng-click="navigateTo('app.allreviewsll', landlord, reviews, reviews)">View all reviews</div>
             </div>
         </div>
         <!--end list section-->
+        <br />
     </ion-content>
     <!--end location feed section-->
 </ion-view>

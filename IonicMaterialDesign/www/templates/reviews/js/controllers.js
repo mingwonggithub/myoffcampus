@@ -180,7 +180,7 @@ appControllers.controller('addReviewLandlordCtrl', function($scope, $state, $sta
 
 appControllers.controller('allReviewsCtrl', function($scope, $state, $stateParams, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
   $scope.property = $stateParams.propDetail;
-  $scope.reviews = $stateParams.reviews
+  $scope.reviews = $stateParams.reviews;
   // console.log($scope.property);
 
   $scope.navigateTo = function(targetPage, objectData) {
@@ -192,8 +192,8 @@ appControllers.controller('allReviewsCtrl', function($scope, $state, $stateParam
 
 appControllers.controller('allReviewsLLCtrl', function($scope, $state, $stateParams, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
   $scope.landlord = $stateParams.lordDetail;
-  $scope.reviews = $stateParams.reviews
-  // console.log($scope.property);
+  $scope.reviews = $stateParams.reviews;
+   console.log($scope.reviews);
 
   $scope.navigateTo = function(targetPage, objectData) {
     $state.go(targetPage, {

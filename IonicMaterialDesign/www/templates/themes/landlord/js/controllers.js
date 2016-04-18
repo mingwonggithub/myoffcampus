@@ -337,10 +337,11 @@
      });
 
      //navigate to the property detail page 
-     $scope.navigateTo = function(targetPage, objectData) {
+     $scope.navigateTo = function(targetPage, object1Data, object2Data) {
          $state.go(targetPage, {
-            lordDetail: objectData,
-            propDetail: objectData
+            lordDetail: object1Data,
+            propDetail: object1Data,
+            reviews: object2Data
          });
      };
 

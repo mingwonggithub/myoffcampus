@@ -53,9 +53,9 @@
       <div class="error-container last-error-container" ng-show="reviewForm.text.$error && reviewForm.$submitted" ng-messages="reviewForm.text.$error">
           <div ng-messages-include="error-list.html"></div> 
       </div>
-
+      <br />
       <!--submit-->
-      <a class="md-raised social-button md-button md-default-theme material-background" ng-click="reviewForm.$submitted = true; addReview(reviewForm)" >Submit</a>
+      <a style="width:100%; margin:0" class="md-raised social-button md-button md-default-theme material-background" ng-click="reviewForm.$submitted = true; addReview(reviewForm)" >Submit</a>
     </form>
   </ion-content>
   <!--end add review content-->

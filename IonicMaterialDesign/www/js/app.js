@@ -464,6 +464,19 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
         }
     })
 
+    .state('app.addlocationfromll', {
+        url: "/addlocationfromll",
+        params:{
+            lordDetail: null,
+        },
+        views: {
+            'menuContent': {
+                templateUrl: "templates/themes/landlord/html/add_location.html",
+                controller: 'addLocationCtrl' 
+            }
+        }
+    })
+
     .state('app.addphoto', {
         url: "/addphoto",
         cache: false,

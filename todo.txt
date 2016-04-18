@@ -23,8 +23,9 @@ LANDLORD
 		and to property detail page if navigate from property
 		Use the state param stuffs for this 
 
-	Basic Search on first and last name
-		should we search using the property address too? 
+	
+	should we search landlord using the property address too? 
+
 	CSS on landlord list page
 		feel free to get rid of the person icons 
 		if it looks better without ti
@@ -34,10 +35,6 @@ LANDLORD
 			b/c so much white space currently 
 
 	And the save landlord page. 
-
-	There might be a bug with the landlord rating.
-	When I update John Kirk’s rating to 7.6 in the db,
-	change not reflected on app. Maybe a caching problem. 
 
 Property
 	Put a list of landlord onto the detail page somewhere (enhancement)
@@ -61,6 +58,7 @@ Completed things:
   basic version of a landlord list page
   basic version of a landlord detail page with properties feature, no reviews yet.
   Error messages on the add property page 
+  Search by landlord name is complete with sort feature 
 
 And check the github page https://github.com/hoodsr/myoffcampus/wiki/What-we-still-need-to-do%3F . 
 

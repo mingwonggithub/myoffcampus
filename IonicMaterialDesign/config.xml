@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.ionicmaterialdesign506749" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>IonicMaterialDesign</name>
+  <name>MyOffCampus</name>
   <description>
-        An Ionic Framework and Cordova project.
+         MyOffCampus allows USC students to share their off campus housing experiences with one another.
     </description>
   <author email="ionicmaterialdesign@gmail.com" href="http://ionicframework.com/">
       Ionic Framework Team

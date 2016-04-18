@@ -71,7 +71,6 @@ appControllers.controller('welcomeCtrl', function($scope, $state, $ionicHistory,
 
         var formattedlord = (self.landLordName.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")).trim(); 
 
-
         if( formattedlord.length == 0) {
             var query = null; 
 

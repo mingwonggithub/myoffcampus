@@ -2202,6 +2202,9 @@ md-sidenav {
 .yellow {
   color: #ffb400; }
 
+.button-save {
+  color: white !important; }
+
 /*Styling the prop-list continue and add propery page  */
 /* will eventually delete */
 #prop-list-content {

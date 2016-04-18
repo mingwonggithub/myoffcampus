@@ -605,10 +605,6 @@
              });
 
          }
-
-
-
-
      }) // End of Location Feed Controller.
 
 
@@ -773,7 +769,38 @@
          }
      });
 
+     //save the property to saved properties page  for the user
+     $scope.save = function(property) {
+         var user = Parse.User.current();
+         var relation = user.relation("savedProps");
 
+         console.log("locationFeedCtrl: saving property: " + property);
+
+         // Add the post as a value in the comment
+         relation.add(property);
+
+         // This will save both myPost and myComment
+         user.save(null, {
+             success: function(prop) {
+                 $mdToast.show({
+                     controller: 'toastController',
+                     templateUrl: 'toast.html',
+                     hideDelay: 400,
+                     position: 'top',
+                     locals: {
+                         displayOption: {
+                             title: "Property saved"
+                         }
+                     }
+                 });
+             },
+             error: function(error) {
+                 console.log("error: " + error.message);
+             }
+         });
+
+     }
+         
      $scope.navigateTo = function(targetPage, object1Data, object2Data) {
          $state.go(targetPage, {
              propDetail: object1Data,

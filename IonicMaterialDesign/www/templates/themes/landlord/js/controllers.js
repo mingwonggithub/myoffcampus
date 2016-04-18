@@ -336,6 +336,36 @@
          }
      });
 
+     $scope.save = function(landlord) {
+        var user = Parse.User.current();
+        var relation = user.relation("savedLandlords");
+
+             console.log("landlordListCtrl: saving landlord: " + landlord);
+
+             // Add the post as a value in the comment
+             relation.add(landlord);
+
+             // This will save both myPost and myComment
+             user.save(null, {
+                 success: function(ll) {
+                     $mdToast.show({
+                         controller: 'toastController',
+                         templateUrl: 'toast.html',
+                         hideDelay: 400,
+                         position: 'top',
+                         locals: {
+                             displayOption: {
+                                 title: "Landlord saved"
+                             }
+                         }
+                     });
+                 },
+                 error: function(error) {
+                     console.log("error: " + error.message);
+                 }
+             });
+     }
+     
      //navigate to the property detail page 
      $scope.navigateTo = function(targetPage, object1Data, object2Data) {
          $state.go(targetPage, {

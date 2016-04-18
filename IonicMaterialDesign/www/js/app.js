@@ -1120,6 +1120,16 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
                 }
             }
         })
+        .state('app.savedlandlords', {
+            url: "/savedlandlords",
+            cache: false,
+            views: {
+                'menuContent': {
+                    templateUrl: "templates/themes/landlord/html/saved_landlord.html",
+                    controller: "savedLandlordCtrl"
+                }
+            }
+        })
         .state('app.singlePushNotification', {
             url: "/singlePushNotification",
             views: {

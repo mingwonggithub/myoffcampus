@@ -9,6 +9,12 @@ appControllers.controller('registerCtrl', function($scope, $state) {
 
   $scope.register = function(form) {
     if(form.$valid) {
+      if ($scope.isAndroid) {
+           jQuery('#reg-loading-progress').show();
+       } else {
+           jQuery('#reg-loading-progress').fadeIn(700);
+       }
+
       console.log("register is here ");
       console.log("Register user: " + self.email + "  " + self.firstName);
 
@@ -27,6 +33,8 @@ appControllers.controller('registerCtrl', function($scope, $state) {
         error: function(user, error) {
           // Show the error message ON THE VIEW and let the user try again.
           // Commonly username already exists
+          jQuery('#reg-loading-progress').hide();
+          jQuery('#reg-content').fadeIn();
           console.log("Error: " + error.code + " " + error.message);
         }
       });
@@ -35,23 +43,46 @@ appControllers.controller('registerCtrl', function($scope, $state) {
 });
 
 
-appControllers.controller('loginCtrl', function($scope, $state) {
+appControllers.controller('loginCtrl', function($scope, $state, $mdToast) {
   var currentUser;
   var self = this;
   self.email = "";
   self.password = "";
+  $scope.error = false;
 
   $scope.login = function(form) {
     if(form.$valid) {
+      if ($scope.isAndroid) {
+           jQuery('#login-loading-progress').show();
+       } else {
+           jQuery('#login-loading-progress').fadeIn(700);
+       }
       console.log("Login user: " + self.email + "  " + self.password);
       
       Parse.User.logIn(self.email, self.password, {
         success: function(user) {
           localStorage.setItem("mocUser", JSON.stringify(user));
+          jQuery('#login-loading-progress').hide();
+          jQuery('#login-content').fadeIn();
+         
           $state.go("app.welcome"); 
         },
         error: function(user, error) {
           // The login failed. Check error to see why.
+          jQuery('#login-loading-progress').hide();
+          jQuery('#login-content').fadeIn();
+          $scope.error = true;
+          $mdToast.show({
+                    controller: 'toastController',
+                    templateUrl: 'toast.html',
+                    hideDelay: 400,
+                    position: 'top',
+                    locals: {
+                        displayOption: {
+                            title: error.message
+                        }
+                    }
+                });
           console.log("Error: " + error.code + " " + error.message);
         }
       });

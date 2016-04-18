@@ -285,7 +285,7 @@
 
  }); // End of Notes Detail Page  Controller.
 
- appControllers.controller('savedLandLordCtrl', function($scope, $state, $stateParams, $mdToast, $ionicHistory, $ionicViewSwitcher) {
+ appControllers.controller('savedLandlordCtrl', function($scope, $state, $stateParams, $mdToast, $ionicHistory, $ionicViewSwitcher) {
 
      $scope.properties = [];
      var user = Parse.User.current();
@@ -293,12 +293,13 @@
      query.equalTo("username", user.get("username"));
      query.include("savedProps");
      query.select("savedProps");
-     //query.equalTo("playerName", "Dan Stemkoski");
-     // if ($scope.isAndroid) {
-     //     jQuery('#landlord-list-loading-progress').show();
-     // } else {
-     //     jQuery('#landlord-list-loading-progress').fadeIn(700);
-     // }
+     
+     if ($scope.isAndroid) {
+                 jQuery('#saved-ll-content-loading-progress').show();
+             } else {
+                 jQuery('#saved-ll-content-loading-progress').fadeIn(700);
+             }
+
      var property = {};
      //SLOW BECAUSE 2 QUERIES ARE NEEDED. REWRITE
      query.find({
@@ -336,8 +337,8 @@
 
                          }
 
-                         // jQuery('#landlord-list-loading-progress').hide();
-                         // jQuery('#landlord-list-content').fadeIn();
+                          jQuery('#saved-ll-loading-progress').hide();
+                          jQuery('#saved-ll-list-content').fadeIn();
                          $scope.isLoading = false;
                      }); //end $scope.apply
                  },
@@ -396,6 +397,8 @@
      var query = $stateParams.searchResults;
      console.log('query is ', query);
 
+
+
      // initialForm is the first activity in the controller. 
      // It will initial all variable data and let the function works when page load.
      $scope.initialForm = function(query) {
@@ -419,7 +422,7 @@
              query.descending("prating");
          }
 
-         // The function for loading progress.
+         //The function for loading progress.
          if ($scope.isAndroid) {
              jQuery('#landlord-feed-content-loading-progress').show();
          } else {
@@ -466,19 +469,23 @@
 
                      }
 
-                     $scope.isLoading = false;
-                     jQuery('#landlord-feed-content-loading-progress').hide();
-                     jQuery('#landlord-feed-content').fadeIn();
+
+                        $scope.isLoading = false;
+                         jQuery('#landlord-feed-loading-progress').hide();
+                         jQuery('#landlord-feed-content').fadeIn();
                  });
              },
              error: function(error) {
                  alert("locationFeedCtrl: Error - " + error.code + " " + error.message);
-             }
+            }
          });
 
 
      }; //End initialForm.
-     $scope.initialForm(query);
+
+    $scope.initialForm(query);
+
+  
 
      //sorting the search results 
      $scope.sortBy = function(index) {
@@ -494,7 +501,6 @@
          $scope.predicate = predicate;
 
      }
-
 
      //from search input box on location feed page 
      $scope.searchlordFeed = function() {
@@ -538,5 +544,7 @@
              actionDelete: (objectData == null ? false : true)
          });
      }; // End navigateTo.
+
+
 
  }); // End of Notes List Page  Controller.

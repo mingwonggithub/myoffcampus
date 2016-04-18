@@ -15,11 +15,12 @@
 #landlordratingbox
 .text-add {
   float: left;
+  text-transform: none;
   background-color: #ff5252;
   border-radius: 80px;
   color: white;
   font-weight: 480;
-  font-size: 10px;
+  font-size: 11px;
   width: 60px;
   text-align: center; }
 

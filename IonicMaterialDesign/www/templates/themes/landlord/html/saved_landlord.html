@@ -4,7 +4,12 @@
 <!--URL : #app/locationFeed-->
 <ion-view title="Saved Landlords">
     <!--location feed section-->
-    <ion-content id="location-feed-content">
+     <ion-content id="landlord-feed-content" >
+        <!--list section-->
+        <div class="center" ng-show="landlords.length < 1">
+                <br /><p>No saved landlords.</p>
+            </div>
+        <md-list style="padding-top: 20px">
         <!--
         list section
         Here you need to load in the different locations and their 
@@ -15,42 +20,36 @@
         An updated list of all the new locations and reccomended locations.
         Could be new listings or sponsored listings. Or mixed in with both.
         -->
-        <div class="location-list">
             <!--location item section-->
-            <div class="center" ng-show="properties.length < 1">
-                <br /><p>No saved landlords.</p>
-            </div>
-            <ion-list ng-repeat="property in properties" >
-
-            <div class="location-item" ng-click="navigateTo('app.locationDetails', property)">
-                <div class="location-img" style="background-image:url('../../../../img/house.jpg')">
-                </div>
-                <div class="location-content row">
-                    <div class="col-80">
-                        <h1>
-                            {{property.title}}
+            
+            <md-card ng-if="!isAnimated" class="card-item" ng-repeat="landlord in landlords" >
+                <md-card-content ng-click="navigateTo('app.landLordDetails', landlord)">
+                    <div class="card-content">
+                        <h1 class="md-title">
+                            <span>
+                            {{landlord.title}}  
+                        </span>
                         </h1>
-                        <p>
-                            <i class="ion-location"></i>
-                            {{property.streetNo}} {{property.street}}
-                            <br>
-                            <i class="ion-android-map"></i> {{property.city}}, {{property.state}} {{property.zipcode}}
-                        </p>
-                    </div>
-                    <div class="col-20">
-                        <h2 id="rating" ng-class="{red:property.rating<4, green:property.rating>6, yellow:property.rating>3 && property.rating<7}">{{property.rating}}</h2>
-                        <span class="text-add" ng-click="remove(property.object); $event.stopPropagation();"> Remove </span>
-                        <!-- Within the Details, Save, and Remove links have href
-                        links to other pages that includes the details of the
-                        complexes. The remove should remove the location from
-                        the current list of watched locations. Save will just
-                        save the location along with its information to the
-                        saved locations of that user -->
-                    </div>
-                </div>
-            </div>
-            </ion-list>
+                        <div class="landlord-content-detail row">
+                            <div id="landlordbox" class="col-20">
+                            <div class="landlord-img" ng-style="{'background-image': 'url(' + landlord.image_url + ')' }"></div>
+                            </div>
 
+                            <div class="col-80">
+
+                            {{landlord.phone}} </br>
+                            {{landlord.email}}   </br>
+                        </div> 
+                            <div  id='landlordratingbox' class="col-20">
+                             <h2 id="rating" ng-class="{black:landlord.rating==0, red:landlord.rating>0 && landlord.rating<4, green:landlord.rating>6, yellow:landlord.rating>3 && landlord.rating<7}">{{landlord.rating}}</h2>
+                            <span class="text-add" ng-click="remove(landlord.object); $event.stopPropagation();"> Remove </span>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </md-card-content>
+            </md-card>
             <!--end location item section-->
         </div>
         <!--end list section-->

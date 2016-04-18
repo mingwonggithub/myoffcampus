@@ -349,14 +349,14 @@
 
  }); // End of Notes Detail Page  Controller.
 
- appControllers.controller('savedLandlordCtrl', function($scope, $state, $stateParams, $mdToast, $ionicHistory, $ionicViewSwitcher) {
+ appControllers.controller('savedLandlordCtrl', function($filter, $scope, $state, $stateParams, $mdToast, $ionicHistory, $ionicViewSwitcher) {
 
-     $scope.properties = [];
+     $scope.landlords = [];
      var user = Parse.User.current();
      var query = new Parse.Query(Parse.User);
      query.equalTo("username", user.get("username"));
-     query.include("savedProps");
-     query.select("savedProps");
+     query.include("savedLandlords");
+     query.select("savedLandlords");
      
      if ($scope.isAndroid) {
                  jQuery('#saved-ll-content-loading-progress').show();
@@ -364,40 +364,44 @@
                  jQuery('#saved-ll-content-loading-progress').fadeIn(700);
              }
 
-     var property = {};
      //SLOW BECAUSE 2 QUERIES ARE NEEDED. REWRITE
      query.find({
          success: function(results) {
-             var relation = results[0].relation("savedProps");
+             var relation = results[0].relation("savedLandlords");
              relation.query().find({
-                 success: function(locations) {
+                 success: function(landlords) {
                      $scope.$apply(function() {
-                         console.log("Successfully retrieved " + results.length + " properties.");
+                         console.log("Successfully retrieved " + landlords.length + " landlords.");
                          /*for (var i = 0; i < results.length; i++) {
                            $scope.properties.push(results[i]);
                            console.log($scope.properties);
                          }*/
                          //$scope.properties = results;
-                         for (i in locations) {
-                             aProp = locations[i];
-                             property.object = aProp;
-                             property.title = aProp.get("kind")
-                                 // console.log("propListCtrl:" , i, " ", property.title);
-                             if (aProp.get("communityName") != undefined) {
-                                 property.title = aProp.get("communityName");
-                             }
+                         for (i in landlords) {
+                            var newLandLord = {};
 
-                             property.rating = aProp.get('hrating');
-                             property.streetNo = aProp.get('streetNo');
-                             property.street = aProp.get('street');
-                             property.city = aProp.get('city');
-                             property.state = aProp.get('state');
-                             property.zipcode = aProp.get('zipcode');
-                             property.address = aProp.get('address');
-                             property.lat = aProp.get('lat');
-                             property.long = aProp.get('long');
-                             $scope.properties.push(property);
-                             property = {};
+                             landlord = landlords[i];
+                             newLandLord.object = landlord;
+                             newLandLord.object = landlord;
+                             newLandLord.title = landlord.get("firstname") + " " + landlord.get("lastname");
+                             newLandLord.rating = parseFloat($filter('number')(landlord.get('prating'), 1));
+                             newLandLord.address = landlord.get('address');
+                             newLandLord.gender = landlord.get('gender');
+                             newLandLord.phone = landlord.get('phone');
+                             newLandLord.email = landlord.get('email');
+
+                             newLandLord.streetNo = landlord.get('streetNo');
+                             newLandLord.street = landlord.get('street');
+                             newLandLord.city = landlord.get('city');
+                             newLandLord.state = landlord.get('state');
+                             newLandLord.zipcode = landlord.get('zipcode');
+                             newLandLord.address = landlord.get('address');
+                             if (newLandLord.gender == 'F') {
+                                 newLandLord.image_url = 'img/landlord_girl.jpg';
+                             } else {
+                                 newLandLord.image_url = 'img/landlord_boy.jpg';
+                             }
+                             $scope.landlords.push(newLandLord);
 
                          }
 
@@ -418,17 +422,17 @@
 
      $scope.navigateTo = function(targetPage, objectData) {
          $state.go(targetPage, {
-             propDetail: objectData
+             lordDetail: objectData
          });
      };
 
-     $scope.remove = function(property) {
+     $scope.remove = function(landlord) {
          var user = Parse.User.current();
-         var relation = user.relation("savedProps");
+         var relation = user.relation("savedLandlords");
 
-         console.log("removing property: " + property);
+         console.log("removing landlord: " + landlord);
          // Add the post as a value in the comment
-         relation.remove(property);
+         relation.remove(landlord);
 
          // This will save both myPost and myComment
          user.save(null, {
@@ -440,10 +444,12 @@
                      position: 'top',
                      locals: {
                          displayOption: {
-                             title: "Property removed"
+                             title: "Landlord removed"
                          }
                      }
                  });
+                      $scope.landlords = [];
+
                  $state.go($state.current, {}, { reload: true });
              },
              error: function(error) {
@@ -455,7 +461,7 @@
 
  // Controller of Landlord List Page.
  // It will call Parse to present data to html view. /
- appControllers.controller('landlordListCtrl', function($scope, $stateParams, $filter, $timeout, $state) {
+ appControllers.controller('landlordListCtrl', function($scope, $mdToast, $stateParams, $filter, $timeout, $state) {
 
      console.log("landlordListCtrl with ", $stateParams);
      var query = $stateParams.searchResults;
@@ -593,7 +599,35 @@
 
      }
 
+     $scope.save = function(landlord) {
+        var user = Parse.User.current();
+        var relation = user.relation("savedLandlords");
 
+             console.log("landlordListCtrl: saving landlord: " + landlord);
+
+             // Add the post as a value in the comment
+             relation.add(landlord);
+
+             // This will save both myPost and myComment
+             user.save(null, {
+                 success: function(ll) {
+                     $mdToast.show({
+                         controller: 'toastController',
+                         templateUrl: 'toast.html',
+                         hideDelay: 400,
+                         position: 'top',
+                         locals: {
+                             displayOption: {
+                                 title: "Landlord saved"
+                             }
+                         }
+                     });
+                 },
+                 error: function(error) {
+                     console.log("error: " + error.message);
+                 }
+             });
+     }
 
      //navigation to property detail page has not been written yet 
      //Default code from sterter app 

@@ -17,8 +17,11 @@
         -->
         <div class="location-list">
             <!--location item section-->
+            <div class="center" ng-show="properties.length < 1">
+                <br /><p>No saved properties.</p>
+            </div>
             <ion-list ng-repeat="property in properties" >
-
+            
             <div class="location-item" ng-click="navigateTo('app.locationDetails', property)">
                   <div class="location-img" style="background-image: url('img/house.jpg')"></div>
                 <div class="location-content row">

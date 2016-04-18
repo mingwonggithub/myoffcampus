@@ -2,7 +2,7 @@
 <!--View name : Location Feed-->
 <!--State name : app.locationFeed-->
 <!--URL : #app/locationFeed-->
-<ion-view title="Saved Properties">
+<ion-view title="Saved Landlords">
     <!--location feed section-->
     <ion-content id="location-feed-content">
         <!--
@@ -17,6 +17,9 @@
         -->
         <div class="location-list">
             <!--location item section-->
+            <div class="center" ng-show="properties.length < 1">
+                <br /><p>No saved landlords.</p>
+            </div>
             <ion-list ng-repeat="property in properties" >
 
             <div class="location-item" ng-click="navigateTo('app.locationDetails', property)">
@@ -55,7 +58,7 @@
     <!--end location feed section-->
 
     <!--loading progress-->
-    <div id="prop-list-loading-progress" class="loading-progress fade-in">
+    <div id="saved-ll-loading-progress" class="loading-progress fade-in">
         <ion-spinner ng-if="!isAndroid" class="progress-circular"></ion-spinner>
         <md-progress-circular ng-if="isAndroid" md-mode="indeterminate"></md-progress-circular>
     </div>

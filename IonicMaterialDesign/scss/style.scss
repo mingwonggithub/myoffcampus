@@ -107,8 +107,19 @@ $url_background_cover_restaurant_03: url(../img/food_cover_03.png);
   border-top-left-radius: 2px;
   }
 
+
+.add-button {
+    margin: 0;
+    line-height: 15px !important;
+    min-height: 35px !important;
+    min-width: 37px !important;
+  }
 #landlord-feed-content {
     background-color: #f6f6f6;
+    p {
+    color: $color_gray;
+    font-size: 12px;
+  }
 }
 
 #landlord-feed-content md-card.card-item {
@@ -1303,6 +1314,8 @@ md-sidenav {
 //social connect section
 //login content section
 #social-login {
+  margin: auto;
+
   text-align: center;
   background-color: $color_black_haze_approx;
   &.bg-white {
@@ -1310,10 +1323,7 @@ md-sidenav {
   }
   //login form section
   form {
-    margin-top: 33%;
-    &.login-form {
-      margin-top: 22%;
-    }
+  padding-top: 45%;
     div i {
       font-size: 90px;
       margin-bottom: 16px;
@@ -1378,7 +1388,7 @@ md-sidenav {
   }
   //welcome form section
   form {
-    margin-top: 35%;
+    //margin-top: 35%;
     &.welcome-form {
       margin-top: 24%;
     }

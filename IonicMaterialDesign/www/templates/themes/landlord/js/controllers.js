@@ -285,7 +285,7 @@ appControllers.controller('landLordDetailCtrl', function($scope, $ionicPlatform,
 
 }); // End of Notes Detail Page  Controller.
 
- appControllers.controller('savedLandLordCtrl', function($scope, $state, $stateParams, $mdToast, $ionicHistory, $ionicViewSwitcher) {
+ appControllers.controller('savedLandlordCtrl', function($scope, $state, $stateParams, $mdToast, $ionicHistory, $ionicViewSwitcher) {
 
      $scope.properties = [];
      var user = Parse.User.current();
@@ -293,12 +293,13 @@ appControllers.controller('landLordDetailCtrl', function($scope, $ionicPlatform,
      query.equalTo("username", user.get("username"));
      query.include("savedProps");
      query.select("savedProps");
-     //query.equalTo("playerName", "Dan Stemkoski");
-     // if ($scope.isAndroid) {
-     //     jQuery('#landlord-list-loading-progress').show();
-     // } else {
-     //     jQuery('#landlord-list-loading-progress').fadeIn(700);
-     // }
+     
+     if ($scope.isAndroid) {
+                 jQuery('#saved-ll-content-loading-progress').show();
+             } else {
+                 jQuery('#saved-ll-content-loading-progress').fadeIn(700);
+             }
+
      var property = {};
      //SLOW BECAUSE 2 QUERIES ARE NEEDED. REWRITE
      query.find({
@@ -336,8 +337,8 @@ appControllers.controller('landLordDetailCtrl', function($scope, $ionicPlatform,
 
                          }
 
-                         // jQuery('#landlord-list-loading-progress').hide();
-                         // jQuery('#landlord-list-content').fadeIn();
+                          jQuery('#saved-ll-loading-progress').hide();
+                          jQuery('#saved-ll-list-content').fadeIn();
                          $scope.isLoading = false;
                      }); //end $scope.apply
                  },
@@ -429,9 +430,9 @@ appControllers.controller('landLordDetailCtrl', function($scope, $ionicPlatform,
 
          // The function for loading progress.
              if ($scope.isAndroid) {
-                 jQuery('#landlord-feed-content-loading-progress').show();
+                 jQuery('#landlord-feed-loading-progress').show();
              } else {
-                 jQuery('#landlord-feed-content-loading-progress').fadeIn(700);
+                 jQuery('#landlord-feed-loading-progress').fadeIn(700);
              }
 
              //Get all notes from NoteDB service.
@@ -477,7 +478,7 @@ appControllers.controller('landLordDetailCtrl', function($scope, $ionicPlatform,
                          }
 
                          $scope.isLoading = false;
-                         jQuery('#landlord-feed-content-loading-progress').hide();
+                         jQuery('#landlord-feed-loading-progress').hide();
                          jQuery('#landlord-feed-content').fadeIn();
                      });
                  },

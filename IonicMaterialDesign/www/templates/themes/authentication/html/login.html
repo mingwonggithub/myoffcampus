@@ -6,7 +6,7 @@
             <!--STYLE FOUND IN SCSS GET RID OF THE OPTIONS BAR, replace image with our own? Maybe switch master color schemes?-->
             <div class="sub-header">
                 MyOffCampus
-                </div>
+            </div>
             <div class="list list-inset" id="login">
                 <label id="header" class="item item-divider material-background-nav-bar">Login</label>
                 <label class="item item-input" ng-class="{'has-errors-log': loginForm.email.$invalid && loginForm.$submitted}">
@@ -31,4 +31,11 @@
             </div>
         </div>
     </ion-content>
+
+    <!--loading progress-->
+    <div id="login-loading-progress" class="loading-progress fade-in">
+        <ion-spinner ng-if="!isAndroid" class="progress-circular"></ion-spinner>
+        <md-progress-circular ng-if="isAndroid" md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <!--end loading progress-->
 </ion-view>

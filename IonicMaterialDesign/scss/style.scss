@@ -3316,10 +3316,12 @@ md-sidenav {
   vertical-align: middle;
 }
  
-.error i {
-  font-size: 24px;
+.error h1 {
+  font-size: 14px;
   color: $color_carnation_approx;  
+  text-transform: none;  
   vertical-align: middle;
+  margin-bottom: 2px;
 }
  
 .has-errors {

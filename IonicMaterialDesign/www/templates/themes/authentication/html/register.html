@@ -66,6 +66,10 @@
         </form>
     </ion-content><!--end social sign up section-->
 
+    <div id="reg-loading-progress" class="loading-progress fade-in">
+        <ion-spinner ng-if="!isAndroid" class="progress-circular"></ion-spinner>
+        <md-progress-circular ng-if="isAndroid" md-mode="indeterminate"></md-progress-circular>
+    </div>
 </ion-view>
 
 <script id="error-list.html" type="text/ng-template">  

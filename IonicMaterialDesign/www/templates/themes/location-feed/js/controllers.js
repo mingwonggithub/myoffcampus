@@ -97,7 +97,7 @@
  });
 
  appControllers.controller('addLocationCtrl', function($scope, $state, NoteDB, $stateParams, $ionicPopup, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
-
+    $scope.landlord = $stateParams.lordDetail;
     console.log("addLocationCtrl: stateparams- ", $stateParams);
  
    //check whether the element exist in the array 

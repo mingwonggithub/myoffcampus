@@ -421,6 +421,20 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
         }
     })
 
+    .state('app.addreviewforlandlord', {
+        url: "/addreviewforlandlord",
+        cache: false,
+        params: {
+            lordDetail: null,
+        },
+        views: {
+            'menuContent': {
+                templateUrl: "templates/reviews/html/add-review-landlord.html",
+                controller: 'addReviewLandlordCtrl' 
+            }
+        }
+    })
+
     .state('app.addlandlord', {
         url: "/addlandlord",
         cache: false,
@@ -447,6 +461,21 @@ angular.module('starter', ['ionic', 'ngIOS9UIWebViewPatch', 'starter.controllers
             'menuContent': {
                 templateUrl: "templates/reviews/html/all-reviews.html",
                 controller: 'allReviewsCtrl' 
+            }
+        }
+    })
+
+    .state('app.allreviewsll', {
+        url: "/allreviewsll",
+        cache: false,
+        params: {
+            lordDetail: null, 
+            reviews: null,
+        },
+        views: {
+            'menuContent': {
+                templateUrl: "templates/reviews/html/all-reviews-landlord.html",
+                controller: 'allReviewsLLCtrl' 
             }
         }
     })

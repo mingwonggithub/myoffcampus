@@ -60,13 +60,21 @@
             </div>
             <div class="location-item">
                 <div class="location-content row">
-                    <div class="col-80">
-                        <h1>Reviews</h1>
-                    </div>
-                    <div class="col-20" style="text-align: right">
-                        <button class="button button-outline button-positive add-button-small" ng-click="navigateTo('app.addreview', landlord)">+</button>
-                    </div>
+                <div class="col-80">
+                    <h1 style="padding-right: 0; display: inline-block;">Reviews</h1><h3>&nbsp;&nbsp; • &nbsp;&nbsp;{{reviews.length}}</h3>
                 </div>
+                <div class="col-20" style="text-align: right">
+                    <button class="button button-outline button-positive add-button-small" ng-click="navigateTo('app.addreview', property)">+</button>
+                </div>
+            </div>
+            
+            <ion-list ng-repeat="review in reviews | limitTo:3">
+                <div class="item item-list-detail item-text-wrap" style="border-bottom: none;">
+                    <p>Rating: {{review.rating}}/10   |   Time: {{review.time}}</p> 
+                    <p>{{review.text}}</p>
+                </div>
+            </ion-list>
+            <div class="item item-list-detail center" ng-hide="reviews.length <= 3" ng-click="navigateTo('app.allreviewsll', landlord, reviews)">View all reviews</div>
             </div>
         </div>
         <!--end list section-->

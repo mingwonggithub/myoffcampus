@@ -475,6 +475,11 @@
                             $scope.properties[index] = property;
                             //console.log($scope.properties[index].img.src);
                             property = {};
+                        }else{
+                            property = $scope.properties[index];
+                            property.img = {src: 'img/house.jpg'};
+
+                            
                         }
                         if(index>0)
                         $scope.getNextPropImg(index-1);
@@ -846,7 +851,7 @@
 
  }); // End of Notes Detail Page  Controller.
 
- appControllers.controller('savedLocationCtrl', function($scope, $state, $stateParams, $mdToast, $ionicHistory, $ionicViewSwitcher) {
+ appControllers.controller('savedLocationCtrl', function($scope, $state, $filter, $stateParams, $mdToast, $ionicHistory, $ionicViewSwitcher) {
 
      $scope.properties = [];
      var user = Parse.User.current();
@@ -864,6 +869,8 @@
         property = $scope.properties[index];
          var myPhotos = Parse.Object.extend("propImages");
          var query = new Parse.Query("propImages");
+
+         
          query.equalTo("underProp", property.object);
          query.limit(1);
          query.find({
@@ -913,7 +920,7 @@
                                  property.title = aProp.get("communityName");
                              }
 
-                             property.rating = aProp.get('hrating');
+                             property.rating = parseFloat($filter('number')(aProp.get('hrating'), 1))
                              property.streetNo = aProp.get('streetNo');
                              property.street = aProp.get('street');
                              property.city = aProp.get('city');

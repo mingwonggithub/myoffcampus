@@ -10,7 +10,7 @@
 
 #landlordratingbox h2 {
   text-align: center;
-  margin-left: -10%; }
+  margin-left: -8%; }
 
 #landlordratingbox
 .text-add {
@@ -131,7 +131,7 @@
   height: 64px; }
 
 /*landlord detila page */
-.item.item-list-detail.item-text-wrap h3 {
+#landlordproptitle {
   color: #4E82B5; }
 
 .center {

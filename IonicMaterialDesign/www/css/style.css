@@ -1946,6 +1946,7 @@ md-sidenav {
     margin-bottom: 14px; }
     #location-feed-content .location-list .location-item .location-img {
       height: 100px;
+      display: block;
       width: 100%;
       padding: 0;
       margin-bottom: -5px;

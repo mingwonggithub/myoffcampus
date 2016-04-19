@@ -2985,8 +2985,12 @@ md-sidenav {
       margin-bottom: 14px;
 
       .location-img {
-        height: 90px;
-        background-size: cover;
+        height: 100px;
+        width: 100%; 
+        padding: 0;
+        margin-bottom: -10px;
+        object-fit: cover;
+        object-position: 30% 30%; 
         border-top-right-radius: 2px;
         border-top-left-radius: 2px;
       }

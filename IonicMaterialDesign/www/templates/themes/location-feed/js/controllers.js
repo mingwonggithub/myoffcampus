@@ -457,6 +457,36 @@
          var query = $stateParams.searchResults; //query is input from search box at welcome page 
          console.log("locationFeedCtrl beginning: query is ", query);
 
+         $scope.getNextPropImg = function(index) {
+            property = $scope.properties[index];
+             var myPhotos = Parse.Object.extend("propImages");
+             var query = new Parse.Query("propImages");
+             query.equalTo("underProp", property.object);
+             query.limit(1);
+             query.find({
+                 success: function(results) {
+                     $scope.$apply(function() {
+
+                         if(results.length > 0){
+                            var imagedata = results[0].get("imgData");
+
+                            property = $scope.properties[index];
+                            property.img = { src: imagedata };
+                            $scope.properties[index] = property;
+                            //console.log($scope.properties[index].img.src);
+                            property = {};
+                        }
+                        if(index>0)
+                        $scope.getNextPropImg(index-1);
+
+                     });
+                 },
+                 error: function(error) {
+                     console.log('locationFeedCtrl: ', error);
+                 }
+             });
+         }
+
          $scope.initialize = function(query) {
 
              //if empty query, list out ten highest rating apartment 
@@ -504,11 +534,11 @@
                              console.log(property.title.split(" "))
                              property.lat = aProp.get('lat');
                              property.long = aProp.get('long');
+
                              $scope.properties.push(property);
-
                              property = {};
-
                          }
+                         $scope.getNextPropImg($scope.properties.length-1);
 
                          $scope.isLoading = false;
                          jQuery('#location-list-loading-progress').hide();
@@ -524,6 +554,10 @@
 
          //initialize page 
          $scope.initialize(query);
+
+        /**/
+        
+        
 
          //sorting the search results 
          $scope.sortBy = function(index) {
@@ -826,6 +860,36 @@
      } else {
          jQuery('#prop-list-loading-progress').fadeIn(700);
      }
+     $scope.getNextPropImg = function(index) {
+        property = $scope.properties[index];
+         var myPhotos = Parse.Object.extend("propImages");
+         var query = new Parse.Query("propImages");
+         query.equalTo("underProp", property.object);
+         query.limit(1);
+         query.find({
+             success: function(results) {
+                 $scope.$apply(function() {
+
+                     if(results.length > 0){
+                        var imagedata = results[0].get("imgData");
+
+                        property = $scope.properties[index];
+                        property.img = { src: imagedata };
+                        $scope.properties[index] = property;
+                        //console.log($scope.properties[index].img.src);
+                        property = {};
+                    }
+                    if(index>0)
+                    $scope.getNextPropImg(index-1);
+
+                 });
+             },
+             error: function(error) {
+                 console.log('locationFeedCtrl: ', error);
+             }
+         });
+     }
+         
      var property = {};
      //SLOW BECAUSE 2 QUERIES ARE NEEDED. REWRITE
      query.find({
@@ -862,6 +926,7 @@
                              property = {};
 
                          }
+                                                  $scope.getNextPropImg($scope.properties.length-1);
 
                          jQuery('#prop-list-loading-progress').hide();
                          jQuery('#prop-list-content').fadeIn();

@@ -23,7 +23,7 @@
             <ion-list ng-repeat="property in properties" >
             
             <div class="location-item" ng-click="navigateTo('app.locationDetails', property)">
-                  <div class="location-img" style="background-image: url('img/house.jpg')"></div>
+                <img class="location-img" ng-src="{{property.img.src}}"></img>
                 <div class="location-content row">
                     <div class="col-80">
                         <h1>

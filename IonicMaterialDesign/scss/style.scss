@@ -1316,8 +1316,6 @@ md-sidenav {
 //social connect section
 //login content section
 #social-login {
-  margin: auto;
-
   text-align: center;
   background-color: $color_black_haze_approx;
   &.bg-white {
@@ -1325,7 +1323,10 @@ md-sidenav {
   }
   //login form section
   form {
-  padding-top: 45%;
+    margin-top: 33%;
+    &.login-form {
+      margin-top: 22%;
+    }
     div i {
       font-size: 90px;
       margin-bottom: 16px;
@@ -3027,7 +3028,7 @@ md-sidenav {
           text-align: center;
         }
         h3 {
-          font-size: 14px;
+          font-size: 10px;
           display: inline;
           margin: 0;
           color: $color_black_25;

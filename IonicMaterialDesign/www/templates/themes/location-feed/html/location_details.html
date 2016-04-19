@@ -16,14 +16,14 @@
         <div class="location-list">
             <div class="location-item">
             <div class="location-content row">
-                <div class="col-80">
+                <div style="width: 75%" class="col-70">
                     <h1>{{property.streetNo}} {{property.street}}</h1>
                     <p>{{property.city}}, {{property.state}} {{property.zipcode}}</p>
                      <!--<p> {{property.price}}</p>
                      <p>{{property.land_lord}}</p>-->
                 </div>
-                <div class="col-20" style="padding: 8px; text-align: right">
-                    <h2 style="display: inline;" id="rating" ng-class="{black: property.rating==0, red:property.rating > 0 && property.rating<4, green:property.rating>6, yellow:property.rating>3 && property.rating<7}">{{property.rating}}</h2><p style="display: inline;"> / 10</p>
+                <div class="col-30" style="padding: 8px; text-align: right;">
+                    <h2 style="display: inline;" id="rating" ng-class="{black: property.rating==0, red:property.rating > 0 && property.rating<4, green:property.rating>6, yellow:property.rating>3 && property.rating<7}">{{property.rating}}</h2><p style="margin-right: 0;display: inline;"> / 10</p>
                 </div>
             </div>
             </div>

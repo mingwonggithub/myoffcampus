@@ -137,9 +137,6 @@
 .center {
   text-align: center; }
 
-.col-30 {
-  width: 200%; }
-
 /* add photo page */
 .instruction {
   padding: 8px;
@@ -881,13 +878,14 @@ md-sidenav {
     margin-top: -10px; }
 
 #social-login {
-  margin: auto;
   text-align: center;
   background-color: #f6f6f6; }
   #social-login.bg-white {
     background-color: white; }
   #social-login form {
-    padding-top: 45%; }
+    margin-top: 33%; }
+    #social-login form.login-form {
+      margin-top: 22%; }
     #social-login form div i {
       font-size: 90px;
       margin-bottom: 16px; }
@@ -1980,7 +1978,7 @@ md-sidenav {
       #location-feed-content .location-list .location-item .location-content h2 {
         text-align: center; }
       #location-feed-content .location-list .location-item .location-content h3 {
-        font-size: 14px;
+        font-size: 10px;
         display: inline;
         margin: 0;
         color: rgba(0, 0, 0, 0.25);

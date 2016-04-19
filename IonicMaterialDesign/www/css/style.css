@@ -137,6 +137,9 @@
 .center {
   text-align: center; }
 
+.col-30 {
+  width: 200%; }
+
 /* add photo page */
 .instruction {
   padding: 8px;

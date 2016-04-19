@@ -45,7 +45,7 @@ appControllers.controller('addReviewCtrl', function($scope, $state, $stateParams
                 success: function(rating) {
                   console.log("addReviewCtrl: rating - ", rating); 
                   prop.set('hrating', rating);
-                  $scope.property.rating = rating;
+                  $scope.property.rating = parseFloat($filter('number')(rating, 1));
                 
                   prop.save(null, {
                     success: function(aprop) {
@@ -128,21 +128,55 @@ appControllers.controller('addReviewLandlordCtrl', function($scope, $state, $sta
                 }
               });
 
-            /*$scope.$apply(function() {
-              //average the property ratings
-              Parse.Cloud.run('getPropertyRating', { propid: prop.id }, {
+    //           var llquery= new Parse.Query("myLandLord");
+    //           llquery.get(ll.id, {
+    //     success: function(landlord) {
+
+    //         // get the property relation with review
+    //         var relation = landlord.relation("reviews");
+
+    //         // generate a query based on that relation
+    //         var query = relation.query();
+    //         query.find({
+    //             success: function(results) {
+    //                 var sum = 0;
+    //                 for (var i = 0; i < results.length; ++i) {
+    //                     sum += results[i].get("rating");
+    //                 }
+    //                 console.log(sum/results.length);
+    //                 //response.success(sum / results.length);
+
+    //             },
+    //             error: function(error) {
+    //                 //response.error("review lookup fail");
+    //                 conosle.log('error is ', JSON.stringify(error)); 
+    //             }
+    //         });
+
+    //     },
+    //     error: function(object, error) {
+    //         // The object was not retrieved successfully.
+    //         // error is a Parse.Error with an error code and message.
+    //         //response.error(JSON.stringify(error));
+    //     }
+    // });
+
+
+            $scope.$apply(function() {
+              //average the landlord ratings
+              Parse.Cloud.run('getLandlordRating', { llid: ll.id }, {
               
                 success: function(rating) {
                   console.log("addReviewCtrl: rating - ", rating); 
-                  prop.set('hrating', rating);
-                  $scope.property.rating = rating;
+                  ll.set('prating', rating);
+                  $scope.landlord.rating = parseFloat($filter('number')(rating , 1)); 
                 
-                  prop.save(null, {
-                    success: function(aprop) {
-                      console.log("addReviewCtrl: Save property with new rating successfully");
+                  ll.save(null, {
+                    success: function(alord) {
+                      console.log("addReviewLandlordCtrl:  Save landlord with new rating successfully");
                     },
                     error: function(aprop, error) {
-                      console.log("addReviewCtrl: Error - ", error);
+                      console.log("addReviewLandlordCtrl: Error - ", error);
                     }
                   }); // end of inner prop save   
 
@@ -151,7 +185,7 @@ appControllers.controller('addReviewLandlordCtrl', function($scope, $state, $sta
                   console.log(JSON.stringify(error)); 
                 } 
               }); // end of parse cloud function 
-            }); // end of scope apply*/
+            }); // end of scope apply
 
             $scope.navigateTo('app.landLordDetails', $scope.landlord);
 

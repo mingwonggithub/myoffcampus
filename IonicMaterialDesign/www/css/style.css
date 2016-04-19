@@ -1948,7 +1948,7 @@ md-sidenav {
       height: 100px;
       width: 100%;
       padding: 0;
-      margin-bottom: -10px;
+      margin-bottom: -5px;
       object-fit: cover;
       object-position: 30% 30%;
       border-top-right-radius: 2px;

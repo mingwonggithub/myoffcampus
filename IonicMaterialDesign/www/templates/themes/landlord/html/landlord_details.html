@@ -72,7 +72,7 @@
                 </div>
             </div>
             
-            <ion-list ng-repeat="review in reviews | limitTo:3">
+            <ion-list ng-repeat="review in reviews track by $index | limitTo:3">
                 <div class="item item-list-detail item-text-wrap" style="border-bottom: none;">
                     <p>Rating: {{review.rating}}/10   |   Time: {{review.time}}</p> 
                     <p>{{review.text}}</p>

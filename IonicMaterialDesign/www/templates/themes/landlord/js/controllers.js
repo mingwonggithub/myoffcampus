@@ -274,27 +274,17 @@
          }
      });
 
-     //Obtaining all the reviews 
-     var ll = $scope.landlord.object;
-     var myLandLord = Parse.Object.extend("myLandLord");
-     var query = new Parse.Query(myLandLord);
-     console.log("landlordDetailCtrl: ll.getemail is" + ll.get("email"))
-     query.equalTo("email", ll.get("email"));
-     query.include("reviews");
-     query.select("reviews");
-     var review = {};
-
-     //SLOW BECAUSE 2 QUERIES ARE NEEDED. REWRITE
-     //for future, one to many relationship should use pointer
-     // see the image 
-     query.find({
-         success: function(results) {
-             var relation = results[0].relation("reviews");
-             relation.query().find({
-                 success: function(qReviews) {
-                     $scope.$apply(function() {
-                         console.log("landlordDetailCtrl: Successfully retrieved " + qReviews.length + " reviews.");
-                         var counter = 1;
+//new code 
+var ll = $scope.landlord.object;
+     var myLandLord= Parse.Object.extend("myLandLord");
+var query = new Parse.Query(myLandLord);
+query.get(ll.id, function(llobj) {
+    var relation = llobj.relation("reviews");
+    var query = relation.query();
+    var review = {}; 
+    query.find({
+       success : function(qReviews){
+        var aR = ''; 
                          for (i in qReviews) {
                              aR = qReviews[i];
                              review.object = aR;
@@ -303,38 +293,78 @@
                              review.rating = aR.get('rating');
                              $scope.reviews.push(review);
 
-
-                             if (counter == 0) {
-                                 var query = new Parse.Query("myLandLord");
-                                 query.equalTo("reviews", aR);
-
-                                 query.find({
-                                     success: function(results) {
-                                         console.log("cloud results are", JSON.stringify(results));
-                                     },
-                                     error: function(error) {
-                                         response.error("error is ", JSON.stringify(error));
-                                     }
-                                 });
-
                              }
-                             counter = 1;
 
-                             review = {};
+                         review = {};
+       },
+       error : function(error) {
+          alert("Error: " + error.code + " " + error.message);
+       }
+    });
+});
 
 
-                         }
-                     }); //end $scope.apply
-                 },
-                 error: function(error) {
-                     console.log("landlordDetailCtrl: Error2 - " + error.code + " " + error.message);
-                 }
-             }); //end 2nd query
-         },
-         error: function(error) {
-             console.log("landlordDetailCtrl: Error1 - " + error.code + " " + error.message);
-         }
-     });
+     //Obtaining all the reviews 
+     // var ll = $scope.landlord.object;
+     // var myLandLord = Parse.Object.extend("myLandLord");
+     // var query = new Parse.Query(myLandLord);
+     // console.log("landlordDetailCtrl: ll.getemail is" + ll.get("email"))
+     // query.equalTo("email", ll.get("email"));
+     // query.include("reviews");
+     // query.select("reviews");
+     // var review = {};
+
+     // //SLOW BECAUSE 2 QUERIES ARE NEEDED. REWRITE
+     // //for future, one to many relationship should use pointer
+     // // see the image 
+     // query.find({
+     //     success: function(results) {
+     //         var relation = results[0].relation("reviews");
+     //         relation.query().find({
+     //             success: function(qReviews) {
+     //                 $scope.$apply(function() {
+     //                     console.log("landlordDetailCtrl: Successfully retrieved " + qReviews.length + " reviews.");
+     //                     var counter = 1;
+     //                     for (i in qReviews) {
+     //                         aR = qReviews[i];
+     //                         review.object = aR;
+     //                         review.time = aR.get('time');
+     //                         review.text = aR.get('mainText');
+     //                         review.rating = aR.get('rating');
+     //                         $scope.reviews.push(review);
+
+
+     //                         if (counter == 0) {
+     //                             var query = new Parse.Query("myLandLord");
+     //                             query.equalTo("reviews", aR);
+
+     //                             query.find({
+     //                                 success: function(results) {
+     //                                     console.log("cloud results are", JSON.stringify(results));
+     //                                 },
+     //                                 error: function(error) {
+     //                                     response.error("error is ", JSON.stringify(error));
+     //                                 }
+     //                             });
+
+     //                         }
+     //                         counter = 1;
+
+     //                         review = {};
+
+
+     //                     }
+     //                 }); //end $scope.apply
+     //             },
+     //             error: function(error) {
+     //                 console.log("landlordDetailCtrl: Error2 - " + error.code + " " + error.message);
+     //             }
+     //         }); //end 2nd query
+     //     },
+     //     error: function(error) {
+     //         console.log("landlordDetailCtrl: Error1 - " + error.code + " " + error.message);
+     //     }
+     // });
 
      $scope.save = function(landlord) {
         var user = Parse.User.current();

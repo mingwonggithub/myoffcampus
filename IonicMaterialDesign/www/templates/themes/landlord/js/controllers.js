@@ -292,18 +292,20 @@ query.get(ll.id, function(llobj) {
                              review.text = aR.get('mainText');
                              review.rating = aR.get('rating');
                              $scope.reviews.push(review);
+                             review = {};
+
 
                              }
 
-                         review = {};
        },
        error : function(error) {
-          alert("Error: " + error.code + " " + error.message);
+          console.log("Error: " + error.code + " " + error.message);
        }
     });
 });
 
-
+    
+    //I hate parse for updateing code 
      //Obtaining all the reviews 
      // var ll = $scope.landlord.object;
      // var myLandLord = Parse.Object.extend("myLandLord");

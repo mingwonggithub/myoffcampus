@@ -746,67 +746,96 @@
 
      };
 
+    var prop = $scope.property.object;
+    var myProperty = Parse.Object.extend("myProperty");
+    var query = new Parse.Query(myProperty);
+    query.get(prop.id, function(propobj){
+        var relation = propobj.relation("reviews");
+        var query = relation.query(); 
+        var review = {};
+        query.find({
+            success: function(qReviews){
+                var aR=''; 
+                for (i in qReviews) {
+                aR = qReviews[i];
+                review.object = aR;
+                review.cost = aR.get('cost');
+                review.text = aR.get('mainText');
+                review.rating = aR.get('rating');
+                $scope.reviews.push(review);
+                review = {}; 
+                }
+
+            }, error: function(error){
+             console.log("Error: " + error.code + " " + error.message);
+
+            }
+        });
+    }); 
+
+
      //Obtaining all the reviews 
-     var prop = $scope.property.object;
-     var myProperty = Parse.Object.extend("myProperty");
-     var query = new Parse.Query(myProperty);
-     console.log("locationDetailCtrl: prop.getaddress is" + prop.get("address"))
-     query.equalTo("address", prop.get("address"));
-     query.include("reviews");
-     query.select("reviews");
-     var review = {};
-
-     //SLOW BECAUSE 2 QUERIES ARE NEEDED. REWRITE
-     //for future, one to many relationship should use pointer
-     // see the image 
-     query.find({
-         success: function(results) {
-             var relation = results[0].relation("reviews");
-             relation.query().find({
-                 success: function(qReviews) {
-                     $scope.$apply(function() {
-                         console.log("locationDetailCtrl: Successfully retrieved " + qReviews.length + " reviews.");
-                         var counter = 1;
-                         for (i in qReviews) {
-                             aR = qReviews[i];
-                             review.object = aR;
-                             review.cost = aR.get('cost');
-                             review.text = aR.get('mainText');
-                             review.rating = aR.get('rating');
-                             $scope.reviews.push(review);
+     // var prop = $scope.property.object;
+     // var myProperty = Parse.Object.extend("myProperty");
+     // var query = new Parse.Query(myProperty);
+     // console.log("locationDetailCtrl: prop.getaddress is" + prop.get("address"))
+     // query.equalTo("address", prop.get("address"));
+     // query.include("reviews");
+     // query.select("reviews");
+     // var review = {};
 
 
-                             if (counter == 0) {
-                                 var query = new Parse.Query("myProperty");
-                                 query.equalTo("reviews", aR);
+     // //SLOW BECAUSE 2 QUERIES ARE NEEDED. REWRITE
+     // //for future, one to many relationship should use pointer
+     // // see the image 
+     // query.find({
+     //     success: function(results) {
+     //         var relation = results[0].relation("reviews");
+     //         relation.query().find({
+     //             success: function(qReviews) {
+     //                 $scope.$apply(function() {
+     //                     console.log("locationDetailCtrl: Successfully retrieved " + qReviews.length + " reviews.");
+     //                     var counter = 1;
+     //                     for (i in qReviews) {
+     //                         aR = qReviews[i];
+     //                         review.object = aR;
+     //                         review.cost = aR.get('cost');
+     //                         review.text = aR.get('mainText');
+     //                         review.rating = aR.get('rating');
+     //                         $scope.reviews.push(review);
 
-                                 query.find({
-                                     success: function(results) {
-                                         console.log("cloud results are", JSON.stringify(results));
-                                     },
-                                     error: function(error) {
-                                         response.error("error is ", JSON.stringify(error));
-                                     }
-                                 });
 
-                             }
-                             counter = 1;
+     //                         if (counter == 0) {
+     //                             var query = new Parse.Query("myProperty");
+     //                             query.equalTo("reviews", aR);
 
-                             review = {};
+     //                             query.find({
+     //                                 success: function(results) {
+     //                                     console.log("cloud results are", JSON.stringify(results));
+     //                                 },
+     //                                 error: function(error) {
+     //                                     response.error("error is ", JSON.stringify(error));
+     //                                 }
+     //                             });
+
+     //                         }
+     //                         counter = 1;
+
+     //                         review = {};
 
 
-                         }
-                     }); //end $scope.apply
-                 },
-                 error: function(error) {
-                     console.log("locationDetailCtrl: Error2 - " + error.code + " " + error.message);
-                 }
-             }); //end 2nd query
-         },
-         error: function(error) {
-             console.log("locationDetailCtrl: Error1 - " + error.code + " " + error.message);
-         }
-     });
+     //                     }
+     //                 }); //end $scope.apply
+     //             },
+     //             error: function(error) {
+     //                 console.log("locationDetailCtrl: Error2 - " + error.code + " " + error.message);
+     //             }
+     //         }); //end 2nd query
+     //     },
+     //     error: function(error) {
+     //         console.log("locationDetailCtrl: Error1 - " + error.code + " " + error.message);
+     //     }
+     // });
 
      //save the property to saved properties page  for the user
      $scope.save = function(property) {

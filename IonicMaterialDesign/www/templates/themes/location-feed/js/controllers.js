@@ -883,11 +883,11 @@
  appControllers.controller('savedLocationCtrl', function($scope, $state, $filter, $stateParams, $mdToast, $ionicHistory, $ionicViewSwitcher) {
 
      $scope.properties = [];
-     var user = Parse.User.current();
-     var query = new Parse.Query(Parse.User);
-     query.equalTo("username", user.get("username"));
-     query.include("savedProps");
-     query.select("savedProps");
+     // var user = Parse.User.current();
+     // var query = new Parse.Query(Parse.User);
+     // query.equalTo("username", user.get("username"));
+     // query.include("savedProps");
+     // query.select("savedProps");
      //query.equalTo("playerName", "Dan Stemkoski");
      if ($scope.isAndroid) {
          jQuery('#prop-list-loading-progress').show();
@@ -899,7 +899,9 @@
          var myPhotos = Parse.Object.extend("propImages");
          var query = new Parse.Query("propImages");
 
-         
+         if(property != null){
+
+
          query.equalTo("underProp", property.object);
          query.limit(1);
          query.find({
@@ -924,23 +926,19 @@
                  console.log('locationFeedCtrl: ', error);
              }
          });
+
+          }
      }
          
-     var property = {};
-     //SLOW BECAUSE 2 QUERIES ARE NEEDED. REWRITE
-     query.find({
-         success: function(results) {
-             var relation = results[0].relation("savedProps");
-             relation.query().find({
-                 success: function(locations) {
-                     $scope.$apply(function() {
-                         console.log("savedLocationCtrl: Successfully retrieved " + results.length + " properties.");
-                         /*for (var i = 0; i < results.length; i++) {
-                           $scope.properties.push(results[i]);
-                           console.log($scope.properties);
-                         }*/
-                         //$scope.properties = results;
-                         for (i in locations) {
+
+    var user = Parse.User.current();
+    var relation = user.relation('savedProps');
+    var query = relation.query(); 
+    var property = {}; 
+    query.find({
+        success: function(locations){
+            console.log("savedLocationCtrl: Successfully retrieved " + locations.length + " properties.");
+            for (i in locations) {
                              aProp = locations[i];
                              property.object = aProp;
                              property.title = aProp.get("kind")
@@ -962,22 +960,70 @@
                              property = {};
 
                          }
-                                                  $scope.getNextPropImg($scope.properties.length-1);
+                        $scope.getNextPropImg($scope.properties.length-1);
 
                          jQuery('#prop-list-loading-progress').hide();
                          jQuery('#prop-list-content').fadeIn();
                          $scope.isLoading = false;
-                     }); //end $scope.apply
-                 },
-                 error: function(error) {
-                     console.log("savedLocationCtrl': Error2 - " + error.code + " " + error.message);
-                 }
-             }); //end 2nd query
-         },
-         error: function(error) {
-             console.log("savedLocationCtrl': Error1 - " + error.code + " " + error.message);
-         }
-     });
+
+        }, 
+        error: function(error){
+            console.log("savedLocationCtrl': Error2 - " + error.code + " " + error.message);
+        }
+    })
+
+     // var property = {};
+     // //SLOW BECAUSE 2 QUERIES ARE NEEDED. REWRITE
+     // query.find({
+     //     success: function(results) {
+     //         var relation = results[0].relation("savedProps");
+     //         relation.query().find({
+     //             success: function(locations) {
+     //                 $scope.$apply(function() {
+     //                     console.log("savedLocationCtrl: Successfully retrieved " + results.length + " properties.");
+     //                     /*for (var i = 0; i < results.length; i++) {
+     //                       $scope.properties.push(results[i]);
+     //                       console.log($scope.properties);
+     //                     }*/
+     //                     //$scope.properties = results;
+     //                     for (i in locations) {
+     //                         aProp = locations[i];
+     //                         property.object = aProp;
+     //                         property.title = aProp.get("kind")
+     //                             // console.log("propListCtrl:" , i, " ", property.title);
+     //                         if (aProp.get("communityName") != undefined) {
+     //                             property.title = aProp.get("communityName");
+     //                         }
+
+     //                         property.rating = parseFloat($filter('number')(aProp.get('hrating'), 1))
+     //                         property.streetNo = aProp.get('streetNo');
+     //                         property.street = aProp.get('street');
+     //                         property.city = aProp.get('city');
+     //                         property.state = aProp.get('state');
+     //                         property.zipcode = aProp.get('zipcode');
+     //                         property.address = aProp.get('address');
+     //                         property.lat = aProp.get('lat');
+     //                         property.long = aProp.get('long');
+     //                         $scope.properties.push(property);
+     //                         property = {};
+
+     //                     }
+     //                                              $scope.getNextPropImg($scope.properties.length-1);
+
+     //                     jQuery('#prop-list-loading-progress').hide();
+     //                     jQuery('#prop-list-content').fadeIn();
+     //                     $scope.isLoading = false;
+     //                 }); //end $scope.apply
+     //             },
+     //             error: function(error) {
+     //                 console.log("savedLocationCtrl': Error2 - " + error.code + " " + error.message);
+     //             }
+     //         }); //end 2nd query
+     //     },
+     //     error: function(error) {
+     //         console.log("savedLocationCtrl': Error1 - " + error.code + " " + error.message);
+     //     }
+     // });
 
      $scope.navigateTo = function(targetPage, objectData) {
          $state.go(targetPage, {

@@ -414,11 +414,11 @@ query.get(ll.id, function(llobj) {
  appControllers.controller('savedLandlordCtrl', function($filter, $scope, $state, $stateParams, $mdToast, $ionicHistory, $ionicViewSwitcher) {
 
      $scope.landlords = [];
-     var user = Parse.User.current();
-     var query = new Parse.Query(Parse.User);
-     query.equalTo("username", user.get("username"));
-     query.include("savedLandlords");
-     query.select("savedLandlords");
+     // var user = Parse.User.current();
+     // var query = new Parse.Query(Parse.User);
+     // query.equalTo("username", user.get("username"));
+     // query.include("savedLandlords");
+     // query.select("savedLandlords");
      
      if ($scope.isAndroid) {
                  jQuery('#saved-ll-content-loading-progress').show();
@@ -426,19 +426,13 @@ query.get(ll.id, function(llobj) {
                  jQuery('#saved-ll-content-loading-progress').fadeIn(700);
              }
 
-     //SLOW BECAUSE 2 QUERIES ARE NEEDED. REWRITE
-     query.find({
-         success: function(results) {
-             var relation = results[0].relation("savedLandlords");
-             relation.query().find({
-                 success: function(landlords) {
-                     $scope.$apply(function() {
-                         console.log("Successfully retrieved " + landlords.length + " landlords.");
-                         /*for (var i = 0; i < results.length; i++) {
-                           $scope.properties.push(results[i]);
-                           console.log($scope.properties);
-                         }*/
-                         //$scope.properties = results;
+     var user = Parse.User.current();
+    var relation = user.relation('savedLandlords');
+    var query = relation.query(); 
+    var property = {}; 
+    query.find({
+        success: function(landlords){
+            console.log("savedLandlordCtrl: Successfully retrieved " + landlords.length + " landlords");
                          for (i in landlords) {
                             var newLandLord = {};
 
@@ -467,20 +461,72 @@ query.get(ll.id, function(llobj) {
 
                          }
 
-                          jQuery('#saved-ll-loading-progress').hide();
+               jQuery('#saved-ll-loading-progress').hide();
                           jQuery('#saved-ll-list-content').fadeIn();
                          $scope.isLoading = false;
-                     }); //end $scope.apply
-                 },
-                 error: function(error) {
-                     console.log("Error2: " + error.code + " " + error.message);
-                 }
-             }); //end 2nd query
-         },
-         error: function(error) {
-             console.log("Error1: " + error.code + " " + error.message);
-         }
-     });
+
+        }, 
+        error: function(error){
+            console.log("savedLLandlordCtrl': Error2 - " + error.code + " " + error.message);
+        }
+    })
+
+
+     //SLOW BECAUSE 2 QUERIES ARE NEEDED. REWRITE
+     // query.find({
+     //     success: function(results) {
+     //         var relation = results[0].relation("savedLandlords");
+     //         relation.query().find({
+     //             success: function(landlords) {
+     //                 $scope.$apply(function() {
+     //                     console.log("Successfully retrieved " + landlords.length + " landlords.");
+     //                     /*for (var i = 0; i < results.length; i++) {
+     //                       $scope.properties.push(results[i]);
+     //                       console.log($scope.properties);
+     //                     }*/
+     //                     //$scope.properties = results;
+                         // for (i in landlords) {
+                         //    var newLandLord = {};
+
+                         //     landlord = landlords[i];
+                         //     newLandLord.object = landlord;
+                         //     newLandLord.object = landlord;
+                         //     newLandLord.title = landlord.get("firstname") + " " + landlord.get("lastname");
+                         //     newLandLord.rating = parseFloat($filter('number')(landlord.get('prating'), 1));
+                         //     newLandLord.address = landlord.get('address');
+                         //     newLandLord.gender = landlord.get('gender');
+                         //     newLandLord.phone = landlord.get('phone');
+                         //     newLandLord.email = landlord.get('email');
+
+                         //     newLandLord.streetNo = landlord.get('streetNo');
+                         //     newLandLord.street = landlord.get('street');
+                         //     newLandLord.city = landlord.get('city');
+                         //     newLandLord.state = landlord.get('state');
+                         //     newLandLord.zipcode = landlord.get('zipcode');
+                         //     newLandLord.address = landlord.get('address');
+                         //     if (newLandLord.gender == 'F') {
+                         //         newLandLord.image_url = 'img/landlord_girl.jpg';
+                         //     } else {
+                         //         newLandLord.image_url = 'img/landlord_boy.jpg';
+                         //     }
+                         //     $scope.landlords.push(newLandLord);
+
+                         // }
+
+     //                      jQuery('#saved-ll-loading-progress').hide();
+     //                      jQuery('#saved-ll-list-content').fadeIn();
+     //                     $scope.isLoading = false;
+     //                 }); //end $scope.apply
+     //             },
+     //             error: function(error) {
+     //                 console.log("Error2: " + error.code + " " + error.message);
+     //             }
+     //         }); //end 2nd query
+     //     },
+     //     error: function(error) {
+     //         console.log("Error1: " + error.code + " " + error.message);
+     //     }
+     // });
 
      $scope.navigateTo = function(targetPage, objectData) {
          $state.go(targetPage, {

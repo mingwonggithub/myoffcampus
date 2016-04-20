@@ -229,9 +229,9 @@
  // Controller of Location Detail Page.
  appControllers.controller('landLordDetailCtrl', function($scope, $ionicPlatform, $stateParams, $state, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
 
-    //  console.log($stateParams);
-    $scope.landlord = $stateParams.lordDetail;
-    $scope.reviews = []; //list of reviews on feed page 
+     //  console.log($stateParams);
+     $scope.landlord = $stateParams.lordDetail;
+     $scope.reviews = []; //list of reviews on feed page 
 
      console.log('landLordDetailCtrl', $scope.landlord);
 
@@ -274,38 +274,38 @@
          }
      });
 
-//new code 
-var ll = $scope.landlord.object;
-     var myLandLord= Parse.Object.extend("myLandLord");
-var query = new Parse.Query(myLandLord);
-query.get(ll.id, function(llobj) {
-    var relation = llobj.relation("reviews");
-    var query = relation.query();
-    var review = {}; 
-    query.find({
-       success : function(qReviews){
-        var aR = ''; 
-                         for (i in qReviews) {
-                             aR = qReviews[i];
-                             review.object = aR;
-                             review.time = aR.get('time');
-                             review.text = aR.get('mainText');
-                             review.rating = aR.get('rating');
-                             $scope.reviews.push(review);
-                             review = {};
+     //new code 
+     var ll = $scope.landlord.object;
+     var myLandLord = Parse.Object.extend("myLandLord");
+     var query = new Parse.Query(myLandLord);
+     query.get(ll.id, function(llobj) {
+         var relation = llobj.relation("reviews");
+         var query = relation.query();
+         var review = {};
+         query.find({
+             success: function(qReviews) {
+                 var aR = '';
+                 for (i in qReviews) {
+                     aR = qReviews[i];
+                     review.object = aR;
+                     review.time = aR.get('time');
+                     review.text = aR.get('mainText');
+                     review.rating = aR.get('rating');
+                     $scope.reviews.push(review);
+                     review = {};
 
 
-                             }
+                 }
 
-       },
-       error : function(error) {
-          console.log("Error: " + error.code + " " + error.message);
-       }
-    });
-});
+             },
+             error: function(error) {
+                 console.log("Error: " + error.code + " " + error.message);
+             }
+         });
+     });
 
-    
-    //I hate parse for updateing code 
+
+     //I hate parse for updateing code 
      //Obtaining all the reviews 
      // var ll = $scope.landlord.object;
      // var myLandLord = Parse.Object.extend("myLandLord");
@@ -369,41 +369,41 @@ query.get(ll.id, function(llobj) {
      // });
 
      $scope.save = function(landlord) {
-        var user = Parse.User.current();
-        var relation = user.relation("savedLandlords");
+         var user = Parse.User.current();
+         var relation = user.relation("savedLandlords");
 
-             console.log("landlordListCtrl: saving landlord: " + landlord);
+         console.log("landlordListCtrl: saving landlord: " + landlord);
 
-             // Add the post as a value in the comment
-             relation.add(landlord);
+         // Add the post as a value in the comment
+         relation.add(landlord);
 
-             // This will save both myPost and myComment
-             user.save(null, {
-                 success: function(ll) {
-                     $mdToast.show({
-                         controller: 'toastController',
-                         templateUrl: 'toast.html',
-                         hideDelay: 400,
-                         position: 'top',
-                         locals: {
-                             displayOption: {
-                                 title: "Landlord saved"
-                             }
+         // This will save both myPost and myComment
+         user.save(null, {
+             success: function(ll) {
+                 $mdToast.show({
+                     controller: 'toastController',
+                     templateUrl: 'toast.html',
+                     hideDelay: 400,
+                     position: 'top',
+                     locals: {
+                         displayOption: {
+                             title: "Landlord saved"
                          }
-                     });
-                 },
-                 error: function(error) {
-                     console.log("error: " + error.message);
-                 }
-             });
+                     }
+                 });
+             },
+             error: function(error) {
+                 console.log("error: " + error.message);
+             }
+         });
      }
-     
+
      //navigate to the property detail page 
      $scope.navigateTo = function(targetPage, object1Data, object2Data) {
          $state.go(targetPage, {
-            lordDetail: object1Data,
-            propDetail: object1Data,
-            reviews: object2Data
+             lordDetail: object1Data,
+             propDetail: object1Data,
+             reviews: object2Data
          });
      };
 
@@ -419,57 +419,57 @@ query.get(ll.id, function(llobj) {
      // query.equalTo("username", user.get("username"));
      // query.include("savedLandlords");
      // query.select("savedLandlords");
-     
+
      if ($scope.isAndroid) {
-                 jQuery('#saved-ll-content-loading-progress').show();
-             } else {
-                 jQuery('#saved-ll-content-loading-progress').fadeIn(700);
-             }
+         jQuery('#saved-ll-content-loading-progress').show();
+     } else {
+         jQuery('#saved-ll-content-loading-progress').fadeIn(700);
+     }
 
      var user = Parse.User.current();
-    var relation = user.relation('savedLandlords');
-    var query = relation.query(); 
-    var property = {}; 
-    query.find({
-        success: function(landlords){
-            console.log("savedLandlordCtrl: Successfully retrieved " + landlords.length + " landlords");
-                         for (i in landlords) {
-                            var newLandLord = {};
+     var relation = user.relation('savedLandlords');
+     var query = relation.query();
+     var property = {};
+     query.find({
+         success: function(landlords) {
+             console.log("savedLandlordCtrl: Successfully retrieved " + landlords.length + " landlords");
+             for (i in landlords) {
+                 var newLandLord = {};
 
-                             landlord = landlords[i];
-                             newLandLord.object = landlord;
-                             newLandLord.object = landlord;
-                             newLandLord.title = landlord.get("firstname") + " " + landlord.get("lastname");
-                             newLandLord.rating = parseFloat($filter('number')(landlord.get('prating'), 1));
-                             newLandLord.address = landlord.get('address');
-                             newLandLord.gender = landlord.get('gender');
-                             newLandLord.phone = landlord.get('phone');
-                             newLandLord.email = landlord.get('email');
+                 landlord = landlords[i];
+                 newLandLord.object = landlord;
+                 newLandLord.object = landlord;
+                 newLandLord.title = landlord.get("firstname") + " " + landlord.get("lastname");
+                 newLandLord.rating = parseFloat($filter('number')(landlord.get('prating'), 1));
+                 newLandLord.address = landlord.get('address');
+                 newLandLord.gender = landlord.get('gender');
+                 newLandLord.phone = landlord.get('phone');
+                 newLandLord.email = landlord.get('email');
 
-                             newLandLord.streetNo = landlord.get('streetNo');
-                             newLandLord.street = landlord.get('street');
-                             newLandLord.city = landlord.get('city');
-                             newLandLord.state = landlord.get('state');
-                             newLandLord.zipcode = landlord.get('zipcode');
-                             newLandLord.address = landlord.get('address');
-                             if (newLandLord.gender == 'F') {
-                                 newLandLord.image_url = 'img/landlord_girl.jpg';
-                             } else {
-                                 newLandLord.image_url = 'img/landlord_boy.jpg';
-                             }
-                             $scope.landlords.push(newLandLord);
+                 newLandLord.streetNo = landlord.get('streetNo');
+                 newLandLord.street = landlord.get('street');
+                 newLandLord.city = landlord.get('city');
+                 newLandLord.state = landlord.get('state');
+                 newLandLord.zipcode = landlord.get('zipcode');
+                 newLandLord.address = landlord.get('address');
+                 if (newLandLord.gender == 'F') {
+                     newLandLord.image_url = 'img/landlord_girl.jpg';
+                 } else {
+                     newLandLord.image_url = 'img/landlord_boy.jpg';
+                 }
+                 $scope.landlords.push(newLandLord);
 
-                         }
+             }
 
-               jQuery('#saved-ll-loading-progress').hide();
-                          jQuery('#saved-ll-list-content').fadeIn();
-                         $scope.isLoading = false;
+             jQuery('#saved-ll-loading-progress').hide();
+             jQuery('#saved-ll-list-content').fadeIn();
+             $scope.isLoading = false;
 
-        }, 
-        error: function(error){
-            console.log("savedLLandlordCtrl': Error2 - " + error.code + " " + error.message);
-        }
-    })
+         },
+         error: function(error) {
+             console.log("savedLLandlordCtrl': Error2 - " + error.code + " " + error.message);
+         }
+     })
 
 
      //SLOW BECAUSE 2 QUERIES ARE NEEDED. REWRITE
@@ -485,33 +485,33 @@ query.get(ll.id, function(llobj) {
      //                       console.log($scope.properties);
      //                     }*/
      //                     //$scope.properties = results;
-                         // for (i in landlords) {
-                         //    var newLandLord = {};
+     // for (i in landlords) {
+     //    var newLandLord = {};
 
-                         //     landlord = landlords[i];
-                         //     newLandLord.object = landlord;
-                         //     newLandLord.object = landlord;
-                         //     newLandLord.title = landlord.get("firstname") + " " + landlord.get("lastname");
-                         //     newLandLord.rating = parseFloat($filter('number')(landlord.get('prating'), 1));
-                         //     newLandLord.address = landlord.get('address');
-                         //     newLandLord.gender = landlord.get('gender');
-                         //     newLandLord.phone = landlord.get('phone');
-                         //     newLandLord.email = landlord.get('email');
+     //     landlord = landlords[i];
+     //     newLandLord.object = landlord;
+     //     newLandLord.object = landlord;
+     //     newLandLord.title = landlord.get("firstname") + " " + landlord.get("lastname");
+     //     newLandLord.rating = parseFloat($filter('number')(landlord.get('prating'), 1));
+     //     newLandLord.address = landlord.get('address');
+     //     newLandLord.gender = landlord.get('gender');
+     //     newLandLord.phone = landlord.get('phone');
+     //     newLandLord.email = landlord.get('email');
 
-                         //     newLandLord.streetNo = landlord.get('streetNo');
-                         //     newLandLord.street = landlord.get('street');
-                         //     newLandLord.city = landlord.get('city');
-                         //     newLandLord.state = landlord.get('state');
-                         //     newLandLord.zipcode = landlord.get('zipcode');
-                         //     newLandLord.address = landlord.get('address');
-                         //     if (newLandLord.gender == 'F') {
-                         //         newLandLord.image_url = 'img/landlord_girl.jpg';
-                         //     } else {
-                         //         newLandLord.image_url = 'img/landlord_boy.jpg';
-                         //     }
-                         //     $scope.landlords.push(newLandLord);
+     //     newLandLord.streetNo = landlord.get('streetNo');
+     //     newLandLord.street = landlord.get('street');
+     //     newLandLord.city = landlord.get('city');
+     //     newLandLord.state = landlord.get('state');
+     //     newLandLord.zipcode = landlord.get('zipcode');
+     //     newLandLord.address = landlord.get('address');
+     //     if (newLandLord.gender == 'F') {
+     //         newLandLord.image_url = 'img/landlord_girl.jpg';
+     //     } else {
+     //         newLandLord.image_url = 'img/landlord_boy.jpg';
+     //     }
+     //     $scope.landlords.push(newLandLord);
 
-                         // }
+     // }
 
      //                      jQuery('#saved-ll-loading-progress').hide();
      //                      jQuery('#saved-ll-list-content').fadeIn();
@@ -556,7 +556,7 @@ query.get(ll.id, function(llobj) {
                          }
                      }
                  });
-                      $scope.landlords = [];
+                 $scope.landlords = [];
 
                  $state.go($state.current, {}, { reload: true });
              },
@@ -646,22 +646,22 @@ query.get(ll.id, function(llobj) {
                      }
 
 
-                        $scope.isLoading = false;
-                         jQuery('#landlord-feed-loading-progress').hide();
-                         jQuery('#landlord-feed-content').fadeIn();
+                     $scope.isLoading = false;
+                     jQuery('#landlord-feed-loading-progress').hide();
+                     jQuery('#landlord-feed-content').fadeIn();
                  });
              },
              error: function(error) {
                  alert("locationFeedCtrl: Error - " + error.code + " " + error.message);
-            }
+             }
          });
 
 
      }; //End initialForm.
 
-    $scope.initialForm(query);
+     $scope.initialForm(query);
 
-  
+
 
      //sorting the search results 
      $scope.sortBy = function(index) {
@@ -697,44 +697,44 @@ query.get(ll.id, function(llobj) {
              var query = new Parse.Query(Landlord);
              query.containsAll("searchArray", keywords);
 
-           
+
          }
 
-        //reload current state
-        $state.current.params.searchResults = query;
-        $state.transitionTo($state.current, $state.current.params, { reload: true, inherit: true, notify: true });
+         //reload current state
+         $state.current.params.searchResults = query;
+         $state.transitionTo($state.current, $state.current.params, { reload: true, inherit: true, notify: true });
 
 
      }
 
      $scope.save = function(landlord) {
-        var user = Parse.User.current();
-        var relation = user.relation("savedLandlords");
+         var user = Parse.User.current();
+         var relation = user.relation("savedLandlords");
 
-             console.log("landlordListCtrl: saving landlord: " + landlord);
+         console.log("landlordListCtrl: saving landlord: " + landlord);
 
-             // Add the post as a value in the comment
-             relation.add(landlord);
+         // Add the post as a value in the comment
+         relation.add(landlord);
 
-             // This will save both myPost and myComment
-             user.save(null, {
-                 success: function(ll) {
-                     $mdToast.show({
-                         controller: 'toastController',
-                         templateUrl: 'toast.html',
-                         hideDelay: 400,
-                         position: 'top',
-                         locals: {
-                             displayOption: {
-                                 title: "Landlord saved"
-                             }
+         // This will save both myPost and myComment
+         user.save(null, {
+             success: function(ll) {
+                 $mdToast.show({
+                     controller: 'toastController',
+                     templateUrl: 'toast.html',
+                     hideDelay: 400,
+                     position: 'top',
+                     locals: {
+                         displayOption: {
+                             title: "Landlord saved"
                          }
-                     });
-                 },
-                 error: function(error) {
-                     console.log("error: " + error.message);
-                 }
-             });
+                     }
+                 });
+             },
+             error: function(error) {
+                 console.log("error: " + error.message);
+             }
+         });
      }
 
      //navigation to property detail page has not been written yet 

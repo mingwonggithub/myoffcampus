@@ -91,28 +91,28 @@
      //navigate to the property detail page 
      $scope.navigateTo = function(targetPage, objectData) {
          $state.go(targetPage, {
-             propDetail: objectData, 
+             propDetail: objectData,
          });
      };
  });
 
  appControllers.controller('addLocationCtrl', function($scope, $state, NoteDB, $stateParams, $ionicPopup, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory) {
-    $scope.landlord = $stateParams.lordDetail;
-    console.log("addLocationCtrl: stateparams- ", $stateParams);
- 
-   //check whether the element exist in the array 
-    function elementExists(array, el) {
-        for (var i = 0; i < array.length; i++) {
-            if (array[i] === el)
-                return true;
-             }
-             return false;
-    }
+     $scope.landlord = $stateParams.lordDetail;
+     console.log("addLocationCtrl: stateparams- ", $stateParams);
 
-    //check whether an element is of string type 
+     //check whether the element exist in the array 
+     function elementExists(array, el) {
+         for (var i = 0; i < array.length; i++) {
+             if (array[i] === el)
+                 return true;
+         }
+         return false;
+     }
+
+     //check whether an element is of string type 
      function isString(val) {
-         return typeof val === 'string' || 
-         ((!!val && typeof val === 'object') && Object.prototype.toString.call(val) === '[object String]');
+         return typeof val === 'string' ||
+             ((!!val && typeof val === 'object') && Object.prototype.toString.call(val) === '[object String]');
      }
 
      // initialForm is the first activity in the controller. 
@@ -161,84 +161,84 @@
                      }
                  });
              } else {
-                $scope.isAddressInDB($scope.addr.addressL);
+                 $scope.isAddressInDB($scope.addr.addressL);
              }
 
-  
+
          }
      };
 
      //check whether the address exist in DB already 
      //if landlord is null and address exist, save that
      //else, simply save call the function to save new property
-    $scope.isAddressInDB = function(addressL) {
-     var query = new Parse.Query("myProperty");
-     query.equalTo("address", addressL.formatted_address);
-     query.find({
-         success: function(results) {
+     $scope.isAddressInDB = function(addressL) {
+             var query = new Parse.Query("myProperty");
+             query.equalTo("address", addressL.formatted_address);
+             query.find({
+                 success: function(results) {
 
-             if (results.length > 0) {
-                 console.log("addLocationCtrl: address is in database already");
+                     if (results.length > 0) {
+                         console.log("addLocationCtrl: address is in database already");
 
-                 if ($stateParams.lordDetail != null) {
-                     console.log("landlord is not null");
+                         if ($stateParams.lordDetail != null) {
+                             console.log("landlord is not null");
 
-                     var Property = Parse.Object.extend("myProperty");
-                     var property = results[0]; 
-                     var relation = property.relation("hasLandlords");
-                     relation.add($stateParams.lordDetail.object);
+                             var Property = Parse.Object.extend("myProperty");
+                             var property = results[0];
+                             var relation = property.relation("hasLandlords");
+                             relation.add($stateParams.lordDetail.object);
 
-                     property.save(null, {
-                         success: function(prop) {
-                             $mdToast.show({
-                                 controller: 'toastController',
-                                 templateUrl: 'toast.html',
-                                 hideDelay: 600,
-                                 position: 'top',
-                                 locals: {
-                                     displayOption: {
-                                         title: "Address already exists. Property add to landlord.",
-                                     }
+                             property.save(null, {
+                                 success: function(prop) {
+                                     $mdToast.show({
+                                         controller: 'toastController',
+                                         templateUrl: 'toast.html',
+                                         hideDelay: 600,
+                                         position: 'top',
+                                         locals: {
+                                             displayOption: {
+                                                 title: "Address already exists. Property add to landlord.",
+                                             }
+                                         }
+                                     });
+
+                                     $scope.navigateTo('app.landLordDetails', $stateParams.lordDetail);
+                                 },
+                                 error: function(error) {
+                                     console.log("error: " + error.message);
+                                     $mdToast.show({
+                                         controller: 'toastController',
+                                         templateUrl: 'toast.html',
+                                         hideDelay: 600,
+                                         position: 'top',
+                                         locals: {
+                                             displayOption: {
+                                                 title: "Fail to save landlord into existing db"
+                                             }
+                                         }
+                                     });
                                  }
+
                              });
 
-                             $scope.navigateTo('app.landLordDetails', $stateParams.lordDetail); 
-                         },
-                         error: function(error) {
-                             console.log("error: " + error.message);
-                              $mdToast.show({
-                                 controller: 'toastController',
-                                 templateUrl: 'toast.html',
-                                 hideDelay: 600,
-                                 position: 'top',
-                                 locals: {
-                                     displayOption: {
-                                         title: "Fail to save landlord into existing db"
-                                     }
-                                 }
-                             });
+
+
+                         } else {
+                             $scope.showAlert();
                          }
+                     } else {
+                         console.log("addLocationCtrl: address is not in database already");
+                         $scope.convertAddress(addressL);
 
-                     });
-
-
-
-                 }else{
-                    $scope.showAlert();
+                     }
+                 },
+                 error: function(error) {
+                     alert("addLocationCtrlError: " + error.code + " " + error.message);
                  }
-             } else {
-                 console.log("addLocationCtrl: address is not in database already");
-                 $scope.convertAddress(addressL);
 
-             }
-         },
-         error: function(error) {
-             alert("addLocationCtrlError: " + error.code + " " + error.message);
+             }); // end of query 
          }
-
-     }); // end of query 
- }
-     // A confirm dialog for user input address string 
+         // A confirm dialog for user input address string 
      $scope.showConfirm = function(addressL) {
          var confirmPopup = $ionicPopup.confirm({
              title: 'Comfirm Address',
@@ -256,96 +256,95 @@
          });
      };
 
-    // An alert dialog to user telling address already exist
-    $scope.showAlert = function() {
-        var alertPopup = $ionicPopup.alert({
-        title: 'Address already exists!',
-        template: 'Please return or type another address.'
-        });
-        alertPopup.then(function(res) {
-        });
-    };
+     // An alert dialog to user telling address already exist
+     $scope.showAlert = function() {
+         var alertPopup = $ionicPopup.alert({
+             title: 'Address already exists!',
+             template: 'Please return or type another address.'
+         });
+         alertPopup.then(function(res) {});
+     };
 
-    //extract relevant info from google object address 
-    //then call the save properety function 
-    $scope.convertAddress = function(addressL) {
-        var address = addressL;
+     //extract relevant info from google object address 
+     //then call the save properety function 
+     $scope.convertAddress = function(addressL) {
+         var address = addressL;
 
-            //keywords used to search for the property 
-            var searchArray = [];
+         //keywords used to search for the property 
+         var searchArray = [];
 
-            //formatted address 
-            $scope.prop.address = address.formatted_address;
+         //formatted address 
+         $scope.prop.address = address.formatted_address;
 
-            //latitude and longitude
-            $scope.prop.lat = address.geometry.location.lat(); 
-            $scope.prop.long = address.geometry.location.lng();
+         //latitude and longitude
+         $scope.prop.lat = address.geometry.location.lat();
+         $scope.prop.long = address.geometry.location.lng();
 
-            var addressComponents = address.address_components;
+         var addressComponents = address.address_components;
 
-            //debugger; 
-            for (var i = 0; i < addressComponents.length; i++) {
-                var aType = addressComponents[i].types[0];
-                var currentLongName = addressComponents[i].long_name;
-                var currentShortName = addressComponents[i].short_name;
+         //debugger; 
+         for (var i = 0; i < addressComponents.length; i++) {
+             var aType = addressComponents[i].types[0];
+             var currentLongName = addressComponents[i].long_name;
+             var currentShortName = addressComponents[i].short_name;
 
-                if (aType == 'street_number') {
-                    $scope.prop.streetNo = parseInt(currentLongName);
-                    searchArray.push(currentLongName);
-                }
-
-
-                if (aType == 'route') {
-                    $scope.prop.street = currentLongName;
-
-                    //build the keywords for the route 
-                    searchArray = searchArray.concat(currentLongName.toLowerCase().split(" "));
-                    var shortNameArray = currentShortName.toLowerCase().split(" ");
-                    for (var j = 0; j < shortNameArray.length; j++) {
-                        if (elementExists(searchArray, shortNameArray[i]) == false) {
-                            searchArray.push(shortNameArray[i]);
-                        }
-                    }
-                }
-
-                if (aType == 'locality') {
-                    $scope.prop.city = currentLongName;
-                    searchArray.push(currentLongName.toLowerCase());
-                    var shortNameArray = currentShortName.toLowerCase().split(" ");
-                    for (var k = 0; k < shortNameArray.length; k++) {
-                        if (elementExists(searchArray, shortNameArray[k]) == false) {
-                            searchArray.push(shortNameArray[k]);
-                        }
-                    }
-                }
+             if (aType == 'street_number') {
+                 $scope.prop.streetNo = parseInt(currentLongName);
+                 searchArray.push(currentLongName);
+             }
 
 
-                if (aType == 'administrative_area_level_1') {
-                    $scope.prop.state = currentLongName;
-                    searchArray.push(currentLongName.toLowerCase());
-                    searchArray.push(currentShortName.toLowerCase());
-                }
-                if (aType == 'country') {
-                    $scope.prop.country = currentLongName;
-                    searchArray.push(currentLongName.toLowerCase());
-                    searchArray.push(currentShortName.toLowerCase());
-                }
-                if (aType == 'postal_code') {
-                    $scope.prop.zipcode = currentLongName;
-                    searchArray.push(currentLongName);
-                }
-            }
+             if (aType == 'route') {
+                 $scope.prop.street = currentLongName;
 
-            $scope.prop.kind = $scope.categories.kind; 
-            $scope.prop.hrating = parseInt($scope.prop.hrating);
-            searchArray.push($scope.prop.kind.toLowerCase()); 
-            searchArray = searchArray.concat($scope.prop.communityName.toLowerCase().split(" "));
-            $scope.prop.searchArray = searchArray;
+                 //build the keywords for the route 
+                 searchArray = searchArray.concat(currentLongName.toLowerCase().split(" "));
+                 var shortNameArray = currentShortName.toLowerCase().split(" ");
+                 for (var j = 0; j < shortNameArray.length; j++) {
+                     if (elementExists(searchArray, shortNameArray[i]) == false) {
+                         searchArray.push(shortNameArray[i]);
+                     }
+                 }
+             }
 
-            //call the actual function to save the $scope.prop into parse database 
-            $scope.saveProp();
+             if (aType == 'locality') {
+                 $scope.prop.city = currentLongName;
+                 searchArray.push(currentLongName.toLowerCase());
+                 var shortNameArray = currentShortName.toLowerCase().split(" ");
+                 for (var k = 0; k < shortNameArray.length; k++) {
+                     if (elementExists(searchArray, shortNameArray[k]) == false) {
+                         searchArray.push(shortNameArray[k]);
+                     }
+                 }
+             }
 
-        }
+
+             if (aType == 'administrative_area_level_1') {
+                 $scope.prop.state = currentLongName;
+                 searchArray.push(currentLongName.toLowerCase());
+                 searchArray.push(currentShortName.toLowerCase());
+             }
+             if (aType == 'country') {
+                 $scope.prop.country = currentLongName;
+                 searchArray.push(currentLongName.toLowerCase());
+                 searchArray.push(currentShortName.toLowerCase());
+             }
+             if (aType == 'postal_code') {
+                 $scope.prop.zipcode = currentLongName;
+                 searchArray.push(currentLongName);
+             }
+         }
+
+         $scope.prop.kind = $scope.categories.kind;
+         $scope.prop.hrating = parseInt($scope.prop.hrating);
+         searchArray.push($scope.prop.kind.toLowerCase());
+         searchArray = searchArray.concat($scope.prop.communityName.toLowerCase().split(" "));
+         $scope.prop.searchArray = searchArray;
+
+         //call the actual function to save the $scope.prop into parse database 
+         $scope.saveProp();
+
+     }
 
      // actual function that save the form data into Parse
      // if successful, go to the prop list view 
@@ -353,17 +352,17 @@
          var Property = Parse.Object.extend("myProperty");
          var property = new Property();
 
-         console.log("addLocationCtrl: stateparms are ", $stateParams) 
+         console.log("addLocationCtrl: stateparms are ", $stateParams)
 
-         if($stateParams.lordDetail != null){
-             var relation = property.relation("hasLandlords"); 
-            relation.add($stateParams.lordDetail.object);  
+         if ($stateParams.lordDetail != null) {
+             var relation = property.relation("hasLandlords");
+             relation.add($stateParams.lordDetail.object);
          }
 
          property.save($scope.prop, {
              success: function(property) {
 
-                console.log(property);
+                 console.log(property);
                  var newProp = {};
 
                  newProp.title = property.get("kind")
@@ -379,7 +378,7 @@
                  newProp.address = property.get('address');
                  newProp.object = property;
                  newProp.lat = property.get('lat');
-                 newProp.long = property.get('long'); 
+                 newProp.long = property.get('long');
 
                  console.log("addLocationCtrl: saveProp is ", newProp);
                  $mdToast.show({
@@ -394,11 +393,11 @@
                      }
                  });
 
-                  if($stateParams.lordDetail!= null){
-                    $scope.navigateTo('app.landLordDetails', $stateParams.lordDetail); 
-                  }else{
-                    $scope.navigateTo('app.locationDetails', newProp);
-                  }
+                 if ($stateParams.lordDetail != null) {
+                     $scope.navigateTo('app.landLordDetails', $stateParams.lordDetail);
+                 } else {
+                     $scope.navigateTo('app.locationDetails', newProp);
+                 }
 
                  // The object was saved successfully.
                  // console.log("addLocationCtrl: in Parse ", property);
@@ -458,7 +457,7 @@
          console.log("locationFeedCtrl beginning: query is ", query);
 
          $scope.getNextPropImg = function(index) {
-            property = $scope.properties[index];
+             property = $scope.properties[index];
              var myPhotos = Parse.Object.extend("propImages");
              var query = new Parse.Query("propImages");
              query.equalTo("underProp", property.object);
@@ -467,22 +466,22 @@
                  success: function(results) {
                      $scope.$apply(function() {
 
-                         if(results.length > 0){
-                            var imagedata = results[0].get("imgData");
+                         if (results.length > 0) {
+                             var imagedata = results[0].get("imgData");
 
-                            property = $scope.properties[index];
-                            property.img = { src: imagedata };
-                            $scope.properties[index] = property;
-                            //console.log($scope.properties[index].img.src);
-                            property = {};
-                        }else{
-                            property = $scope.properties[index];
-                            property.img = {src: 'img/house.jpg'};
+                             property = $scope.properties[index];
+                             property.img = { src: imagedata };
+                             $scope.properties[index] = property;
+                             //console.log($scope.properties[index].img.src);
+                             property = {};
+                         } else {
+                             property = $scope.properties[index];
+                             property.img = { src: 'img/house.jpg' };
 
-                            
-                        }
-                        if(index>0)
-                        $scope.getNextPropImg(index-1);
+
+                         }
+                         if (index > 0)
+                             $scope.getNextPropImg(index - 1);
 
                      });
                  },
@@ -543,7 +542,7 @@
                              $scope.properties.push(property);
                              property = {};
                          }
-                         $scope.getNextPropImg($scope.properties.length-1);
+                         $scope.getNextPropImg($scope.properties.length - 1);
 
                          $scope.isLoading = false;
                          jQuery('#location-list-loading-progress').hide();
@@ -560,9 +559,9 @@
          //initialize page 
          $scope.initialize(query);
 
-        /**/
-        
-        
+         /**/
+
+
 
          //sorting the search results 
          $scope.sortBy = function(index) {
@@ -659,59 +658,59 @@
      /* start of image slider */
 
 
-    //initialize ht emap 
+     //initialize ht emap 
      $ionicPlatform.ready(function() {
-     //Obtaining all the property images 
-     $scope.img = '';
-     var myPhotos = Parse.Object.extend("propImages");
-     var query = new Parse.Query("propImages");
-     query.equalTo("underProp", $scope.property.object);
-     query.find({
-         success: function(results) {
+         //Obtaining all the property images 
+         $scope.img = '';
+         var myPhotos = Parse.Object.extend("propImages");
+         var query = new Parse.Query("propImages");
+         query.equalTo("underProp", $scope.property.object);
+         query.find({
+             success: function(results) {
 
-             $scope.$apply(function() {
+                 $scope.$apply(function() {
 
-                 console.log("locationDetailCtrl: " + results.length + " propImages found");
+                     console.log("locationDetailCtrl: " + results.length + " propImages found");
 
-                 for (var j = 0; j < results.length; j++) {
-                     var imagedata = results[j].get("imgData");
-                     $scope.allImages.push({ src: imagedata });
+                     for (var j = 0; j < results.length; j++) {
+                         var imagedata = results[j].get("imgData");
+                         $scope.allImages.push({ src: imagedata });
 
-                 }
-             });
+                     }
+                 });
 
-         },
-         error: function(error) {
-             console.log('locationDetailCtrl: ', error);
-         }
-     });
-
-
-     $scope.showImages = function(index) {
-         $scope.activeSlide = index;
-         $scope.showModal('imageModal.html');
-     }
-
-     $scope.showModal = function(templateUrl) {
-         $ionicModal.fromTemplateUrl(templateUrl, {
-             scope: $scope,
-             animation: 'slide-in-up'
-         }).then(function(modal) {
-             $scope.modal = modal;
-             $scope.modal.show();
+             },
+             error: function(error) {
+                 console.log('locationDetailCtrl: ', error);
+             }
          });
-     }
-
-     // Close the modal
-     $scope.closeModal = function() {
-         $scope.modal.hide();
-         $scope.modal.remove()
-     };
-
-     /* end of image slider */
 
 
- 
+         $scope.showImages = function(index) {
+             $scope.activeSlide = index;
+             $scope.showModal('imageModal.html');
+         }
+
+         $scope.showModal = function(templateUrl) {
+             $ionicModal.fromTemplateUrl(templateUrl, {
+                 scope: $scope,
+                 animation: 'slide-in-up'
+             }).then(function(modal) {
+                 $scope.modal = modal;
+                 $scope.modal.show();
+             });
+         }
+
+         // Close the modal
+         $scope.closeModal = function() {
+             $scope.modal.hide();
+             $scope.modal.remove()
+         };
+
+         /* end of image slider */
+
+
+
          initialize($scope.property.lat, $scope.property.long);
      });
 
@@ -746,32 +745,33 @@
 
      };
 
-    var prop = $scope.property.object;
-    var myProperty = Parse.Object.extend("myProperty");
-    var query = new Parse.Query(myProperty);
-    query.get(prop.id, function(propobj){
-        var relation = propobj.relation("reviews");
-        var query = relation.query(); 
-        var review = {};
-        query.find({
-            success: function(qReviews){
-                var aR=''; 
-                for (i in qReviews) {
-                aR = qReviews[i];
-                review.object = aR;
-                review.cost = aR.get('cost');
-                review.text = aR.get('mainText');
-                review.rating = aR.get('rating');
-                $scope.reviews.push(review);
-                review = {}; 
-                }
+     var prop = $scope.property.object;
+     var myProperty = Parse.Object.extend("myProperty");
+     var query = new Parse.Query(myProperty);
+     query.get(prop.id, function(propobj) {
+         var relation = propobj.relation("reviews");
+         var query = relation.query();
+         var review = {};
+         query.find({
+             success: function(qReviews) {
+                 var aR = '';
+                 for (i in qReviews) {
+                     aR = qReviews[i];
+                     review.object = aR;
+                     review.cost = aR.get('cost');
+                     review.text = aR.get('mainText');
+                     review.rating = aR.get('rating');
+                     $scope.reviews.push(review);
+                     review = {};
+                 }
 
-            }, error: function(error){
-             console.log("Error: " + error.code + " " + error.message);
+             },
+             error: function(error) {
+                 console.log("Error: " + error.code + " " + error.message);
 
-            }
-        });
-    }); 
+             }
+         });
+     });
 
 
      //Obtaining all the reviews 
@@ -868,7 +868,7 @@
          });
 
      }
-         
+
      $scope.navigateTo = function(targetPage, object1Data, object2Data) {
          $state.go(targetPage, {
              propDetail: object1Data,
@@ -895,83 +895,89 @@
          jQuery('#prop-list-loading-progress').fadeIn(700);
      }
      $scope.getNextPropImg = function(index) {
-        property = $scope.properties[index];
+         property = $scope.properties[index];
          var myPhotos = Parse.Object.extend("propImages");
          var query = new Parse.Query("propImages");
 
-         if(property != null){
+         if (property != null) {
 
 
-         query.equalTo("underProp", property.object);
-         query.limit(1);
-         query.find({
-             success: function(results) {
-                 $scope.$apply(function() {
+             query.equalTo("underProp", property.object);
+             query.limit(1);
+             query.find({
+                 success: function(results) {
+                     $scope.$apply(function() {
 
-                     if(results.length > 0){
-                        var imagedata = results[0].get("imgData");
+                         if (results.length > 0) {
+                             var imagedata = results[0].get("imgData");
 
-                        property = $scope.properties[index];
-                        property.img = { src: imagedata };
-                        $scope.properties[index] = property;
-                        //console.log($scope.properties[index].img.src);
-                        property = {};
-                    }
-                    if(index>0)
-                    $scope.getNextPropImg(index-1);
-
-                 });
-             },
-             error: function(error) {
-                 console.log('locationFeedCtrl: ', error);
-             }
-         });
-
-          }
-     }
-         
-
-    var user = Parse.User.current();
-    var relation = user.relation('savedProps');
-    var query = relation.query(); 
-    var property = {}; 
-    query.find({
-        success: function(locations){
-            console.log("savedLocationCtrl: Successfully retrieved " + locations.length + " properties.");
-            for (i in locations) {
-                             aProp = locations[i];
-                             property.object = aProp;
-                             property.title = aProp.get("kind")
-                                 // console.log("propListCtrl:" , i, " ", property.title);
-                             if (aProp.get("communityName") != undefined) {
-                                 property.title = aProp.get("communityName");
-                             }
-
-                             property.rating = parseFloat($filter('number')(aProp.get('hrating'), 1))
-                             property.streetNo = aProp.get('streetNo');
-                             property.street = aProp.get('street');
-                             property.city = aProp.get('city');
-                             property.state = aProp.get('state');
-                             property.zipcode = aProp.get('zipcode');
-                             property.address = aProp.get('address');
-                             property.lat = aProp.get('lat');
-                             property.long = aProp.get('long');
-                             $scope.properties.push(property);
+                             property = $scope.properties[index];
+                             property.img = { src: imagedata };
+                             $scope.properties[index] = property;
+                             //console.log($scope.properties[index].img.src);
                              property = {};
-
+                         } else {
+                             property = $scope.properties[index];
+                             property.img = { src: 'img/house.jpg' };
                          }
-                        $scope.getNextPropImg($scope.properties.length-1);
 
-                         jQuery('#prop-list-loading-progress').hide();
-                         jQuery('#prop-list-content').fadeIn();
-                         $scope.isLoading = false;
+                         if (index > 0)
+                             $scope.getNextPropImg(index - 1);
 
-        }, 
-        error: function(error){
-            console.log("savedLocationCtrl': Error2 - " + error.code + " " + error.message);
-        }
-    })
+                     });
+                 },
+                 error: function(error) {
+                     console.log('locationFeedCtrl: ', error);
+                 }
+             });
 
+         }
+     }
+
+
+     var user = Parse.User.current();
+     var relation = user.relation('savedProps');
+     var query = relation.query();
+     var property = {};
+     query.find({
+         success: function(locations) {
+             console.log("savedLocationCtrl: Successfully retrieved " + locations.length + " properties.");
+
+             for (i in locations) {
+                 aProp = locations[i];
+                 property.object = aProp;
+                 property.title = aProp.get("kind")
+                     // console.log("propListCtrl:" , i, " ", property.title);
+                 if (aProp.get("communityName") != undefined) {
+                     property.title = aProp.get("communityName");
+                 }
+
+                 property.rating = parseFloat($filter('number')(aProp.get('hrating'), 1))
+                 property.streetNo = aProp.get('streetNo');
+                 property.street = aProp.get('street');
+                 property.city = aProp.get('city');
+                 property.state = aProp.get('state');
+                 property.zipcode = aProp.get('zipcode');
+                 property.address = aProp.get('address');
+                 property.lat = aProp.get('lat');
+                 property.long = aProp.get('long');
+                 $scope.properties.push(property);
+                 property = {};
+
+             }
+             $scope.getNextPropImg($scope.properties.length - 1);
+
+             jQuery('#prop-list-loading-progress').hide();
+             jQuery('#prop-list-content').fadeIn();
+             $scope.isLoading = false;
+
+         },
+         error: function(error) {
+             console.log("savedLocationCtrl': Error2 - " + error.code + " " + error.message);
+         }
+     })
+
+     //old code 
      // var property = {};
      // //SLOW BECAUSE 2 QUERIES ARE NEEDED. REWRITE
      // query.find({

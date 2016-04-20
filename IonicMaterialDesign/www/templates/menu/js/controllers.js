@@ -27,8 +27,9 @@ appControllers.controller('menuCtrl', function ($scope, $timeout, $mdUtil, $mdSi
         return debounceFn;
     };// End buildToggler.
 
+
     $scope.logout = function(){
-        Parse.User.logOut().then(() => {
+        Parse.User.logOut().then( function() {
         var tempUser = Parse.User.current();  // this will now be null
         console.log("logging out  " + tempUser);
         $scope.closeSideNav();
